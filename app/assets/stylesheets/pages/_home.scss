@@ -1,1 +1,30 @@
 // Specific CSS for your home-page
+.home-section {
+  margin: 15px 0;
+  justify-content: space-between;
+
+  .home-section-text {
+    h2 {
+      color: $dark-blue;
+    }
+
+    p {
+      color: $mid-blue;
+    }
+
+
+  }
+  .section-image {
+    height: 40vh;
+    background-size: cover;
+    border-radius: 5px;
+  }
+}
+
+.home-sections {
+  text-align: center;
+
+  img {
+    width: 50%;
+  }
+}

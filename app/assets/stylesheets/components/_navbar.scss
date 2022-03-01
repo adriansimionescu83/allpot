@@ -1,3 +1,7 @@
+.nav-pills .nav-link {
+  border-radius: 0px;
+}
+
 .navbar-lewagon {
   justify-content: space-between;
   background: white;
@@ -9,4 +13,12 @@
 
 .navbar-lewagon .navbar-brand img {
   width: 40px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: $dark-blue;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: $red;
 }
