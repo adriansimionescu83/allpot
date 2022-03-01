@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :recipes, only: [:index, :show, :update]   #For now I have not added the cooked path because we might use index to show the cooked recipes
+  resources :ingredients, only: %i[index create update destroy]
 end
