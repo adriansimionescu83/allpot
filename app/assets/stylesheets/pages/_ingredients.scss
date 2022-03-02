@@ -1,0 +1,71 @@
+.header {
+  text-align: center;
+  background-color: $yellow;
+  color: $dark-blue;
+  padding: 40px 0;
+
+  h1 {
+    font-weight: bold;
+  }
+}
+
+.list-group {
+  display: flex;
+  justify-content: center;
+}
+
+.list-group-horizontal {
+  // display: flex;
+  justify-content: center;
+  color: $dark-blue;
+  font-size: 14px;
+}
+
+.list-group-item.quantity {
+  width: 20%;
+}
+
+.list-group-item.measurement {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.list-group-item.ingredient {
+  width: 50%;
+  font-weight: 600;
+  color: $red;
+}
+
+.list-group-item.fa-pencil-alt {
+  width: 10%;
+}
+
+.list-group-item.fa-trash-alt {
+  width: 10%;
+}
+
+.fa-pencil-alt {
+  color: $mid-blue;
+}
+
+.fa-trash-alt {
+  color: $mid-blue;
+
+}
+
+.list-group-horizontal > .list-group-item:first-child {
+  border-bottom-left-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+.list-group-horizontal > .list-group-item:last-child {
+  border-bottom-right-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.category-title {
+  justify-content: center;
+  text-align: center;
+  font-size: 20px;
+}

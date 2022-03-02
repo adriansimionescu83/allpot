@@ -1,18 +1,19 @@
 class IngredientsController < ApplicationController
   def index
     @ingredients = policy_scope(Ingredient).order(created_at: :desc)
+    @categories = Ingredient::CATEGORY
   end
 
   def create
     @ingredient = Ingredient.new(ingredient_params)
     @ingredient.user = current_user
-    
+
     if @ingredient.save
       redirect_to ingredients_path
     else
       render :index
     end
-    
+
     authorize @ingredient
   end
 
@@ -28,15 +29,19 @@ class IngredientsController < ApplicationController
 
   def destroy
     ingredient_find
+    authorize @ingredient
+
     @ingredient.destroy
 
-    authorize @ingredient
+    redirect_to ingredients_path
+
+
   end
 
   private
 
   def ingredient_find
-    @ingredient = Ingredient.find(params[:id])
+    @ingredient = policy_scope(Ingredient).find(params[:id])
   end
 
   def ingredient_params

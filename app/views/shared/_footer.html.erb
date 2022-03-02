@@ -1,8 +1,10 @@
 <div class="footer mt-auto">
   <div class="footer-links">
     <%= link_to "Home", root_path %>
-    <%= link_to "Recipes", root_path %>
-    <%= link_to "Pantry", root_path %>
+    <% if user_signed_in? %>
+      <%= link_to "Recipes", root_path %>
+      <%= link_to "Pantry", root_path %>
+    <% end %>
     <br>
     <br>
     <p><em>Made with love at Le Wagon Dubai, Batch #792</em></p>
