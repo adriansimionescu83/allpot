@@ -1,0 +1,24 @@
+<div data-controller="popup">
+    <div class="bg-modal bg-modal-hidden" data-popup-target="modal">
+      <div class="modal-content">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="row col-9 my-5">
+              <div class="ingredient-form p-5">
+                <h1>Add your ingredient details</h1>
+                <%= simple_form_for @ingredient do |f| %>
+                  <%= f.input :name %>
+                  <%= f.input :measure, collection: Ingredient::UNITS %>
+                  <%= f.input :category %>
+                  <%= f.input :quantity %>
+                  <%= f.submit "Save", class: "btn btn-flat" %>
+                <% end %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button data-action="click->popup#revealContent">Click</button>
+</div>
