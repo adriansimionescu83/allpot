@@ -11,6 +11,7 @@ class RecipesController < ApplicationController
   def cooked
     @recipe = Recipe.find(params[:id])
     @recipe.status = 'cooked'
+
   end
 
   def destroy
@@ -24,22 +25,26 @@ class RecipesController < ApplicationController
   private
 
   def call_api
+    ingredients = current_user.ingredients
 
     api_key = ENV["SPOONTACULAR_API_KEY"]
-    url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=10&includeIngredients=eggs,chicken,pasta&addRecipeInformation=true&sort=max-used-ingredients&sortDirection=desc&fillIngredients=true"
+    url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=10&includeIngredients=#{ingredients}&addRecipeInformation=true&sort=max-used-ingredients&sortDirection=desc&fillIngredients=true"
     recipes_serialized = URI.parse(url).read
     recipes = JSON.parse(recipes_serialized)["results"]
 
+    Recipe.where(status: 'uncooked').destroy_all #removes all recipes that are not cooked so that these are replaced with the new matches found by API
+    Recipe.where(status: 'cooked').update(is_latest_result: false) #marks all existing recipes that are cooked as old records
+
     recipes.each do |recipe|
-      create_recipe_from_api(recipe)
-    #  if Recipe.exists?(api_recipe_reference: recipe["id"])
-    #   update_recipe_from_api(recipe)
-    #  else
-    #   create_recipe_from_api(recipe)
-    #  end
+      if Recipe.exists?(api_record_id: recipe["id"])
+        update_recipe_from_api(recipe)
+      else
+       create_recipe_from_api(recipe)
+      end
     end
 
      current_user.call_api_recipes = false
+     current_user.save
 
   end
 
@@ -66,17 +71,26 @@ class RecipesController < ApplicationController
       health_score: recipe["healthScore"],
       description: total_steps
       )
-
-        # t.string "description"
         # t.string "missed_ingredients", default: [], array: true
         # t.string "unused_ingredients", default: [], array: true
-
-
   end
 
   def update_recipe_from_api(recipe)
-    # existing_recipe = Recipe.find(api_recipe_reference: recipe["id"])
-    #Needs to e completed with the updates to be done on the recipe
+    existing_recipe = Recipe.find(api_record_id: recipe["id"])
+    existing_recipe.update(
+      title: recipe["title"],
+      image_url: recipe["image"],
+      missed_ingredients_count: recipe["missedIngredientCount"],
+      used_ingredients_count: recipe["usedIngredientCount"],
+      unused_ingredients_count: recipe["unusedIngredientCount"],
+      ready_in_minutes: recipe["readyInMinutes"],
+      servings: recipe["servings"],
+      summary: recipe["summary"],
+      overall_score: recipe["overalScore"],
+      health_score: recipe["healthScore"],
+      description: total_steps,
+      is_latest_result: true
+      )    #Needs to e completed with the updates to be done on the recipe
   end
 
   def recipe_params
