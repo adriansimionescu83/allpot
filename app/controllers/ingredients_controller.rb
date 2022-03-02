@@ -1,5 +1,6 @@
 class IngredientsController < ApplicationController
   def index
+    @ingredient = policy_scope(Ingredient).new
     @ingredients = policy_scope(Ingredient).order(created_at: :desc)
     @categories = Ingredient::CATEGORY
   end
