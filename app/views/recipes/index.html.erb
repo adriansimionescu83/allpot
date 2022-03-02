@@ -8,6 +8,7 @@
     <li><%= ingredient.name %></li>
   <% end %>
   <h2>Can user call API?: <strong><%= @user.call_api_recipes %></h2></strong>
+  <h2>last API Call: <strong><%= @user.updated_at %></h2></strong>
     <% @recipes.each do |recipe| %>
       <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
         <div class="card justify-content-center">

@@ -150,9 +150,6 @@ end
     user_id: 1
   )
 
-  User.all.update(call_api_recipes: true)
-
-
 #   Ingredient.create(
 #     name: "Salmon",
 #     measure: "g",

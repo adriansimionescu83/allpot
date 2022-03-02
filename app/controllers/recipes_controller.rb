@@ -55,6 +55,7 @@ class RecipesController < ApplicationController
 
      current_user.call_api_recipes = false
      current_user.save
+     @last_call_time = Date.now
 
   end
 
