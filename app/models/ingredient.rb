@@ -1,5 +1,18 @@
 class Ingredient < ApplicationRecord
   UNITS = ['g', 'ml']
+  CATEGORY = [
+    "Beverages",
+    "Bread & Bakery",
+    "Canned Food",
+    "Condiments",
+    "Dairy & Eggs",
+    "Fruits",
+    "Grains & Pasta",
+    "Meat & Seafood",
+    "Misc",
+    "Vegetables"
+  ]
+
   belongs_to :user
   has_many :recipe_ingredients, dependent: :destroy
   has_many :recipes, through: :recipe_ingredients

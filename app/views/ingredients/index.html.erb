@@ -1,0 +1,31 @@
+<div class="header">
+  <h1>My Pantry</h1>
+  <%= link_to "ADD ITEM", ingredients_path, class: "btn btn-red col-8 col-md-4" %>
+  <%= render "popup", ingredient: @ingredient %>
+
+</div>
+
+<div class="container py-3">
+
+  <% @categories.each do |category| %>
+    <div class="col-12 offset-md-2 col-md-8 mb-4">
+      <h4 class="category-title"><strong><%= category %></strong></h4>
+      <% @ingredients.each do |ingredient| %>
+        <% if ingredient.category == category %>
+            <ul class="list-group list-group-horizontal mb-2">
+              <li class="list-group-item quantity"><%= ingredient.quantity %></li>
+              <li class="list-group-item measurement"><%= ingredient.measure %></li>
+              <li class="list-group-item ingredient"><%= ingredient.name %></li>
+              <li class="list-group-item"><i class="fas fa-pencil-alt"></i></i></li>
+              <li class="list-group-item">
+                <%= link_to ingredient_path(ingredient),
+                  method: :delete, data: { confirm: "Are you sure?" } do %>
+                  <i class="fas fa-trash-alt"></i>
+                <% end %>
+              </li>
+            </ul>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

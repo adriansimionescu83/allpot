@@ -1,12 +1,20 @@
-<div class="container">
+
+  <! -------------- recipes cards -------------- >
+<div class="container mt-4">
+
   <div class="row">
-    <div class="col">
-      <h1 class="h2 my-3 d-flex justify-content-center">Recipes to cook 🍳</h1>
+    <% @recipes.each do |recipe| %>
+      <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+        <div class="card justify-content-center">
 
+          <div class="card-body">
+          <%= link_to recipe_path(recipe) do %>
+            <h5 class="card-title"><strong><%= recipe.title %></strong></h5>
+          <% end %>
 
-
-        <%= render 'list', recipes: @recipes %>
+          </div>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
