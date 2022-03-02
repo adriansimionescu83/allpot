@@ -9,6 +9,7 @@ class IngredientsController < ApplicationController
     @ingredient.user = current_user
 
     if @ingredient.save
+      @ingredient.user.call_spoontacular_api = true # When new ingredients are saved this qualifies the user for a new API Call
       redirect_to ingredients_path
     else
       render :index
@@ -21,6 +22,8 @@ class IngredientsController < ApplicationController
     ingredient_find
     @ingredient.update(ingredient_params)
     @ingredient.save
+
+    @ingredient.user.call_spoontacular_api = true # When new ingredients are updated this qualifies the user for a new API Call
 
     redirect_to ingredient_path(@ingredient)
 
