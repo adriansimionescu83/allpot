@@ -25,7 +25,12 @@ class RecipesController < ApplicationController
   private
 
   def call_api
-    ingredients = current_user.ingredients
+    ingredients = ''
+    current_user.ingredients.each_with_index do |ingredient, index|
+      binding.pry
+
+      ingredients += index == 0 ? "#{ingredient.name}" : ",#{ingredient.name}"
+    end
 
     api_key = ENV["SPOONTACULAR_API_KEY"]
     url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=10&includeIngredients=#{ingredients}&addRecipeInformation=true&sort=max-used-ingredients&sortDirection=desc&fillIngredients=true"
