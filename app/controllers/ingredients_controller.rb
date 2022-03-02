@@ -1,16 +1,18 @@
 class IngredientsController < ApplicationController
   def index
-    @ingredients = policy_scope(ingredient).order(create_at: :desc)
+    @ingredients = policy_scope(Ingredient).order(created_at: :desc)
   end
 
   def create
     @ingredient = Ingredient.new(ingredient_params)
     @ingredient.user = current_user
+    
     if @ingredient.save
       redirect_to ingredients_path
     else
       render :index
     end
+    
     authorize @ingredient
   end
 
