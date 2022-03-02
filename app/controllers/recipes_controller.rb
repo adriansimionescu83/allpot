@@ -4,8 +4,10 @@ require "open-uri"
 class RecipesController < ApplicationController
 
   def index
+    get_ingredients
     call_api if current_user.call_api_recipes
     @recipes = policy_scope(Recipe)
+    @user = current_user
   end
 
   def cooked
@@ -23,17 +25,20 @@ class RecipesController < ApplicationController
   end
 
   private
+  def get_ingredients
+    @ingredients = ''
+    current_user.ingredients.each do |ingredient|
+      if ingredient == current_user.ingredients.last
+        @ingredients += "#{ingredient.name.downcase}"
+      else
+       @ingredients += "#{ingredient.name.downcase},"
+      end
+    end
+  end
 
   def call_api
-    ingredients = ''
-    current_user.ingredients.each_with_index do |ingredient, index|
-      binding.pry
-
-      ingredients += index == 0 ? "#{ingredient.name}" : ",#{ingredient.name}"
-    end
-
     api_key = ENV["SPOONTACULAR_API_KEY"]
-    url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=10&includeIngredients=#{ingredients}&addRecipeInformation=true&sort=max-used-ingredients&sortDirection=desc&fillIngredients=true"
+    url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=10&includeIngredients=#{@ingredients}&addRecipeInformation=true&sort=max-used-ingredients&sortDirection=desc&fillIngredients=true"
     recipes_serialized = URI.parse(url).read
     recipes = JSON.parse(recipes_serialized)["results"]
 
