@@ -1,2 +1,57 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<! -------------- banner -------------- >
+
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://media-cldnry.s-nbcnews.com/image/upload/newscms/2019_41/3044956/191009-cooking-vegetables-al-1422.jpg);">
+  <h1>What's for dinner?</h1>
+  <h1><strong>Ask AllPot.</strong></h1>
+  <p>Discover delicious recipes using only the ingredients you have in your own kitchen!</p>
+  <%= link_to "SIGN UP", new_user_session_path, class: "btn btn-lg btn-yellow" %>
+</div>
+
+<div class="container">
+
+  <! -------------- section -------------- >
+
+  <div class="home-section d-flex row justify-content-space-between align-items-center my-5">
+
+    <div class="home-section-text col-sm-12 col-md-4 align-items-flex-start my-4">
+
+      <h2><strong> Say goodbye to waste!</strong></h2>
+      <p>Tired of throwing away spoiled ingredients? Build your digital pantry now and make use of every ingredient in your kitchen.</p>
+      <%= link_to "GET STARTED", new_user_registration_path, class: "btn btn-red" %>
+    </div>
+
+    <div class="section-image col-sm-12 col-md-6" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url(https://static.onecms.io/wp-content/uploads/sites/35/2017/04/03194058/wide-wasted-food.jpg);">
+    </div>
+  </div>
+
+
+  <! -------------- section -------------- >
+
+  <div class="home-section d-flex row justify-content-space-between align-items-center my-5">
+
+    <div class="home-section-text col-sm-12 col-md-4 align-items-flex-start my-4">
+      <h2><strong>More time to do what you love!</strong></h2>
+      <p>Spend less time thinking of what to cook for dinner. Find delicious recipes based on what’s already in your kitchen!</p>
+      <%= link_to "SIGN UP", new_user_registration_path, class: "btn btn-red" %>
+    </div>
+
+    <div class="section-image col-sm-12 col-md-6" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url(https://turntable.kagiso.io/images/Family_playing.width-800.jpg);">
+    </div>
+  </div>
+
+
+  <! -------------- section -------------- >
+
+  <div class="home-section d-flex row justify-content-space-between align-items-center my-5">
+
+    <div class="home-section-text col-sm-12 col-md-4 align-items-flex-start my-4">
+      <h2><strong>Get inspired no matter your diet!</strong></h2>
+      <p>Vegan? Pescatarian? Keto? Find delicious recipes using your own ingredients and diet preferences. Sounds too good to be true?</p>
+      <%= link_to "FIND OUT YOURSELF", new_user_registration_path, class: "btn btn-red" %>
+    </div>
+
+    <div class="section-image col-sm-12 col-md-6" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), url(https://www.timeoutdubai.com/cloud/timeoutdubai/2021/09/14/Ms4o8Cz6-go_green1.jpg);">
+    </div>
+  </div>
+
+</div>
