@@ -1,18 +1,38 @@
+<div class="container mt-4">
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @recipes.each do |recipe| %>
+
+      <div class="col">
+
+        <div class="card h-100">
+          <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
+
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+
+        </div>
+
+      </div>
+  </div>
+
+</div>
+
 
   <! -------------- recipes cards -------------- >
+
 <div class="container mt-4">
 
   <div class="row">
     <% @recipes.each do |recipe| %>
-      <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-        <div class="card justify-content-center">
-
-          <div class="card-body">
-          <%= link_to recipe_path(recipe) do %>
-            <h5 class="card-title"><strong><%= recipe.title %></strong></h5>
-          <% end %>
-
-          </div>
+      <div class="card-product col-sm-12 col-md-6 col-lg-4">
+        <div class="image" style="background-image: url(<%= recipe.image_url %>);" >
+        </div>
+        <div class="card-product-infos">
+          <h4><strong><%= recipe.title %></strong></h4>
+          <p><%= recipe.ready_in_minutes %> mins</p>
         </div>
       </div>
     <% end %>
