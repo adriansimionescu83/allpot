@@ -1,0 +1,13 @@
+.alert {
+  background-color: $yellow;
+  border: 2px solid $dark-blue;
+  border-radius: 4px;
+  color: $dark-blue;
+  font-weight: 600;
+
+  .btn-close {
+    color: $yellow;
+    opacity: 1;
+
+  }
+}

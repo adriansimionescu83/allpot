@@ -1,0 +1,28 @@
+.btn-red {
+  background-color: $red;
+  color: white;
+  border-radius: 6px;
+  padding: 8px 20px;
+}
+
+.btn-red:hover {
+  background-color: #cf1238;
+  color: white;
+}
+
+.btn-yellow {
+  background-color: $yellow;
+  color: $dark-blue;
+  border-radius: 6px;
+  padding: 8px 20px;
+}
+
+.btn-lg {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.btn-yellow:hover {
+  background-color: #eccf26;
+  color: $dark-blue;
+}
