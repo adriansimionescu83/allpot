@@ -21,6 +21,7 @@
             <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= recipe.ready_in_minutes %> mins</p>
             <p><em>You have</em> <strong>7 / 10</strong><em> ingredients</em></p>
           </div>
+          <p><%= recipe.updated_at %></p>
 
         </div>
       </div>
@@ -37,5 +38,4 @@
   <% end %>
 
   <h2>Can user call API?: <strong><%= @user.call_api_recipes %></h2></strong>
-
-</div>
+  <h2>last API Call: <strong><%= @last_call_time %></h2></strong>

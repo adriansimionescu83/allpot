@@ -1,5 +1,6 @@
 require "json"
 require "open-uri"
+require 'date'
 
 class RecipesController < ApplicationController
 
@@ -55,6 +56,7 @@ class RecipesController < ApplicationController
 
      current_user.call_api_recipes = false
      current_user.save
+     @last_call_time = DateTime.now
 
   end
 
