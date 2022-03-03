@@ -6,7 +6,7 @@
   <div class="col-sm-9 offset-md-2 col-md-8 mt-4 mb-5 justify-content-center">
     <%= link_to "Back", :back, class: "btn btn-outline mt-4 mx-3" %>
     <a href="<%=@recipe.id%>/cooked", class ="btn btn-outline mt-4 mx-3 text-decoration-none text" >Cooked it!</a>
-    
+
     <! -------------- title -------------- >
     <h2 class="mb-2"><strong><%= @recipe.title %></strong></h2>
     <p class="card-text mb-3"><span><i class="fas fa-hourglass-half"></i></span> <%= @recipe.ready_in_minutes %> mins</p>
@@ -43,7 +43,7 @@
     <! -------------- directions -------------- >
     <div class="directions mb-3">
       <h3>Directions:</h3>
-      <% @recipe.description.each do |step| %>
+      <% @recipe.steps.each do |step| %>
        <p><%= raw step %></p>
       <% end %>
     </div>

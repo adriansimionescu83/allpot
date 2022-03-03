@@ -25,4 +25,8 @@ class RecipePolicy < ApplicationPolicy
   def cooked?
     true
   end
+
+  def my_recipes?
+    true
+  end
 end
