@@ -23,6 +23,8 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+
+    authorize @recipe
   end
 
   private
@@ -58,7 +60,6 @@ class RecipesController < ApplicationController
      current_user.call_api_recipes = false
      current_user.save
      @last_call_time = DateTime.now
-
   end
 
   def create_recipe_from_api(recipe)
@@ -83,13 +84,14 @@ class RecipesController < ApplicationController
       overall_score: recipe["overalScore"],
       health_score: recipe["healthScore"],
       description: total_steps
-      )
-        # t.string "missed_ingredients", default: [], array: true
-        # t.string "unused_ingredients", default: [], array: true
+    )
+    # t.string "missed_ingredients", default: [], array: true
+    # t.string "unused_ingredients", default: [], array: true
   end
 
   def update_recipe_from_api(recipe)
     existing_recipe = Recipe.find(api_record_id: recipe["id"])
+
     existing_recipe.update(
       title: recipe["title"],
       image_url: recipe["image"],
@@ -103,7 +105,7 @@ class RecipesController < ApplicationController
       health_score: recipe["healthScore"],
       description: total_steps,
       is_latest_result: true
-      )    #Needs to e completed with the updates to be done on the recipe
+    ) # Needs to e completed with the updates to be done on the recipe
   end
 
   def recipe_params

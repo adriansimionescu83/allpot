@@ -1,8 +1,8 @@
 <div class="header">
   <h1>My Pantry</h1>
-  <%= link_to "ADD ITEM", ingredients_path, class: "btn btn-red col-8 col-md-4" %>
-  <%= render "popup", ingredient: @ingredient %>
-
+  <button type="button" class="btn btn-red col-8 col-md-4" data-toggle="modal" data-target="#exampleModal">
+    ADD ITEM
+    </button>
 </div>
 
 <div class="container py-3">

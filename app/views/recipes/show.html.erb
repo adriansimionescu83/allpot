@@ -1,15 +1,19 @@
-<div class="container">
-
-  <%= link_to 'Back', recipes_path, class: "btn btn-outline mt-4 mx-3" %>
-
+<div class="container mt-5">
 
   <! -------------- recipe details -------------- >
-  <div class="col-12-sm col-6-md col-6-lg">
-    <div class="card d-flex justify-content-space-between">
-      <div class="card-body">
-        <h2 class="card-title"><strong><%= @recipe.title %></strong></h2>
-        <h2 class="card-title"><strong><%= @recipe.description %></strong></h2>
-      </div>
-    </div>
+  <div class="col-sm-9 offset-md-2 col-md-8 mt-3">
+    <%= link_to 'Back', recipes_path, class: "btn btn-red mb-3" %>
+
+    <h2 class="mb-3"><strong><%= @recipe.title %></strong></h2>
+    <img src="<%= @recipe.image_url %>" class="img-fluid" alt="">
+    <% @recipe.recipe_ingredients.each do |ingredient| %>
+      <p><%= ingredient.name %></p>
+    <% end %>
+    <h3>Ingredients:</h3>
+    <% @recipe.ingredients.each do |ingredient| %>
+      <p><%= ingredient.name %></p>
+    <% end %>
+    <h3>Directions:</h3>
+    <p><%= @recipe.description %></p>
   </div>
 </div>
