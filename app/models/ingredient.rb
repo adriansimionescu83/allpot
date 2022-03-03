@@ -6,6 +6,7 @@ class Ingredient < ApplicationRecord
     "Canned Food",
     "Condiments",
     "Dairy & Eggs",
+    "Herbs & Spices",
     "Fruits",
     "Grains & Pasta",
     "Meat & Seafood",
