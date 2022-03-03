@@ -21,18 +21,18 @@
 
             <div class="card-body">
               <h5 class="card-title"><%= recipe.title %></h5>
-              <p>Ingredients Used: </p> <% recipe.recipe_ingredients.each do |used_ingredient| %>
-                  <li><%= used_ingredient.ingredient.name %></li>
+              <p>Ingredients Used: </p> <% recipe.used_ingredients.each do |used_ingredient| %>
+                  <li><%= used_ingredient %></li>
                 <% end %>
               <hr>
               <p>Ingredients Missed: </p> <% recipe.missed_ingredients.each do |missed_ingredient| %>
                 <li><%= missed_ingredient %></li>
               <% end %>
               <hr>
-              <p>Ingredients Unused: </p> <% recipe.unused_ingredients.each do |unused_ingredient| %>
-                <li><%= unused_ingredient %></li>
-              <% end %>
-              <p><%= recipe.updated_at %></p>
+              <p>Updated at <strong><%= recipe.updated_at %></p></strong>
+              <p>Status <strong><%= recipe.status %></p></strong>
+              <p>Latest result? <strong><%= recipe.is_latest_result %></p></strong>
+
             </div>
 
 
@@ -53,6 +53,6 @@
   <! -------------- tests -------------- >
 
 
-  <h2>Can user call API?: <strong><%= @user.call_api_recipes %></h2></strong>
-  <h2>last API Call: <strong><%= @last_call_time %></h2></strong>
+  <h6>API Call link: <strong><%= @url %></h6></strong>
+  <h6>last API Call: <strong><%= @last_call_time %></h6></strong>
 </div>

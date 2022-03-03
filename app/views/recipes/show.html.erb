@@ -1,6 +1,7 @@
 <div class="container">
 
-  <%= link_to 'Back', recipes_path, class: "btn btn-outline mt-4 mx-3" %>
+  <%= link_to "Back", :back, class: "btn btn-outline mt-4 mx-3" %>
+  <a href="<%=@recipe.id%>/cooked", class ="btn btn-outline mt-4 mx-3 text-decoration-none text" >Cooked it!</a>
 
 
   <! -------------- recipe details -------------- >
@@ -17,9 +18,11 @@
           <li><%= missed_ingredient %></li>
         <% end %>
         <hr>
-        <p>Ingredients Unused: </p> <% @recipe.unused_ingredients.each do |unused_ingredient| %>
-          <li><%= unused_ingredient %></li>
+        <p>Total Ingredients: </p> <% @recipe.total_ingredients.each do |total_ingredient| %>
+          <li><%= total_ingredient %></li>
         <% end %>
+        <hr>
+
 
 
       </div>
