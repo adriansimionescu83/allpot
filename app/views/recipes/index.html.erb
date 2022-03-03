@@ -21,6 +21,17 @@
 
             <div class="card-body">
               <h5 class="card-title"><%= recipe.title %></h5>
+              <p>Ingredients Used: </p> <% recipe.recipe_ingredients.each do |used_ingredient| %>
+                  <li><%= used_ingredient.ingredient.name %></li>
+                <% end %>
+              <hr>
+              <p>Ingredients Missed: </p> <% recipe.missed_ingredients.each do |missed_ingredient| %>
+                <li><%= missed_ingredient %></li>
+              <% end %>
+              <hr>
+              <p>Ingredients Unused: </p> <% recipe.unused_ingredients.each do |unused_ingredient| %>
+                <li><%= unused_ingredient %></li>
+              <% end %>
               <p><%= recipe.updated_at %></p>
             </div>
 
