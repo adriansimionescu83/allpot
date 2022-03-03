@@ -8,7 +8,20 @@
     <div class="card d-flex justify-content-space-between">
       <div class="card-body">
         <h2 class="card-title"><strong><%= @recipe.title %></strong></h2>
-        <h2 class="card-title"><strong><%= @recipe.description %></strong></h2>
+        <p class="card-title"><strong><%= @recipe.description %></strong></p>
+        <p>Ingredients Used: </p> <% @recipe.recipe_ingredients.each do |used_ingredient| %>
+            <li><%= used_ingredient.ingredient.name %></li>
+          <% end %>
+        <hr>
+        <p>Ingredients Missed: </p> <% @recipe.missed_ingredients.each do |missed_ingredient| %>
+          <li><%= missed_ingredient %></li>
+        <% end %>
+        <hr>
+        <p>Ingredients Unused: </p> <% @recipe.unused_ingredients.each do |unused_ingredient| %>
+          <li><%= unused_ingredient %></li>
+        <% end %>
+
+
       </div>
     </div>
   </div>
