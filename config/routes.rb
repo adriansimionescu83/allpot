@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :recipes, only: [:index, :show, :update]   #For now I have not added the cooked path because we might use index to show the cooked recipes
   resources :ingredients, only: %i[index create update destroy]
   get 'recipes/:id/cooked', to: 'recipes#cooked'
+  get 'my_recipes', to: 'recipes#my_recipes'
 end

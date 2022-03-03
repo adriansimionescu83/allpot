@@ -1,0 +1,59 @@
+<div class="bkg-mid-blue">
+  <div class="container main-title">
+    <h1 class="recipes-header">My recipes </h1>
+  </div>
+</div>
+
+<div class="container recipe-index mt-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+
+  <! -------------- recipes cards -------------- >
+
+    <% @recipes.each do |recipe| %>
+
+      <div class="col">
+        <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
+          <div class="card h-100 shadow-sm">
+
+            <div class="embed-responsive embed-responsive-16by9">
+              <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title"><%= recipe.title %></h5>
+
+              <div class="ingredients mb-3">
+                <p><%= recipe.used_ingredients_count %> used ingredients:</p>
+                <% recipe.used_ingredients.each do |used_ingredient| %>
+                  <span class="badge bg-red"><%= used_ingredient %></span>
+                <% end %>
+
+                <hr>
+
+                <p><%= recipe.missed_ingredients_count %> missed ingredients:</p>
+                <% recipe.missed_ingredients.each do |missed_ingredient| %>
+                  <span class="badge bg-grey"><%= missed_ingredient %></span>
+                <% end %>
+
+              </div>
+
+              <p><%= recipe.updated_at %></p>
+              <p>Status <strong><%= recipe.status %></p></strong>
+              <p>Latest result? <strong><%= recipe.is_latest_result %></p></strong>
+            </div>
+
+
+
+            <div class="d-flex card-footer">
+              <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= recipe.ready_in_minutes %> mins</p>
+              <p><strong><%= recipe.used_ingredients_count %> / <%= (recipe.used_ingredients_count + recipe.missed_ingredients_count) %></strong> in stock</p>
+            </div>
+
+          </div>
+        <% end %>
+      </div>
+
+    <% end %>
+  </div>
+
+</div>
