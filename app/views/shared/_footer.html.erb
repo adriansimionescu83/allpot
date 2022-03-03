@@ -2,8 +2,8 @@
   <div class="footer-links">
     <%= link_to "Home", root_path %>
     <% if user_signed_in? %>
-      <%= link_to "Recipes", root_path %>
-      <%= link_to "Pantry", root_path %>
+      <%= link_to "Recipes", recipes_path %>
+      <%= link_to "Pantry", ingredients_path %>
     <% end %>
     <br>
     <br>

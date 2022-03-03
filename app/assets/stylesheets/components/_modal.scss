@@ -1,0 +1,58 @@
+.vertical-alignment-helper {
+  display:table;
+  height: 100%;
+  width: 100%;
+  pointer-events:none;
+}
+
+.vertical-align-center {
+  /* To center vertically */
+  display: table-cell;
+  vertical-align: middle;
+  pointer-events:none;
+}
+
+.modal-content {
+  /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+  width: inherit;
+  max-width: inherit; /* For Bootstrap 4 - to avoid the modal window stretching
+  full width */
+  height: inherit;
+  /* To center horizontally */
+  margin: 0 auto;
+  pointer-events: all;
+
+  background-color: $yellow;
+  border-radius: 10px;
+
+
+}
+
+.modal-dialog {
+  vertical-align: middle;
+  color: $dark-blue;
+
+  h5 {
+    font-size: 30px;
+    font-weight: 600;
+  }
+}
+
+.modal-footer {
+  width: 100%;
+  border-top: none;
+  padding-top: 0;
+}
+
+.btn-close {
+  color: $dark-blue;
+}
+
+.modal-header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.select > option:first-child {
+  border-bottom: 1px solid $mid-blue;
+}

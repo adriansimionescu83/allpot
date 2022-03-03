@@ -4,16 +4,23 @@
   <! -------------- recipe details -------------- >
 
   <div class="col-sm-9 offset-md-2 col-md-8 mt-4 mb-5 justify-content-center">
-    <%= link_to "Back", :back, class: "btn btn-outline mt-4 mx-3" %>
-    <a href="<%=@recipe.id%>/cooked", class ="btn btn-outline mt-4 mx-3 text-decoration-none text" >Cooked it!</a>
+    <div class="mb-3">
+      <%= link_to "BACK", :back, class: "btn btn-red mt-2" %>
+      <a href="<%=@recipe.id%>/cooked", class ="btn btn-yellow mt-2 mx-2 text-decoration-none text" >COOKED IT!</a>
+    </div>
 
     <! -------------- title -------------- >
     <h2 class="mb-2"><strong><%= @recipe.title %></strong></h2>
+    <div class="d-flex">
     <p class="card-text mb-3"><span><i class="fas fa-hourglass-half"></i></span> <%= @recipe.ready_in_minutes %> mins</p>
+    <p class="card-text mb-3 mx-3"><span><i class="fas fa-heart"></i></span> <%= @recipe.aggregate_likes %> likes</p>
+    <p class="card-text mb-3 mx-3"><span><i class="fas fa-utensils"></i></span> <%= @recipe.servings %> servings</p>
+    </div>
+
     <! -------------- image -------------- >
     <img src="<%= @recipe.image_url %>" class="img-fluid mb-4 shadow-sm" alt="">
 
-    <! -------------- ingredients -------------- >
+    <! -------------- used and missed ingredients -------------- >
     <div class="mb-3">
       <div class="ingredients p-4 mb-3 shadow-sm">
         <p><%= @recipe.used_ingredients_count %> used ingredients:</p>
@@ -23,40 +30,73 @@
 
       </div>
 
-      <div class="ingredients p-4 shadow-sm">
+      <div class="ingredients p-4 shadow-sm mb-4">
         <p><%= @recipe.missed_ingredients_count %> missed ingredients:</p>
         <% @recipe.missed_ingredients.each do |missed_ingredient| %>
           <span class="badge bg-grey"><%= missed_ingredient %></span>
         <% end %>
       </div>
 
-      <p><%= simple_format(@recipe.summary) %></p>
+      <! -------------- about -------------- >
 
+      <div class="directions">
+        <h3>About this recipe:</h3>
+        <p><%= simple_format(@recipe.summary) %></p>
+      </div>
+
+      <br>
       <hr>
+      <br>
 
-      <div class="directions mb-3">
+      <! -------------- total ingredients -------------- >
+
+      <div class="directions">
         <h3>Ingredients:</h3>
         <% @recipe.total_ingredients.each do |total_ingredient| %>
           <li><%= raw total_ingredient %></li>
         <% end %>
       </div>
 
-       <hr>
+      <br>
+      <hr>
+      <br>
 
     </div>
-
-
-
-
-# TODO: if the recipe has no directions: display the url
 
     <! -------------- directions -------------- >
-    <div class="directions mb-3">
-      <h3>Directions:</h3>
-      <% @recipe.steps.each do |step| %>
-       <p><%= raw step %></p>
-      <% end %>
+    <% if @recipe.steps%>
+      <div class="directions mb-3">
+        <h3>Directions:</h3>
+        <% @recipe.steps.each do |step| %>
+          <div class="steps p-3 shadow-sm mb-3">
+            <p><%= raw step %></p>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="directions mb-4">
+        <h3>Directions:</h3>
+        <p>Visit <%= @recipe.source_url %></p>
+      </div>
+    <% end %>
+
+
+    <! -------------- back to top button -------------- >
+
+    <div class="d-flex justify-content-center my-3">
+      <a href="#top" class="btn btn-red w-100">BACK TO TOP <i class="fas fa-angle-up"></i></a>
     </div>
+
+
+    <%# <div> %>
+      <%# <h3>Note to self:</h3> %>
+      <%# <%= simple_form_for @recipe do |f| %>
+        <%# <%= f.text :comments %>
+        <%# <%= f.submit "Add Note", class: "btn btn-red w-100" %>
+      <%# <% end %>
+    <%# </div> %>
+
+
 
   </div>
 </div>

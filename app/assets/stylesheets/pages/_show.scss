@@ -20,10 +20,20 @@
   }
 }
 
+.steps {
+  background-color: white;
+  border-radius: 10px;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
 
 .directions {
   h3 {
     font-weight: 600;
+    color: $red;
   }
 
   p {

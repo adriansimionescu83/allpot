@@ -17,8 +17,13 @@
 
 .navbar-light .navbar-nav .nav-link {
   color: $dark-blue;
+  font-weight: 500;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
   color: $red;
+}
+
+.avatar {
+  margin-left: 3px;
 }

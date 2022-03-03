@@ -32,6 +32,7 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+    @recipe.update(comments: params[:comments])
 
     authorize @recipe
   end
