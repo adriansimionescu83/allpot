@@ -120,7 +120,7 @@ class RecipesController < ApplicationController
   def total_ingredients(recipe)
     total_ingredients = []
     recipe["extendedIngredients"].each do |ingredient|
-      total_ingredients << ingredient["name"]
+      total_ingredients <<  "#{ingredient["measures"]["metric"]["amount"]} #{ingredient["measures"]["metric"]["unitShort"]} <b>#{ingredient["name"]}</b>"
     end
     return total_ingredients
   end

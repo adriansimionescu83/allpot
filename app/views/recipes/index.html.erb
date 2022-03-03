@@ -23,16 +23,20 @@
               <h5 class="card-title"><%= recipe.title %></h5>
 
               <div class="ingredients mb-3">
-                <p><%= recipe.used_ingredients_count %> used ingredients:</p>
+                <p><%= recipe.used_ingredients_count %> available ingredients</p>
                 <% recipe.used_ingredients.each do |used_ingredient| %>
                   <span class="badge bg-red"><%= used_ingredient %></span>
                 <% end %>
 
                 <hr>
 
-                <p><%= recipe.missed_ingredients_count %> missed ingredients:</p>
+                <p><%= recipe.missed_ingredients_count %> missing ingredients:</p>
                 <% recipe.missed_ingredients.each do |missed_ingredient| %>
                   <span class="badge bg-grey"><%= missed_ingredient %></span>
+                <% end %>
+
+                <% if recipe.status == "cooked" %>
+                  <p>You have cooked this before!</p>
                 <% end %>
 
               </div>
