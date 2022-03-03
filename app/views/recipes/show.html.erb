@@ -35,7 +35,9 @@
     <! -------------- directions -------------- >
     <div class="directions mb-3">
       <h3>Directions:</h3>
-      <p><%= @recipe.description %></p>
+      <% @recipe.description.each do |step| %>
+       <p><%= raw step %></p>
+      <% end %>
     </div>
 
   </div>

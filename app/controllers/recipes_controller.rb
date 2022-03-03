@@ -65,11 +65,16 @@ class RecipesController < ApplicationController
   end
 
   def create_recipe_from_api(recipe)
-    description_field = ""
+    description_field = []
     recipe["analyzedInstructions"][0]["steps"].each do |step |
-      description_field += "Step #{step["number"]}: #{step["step"]}
-      "
+      description_field << "<b>Step #{step["number"]}:</b><br>#{step["step"]}"
     end
+
+
+    # description_field = ""
+    # recipe["analyzedInstructions"][0]["steps"].each do |step |
+    #   description_field += "<b>Step #{step["number"]}:</b><br>#{step["step"]}<br><br>"
+    # end
 
    new_recipe = Recipe.create(
       api_record_id: recipe["id"],
