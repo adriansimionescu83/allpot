@@ -1,31 +1,52 @@
-<div class="container">
-
-  <%= link_to "Back", :back, class: "btn btn-outline mt-4 mx-3" %>
-  <a href="<%=@recipe.id%>/cooked", class ="btn btn-outline mt-4 mx-3 text-decoration-none text" >Cooked it!</a>
+<div class="container recipe-show">
 
 
   <! -------------- recipe details -------------- >
-  <div class="col-12-sm col-6-md col-6-lg">
-    <div class="card d-flex justify-content-space-between">
-      <div class="card-body">
-        <h2 class="card-title"><strong><%= @recipe.title %></strong></h2>
-        <p class="card-title"><strong><%= @recipe.description %></strong></p>
-        <p>Ingredients Used: </p> <% @recipe.recipe_ingredients.each do |used_ingredient| %>
-            <li><%= used_ingredient.ingredient.name %></li>
-          <% end %>
-        <hr>
-        <p>Ingredients Missed: </p> <% @recipe.missed_ingredients.each do |missed_ingredient| %>
-          <li><%= missed_ingredient %></li>
-        <% end %>
-        <hr>
-        <p>Total Ingredients: </p> <% @recipe.total_ingredients.each do |total_ingredient| %>
-          <li><%= total_ingredient %></li>
-        <% end %>
-        <hr>
 
+  <div class="col-sm-9 offset-md-2 col-md-8 mt-4 mb-5 justify-content-center">
+    <%= link_to "Back", :back, class: "btn btn-outline mt-4 mx-3" %>
+    <a href="<%=@recipe.id%>/cooked", class ="btn btn-outline mt-4 mx-3 text-decoration-none text" >Cooked it!</a>
+    
+    <! -------------- title -------------- >
+    <h2 class="mb-2"><strong><%= @recipe.title %></strong></h2>
+    <p class="card-text mb-3"><span><i class="fas fa-hourglass-half"></i></span> <%= @recipe.ready_in_minutes %> mins</p>
+    <! -------------- image -------------- >
+    <img src="<%= @recipe.image_url %>" class="img-fluid mb-4 shadow-sm" alt="">
 
+    <! -------------- ingredients -------------- >
+    <div class="mb-3">
+      <div class="ingredients p-4 mb-3 shadow-sm">
+        <p><%= @recipe.used_ingredients_count %> used ingredients:</p>
+        <% @recipe.recipe_ingredients.each do |used_ingredient| %>
+          <span class="badge bg-red"><%= used_ingredient.ingredient.name %></span>
+        <% end %>
 
       </div>
+
+      <div class="ingredients p-4 shadow-sm">
+        <p><%= @recipe.missed_ingredients_count %> missed ingredients:</p>
+        <% @recipe.missed_ingredients.each do |missed_ingredient| %>
+          <span class="badge bg-grey"><%= missed_ingredient %></span>
+        <% end %>
+      </div>
+        <hr>
+          <p>Total Ingredients: </p> <% @recipe.total_ingredients.each do |total_ingredient| %>
+            <li><%= total_ingredient %></li>
+          <% end %>
+        <hr>
+
     </div>
+
+    <p><%= simple_format(@recipe.summary) %></p>
+
+
+    <! -------------- directions -------------- >
+    <div class="directions mb-3">
+      <h3>Directions:</h3>
+      <% @recipe.description.each do |step| %>
+       <p><%= raw step %></p>
+      <% end %>
+    </div>
+
   </div>
 </div>

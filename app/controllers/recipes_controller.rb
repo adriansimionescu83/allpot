@@ -26,6 +26,7 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+
     authorize @recipe
   end
 
@@ -62,7 +63,6 @@ class RecipesController < ApplicationController
      current_user.call_api_recipes = false
      current_user.save
      @last_call_time = DateTime.now
-
   end
 
   def create_recipe_from_api(recipe)
@@ -73,7 +73,14 @@ class RecipesController < ApplicationController
         description_steps << "<b>Step #{step["number"]}:</b><br>#{step["step"]}"
         description_field += "<b>Step #{step["number"]}:</b><br>#{step["step"]}"
       end
+
     end
+
+
+    # description_field = ""
+    # recipe["analyzedInstructions"][0]["steps"].each do |step |
+    #   description_field += "<b>Step #{step["number"]}:</b><br>#{step["step"]}<br><br>"
+    # end
 
    new_recipe = Recipe.create(
       api_record_id: recipe["id"],
@@ -89,6 +96,7 @@ class RecipesController < ApplicationController
       summary: recipe["summary"],
       overall_score: recipe["overalScore"],
       health_score: recipe["healthScore"],
+
       description: description_field,
       missed_ingredients: missed_ingredients(recipe),
       unused_ingredients: unused_ingredients(recipe),
@@ -149,6 +157,7 @@ class RecipesController < ApplicationController
 
   def update_recipe_from_api(recipe)
     existing_recipe = Recipe.find(api_record_id: recipe["id"])
+
     existing_recipe.update(
       title: recipe["title"],
       image_url: recipe["image"],
