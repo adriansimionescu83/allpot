@@ -111,7 +111,7 @@ class RecipesController < ApplicationController
 
   def used_ingredients(new_recipe, recipe)
     current_user.ingredients.each do |pantry_ingredient|
-      used_ingredient = recipe["usedIngredients"].find { |used_ingredient| used_ingredient["name"].include?(pantry_ingredient.name) }
+      used_ingredient = recipe["usedIngredients"].find { |used_ingredient| used_ingredient["name"].include?(pantry_ingredient.name.downcase) }
 
       if !used_ingredient.nil?
 

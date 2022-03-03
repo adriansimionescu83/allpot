@@ -4,8 +4,8 @@
   </div>
 </div>
 
-<div class="container mt-5">
-  <div class="row row-cols-1 row-cols-md-4 g-4">
+<div class="container recipe-index mt-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
 
   <! -------------- recipes cards -------------- >
 
@@ -13,7 +13,7 @@
 
       <div class="col">
         <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
-          <div class="card h-100">
+          <div class="card h-100 shadow-sm">
 
             <div class="embed-responsive embed-responsive-16by9">
               <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
@@ -21,18 +21,23 @@
 
             <div class="card-body">
               <h5 class="card-title"><%= recipe.title %></h5>
-              <p>Ingredients Used: </p> <% recipe.recipe_ingredients.each do |used_ingredient| %>
-                  <li><%= used_ingredient.ingredient.name %></li>
+
+              <div class="ingredients mb-3">
+                <p><%= recipe.used_ingredients_count %> used ingredients:</p>
+                <% recipe.recipe_ingredients.each do |used_ingredient| %>
+                  <span class="badge bg-red"><%= used_ingredient.ingredient.name %></span>
                 <% end %>
-              <hr>
-              <p>Ingredients Missed: </p> <% recipe.missed_ingredients.each do |missed_ingredient| %>
-                <li><%= missed_ingredient %></li>
-              <% end %>
-              <hr>
-              <p>Ingredients Unused: </p> <% recipe.unused_ingredients.each do |unused_ingredient| %>
-                <li><%= unused_ingredient %></li>
-              <% end %>
-              <p><%= recipe.updated_at %></p>
+
+                <hr>
+
+                <p><%= recipe.missed_ingredients_count %> missed ingredients:</p>
+                <% recipe.missed_ingredients.each do |missed_ingredient| %>
+                  <span class="badge bg-grey"><%= missed_ingredient %></span>
+                <% end %>
+
+              </div>
+
+              <%# <p><%= recipe.updated_at %></p>
             </div>
 
 

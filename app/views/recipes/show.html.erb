@@ -1,33 +1,42 @@
-<div class="container mt-5">
+<div class="container recipe-show">
 
   <! -------------- recipe details -------------- >
 
-  <div class="col-sm-9 offset-md-2 col-md-8 mt-3">
+  <div class="col-sm-9 offset-md-2 col-md-8 mt-4 mb-5 justify-content-center">
     <%= link_to 'Back', recipes_path, class: "btn btn-red mb-3" %>
 
     <! -------------- title -------------- >
-    <h2 class="mb-3"><strong><%= @recipe.title %></strong></h2>
-
+    <h2 class="mb-2"><strong><%= @recipe.title %></strong></h2>
+    <p class="card-text mb-3"><span><i class="fas fa-hourglass-half"></i></span> <%= @recipe.ready_in_minutes %> mins</p>
     <! -------------- image -------------- >
-    <img src="<%= @recipe.image_url %>" class="img-fluid" alt="">
+    <img src="<%= @recipe.image_url %>" class="img-fluid mb-4 shadow-sm" alt="">
 
     <! -------------- ingredients -------------- >
-    <h3>Ingredients:</h3>
-    <p>Ingredients Used: </p> <% @recipe.recipe_ingredients.each do |used_ingredient| %>
-          <li><%= used_ingredient.ingredient.name %></li>
+    <div class="mb-3">
+      <div class="ingredients p-4 mb-3 shadow-sm">
+        <p><%= @recipe.used_ingredients_count %> used ingredients:</p>
+        <% @recipe.recipe_ingredients.each do |used_ingredient| %>
+          <span class="badge bg-red"><%= used_ingredient.ingredient.name %></span>
         <% end %>
-      <hr>
-      <p>Ingredients Missed: </p> <% @recipe.missed_ingredients.each do |missed_ingredient| %>
-        <li><%= missed_ingredient %></li>
-      <% end %>
-      <hr>
-      <p>Ingredients Unused: </p> <% @recipe.unused_ingredients.each do |unused_ingredient| %>
-        <li><%= unused_ingredient %></li>
-      <% end %>
+      </div>
+
+      <div class="ingredients p-4 shadow-sm">
+        <p><%= @recipe.missed_ingredients_count %> missed ingredients:</p>
+        <% @recipe.missed_ingredients.each do |missed_ingredient| %>
+          <span class="badge bg-grey"><%= missed_ingredient %></span>
+        <% end %>
+      </div>
+
+    </div>
+
+    <p><%= simple_format(@recipe.summary) %></p>
+
 
     <! -------------- directions -------------- >
-    <h3>Directions:</h3>
-    <p><%= @recipe.description %></p>
+    <div class="directions mb-3">
+      <h3>Directions:</h3>
+      <p><%= @recipe.description %></p>
+    </div>
 
   </div>
 </div>
