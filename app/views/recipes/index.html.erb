@@ -24,8 +24,8 @@
 
               <div class="ingredients mb-3">
                 <p><%= recipe.used_ingredients_count %> used ingredients:</p>
-                <% recipe.recipe_ingredients.each do |used_ingredient| %>
-                  <span class="badge bg-red"><%= used_ingredient.ingredient.name %></span>
+                <% recipe.used_ingredients.each do |used_ingredient| %>
+                  <span class="badge bg-red"><%= used_ingredient %></span>
                 <% end %>
 
                 <hr>
@@ -37,7 +37,9 @@
 
               </div>
 
-              <%# <p><%= recipe.updated_at %></p>
+              <p><%= recipe.updated_at %></p>
+              <p>Status <strong><%= recipe.status %></p></strong>
+              <p>Latest result? <strong><%= recipe.is_latest_result %></p></strong>
             </div>
 
 
@@ -58,6 +60,6 @@
   <! -------------- tests -------------- >
 
 
-  <h2>Can user call API?: <strong><%= @user.call_api_recipes %></h2></strong>
-  <h2>last API Call: <strong><%= @last_call_time %></h2></strong>
+  <h6>API Call link: <strong><%= @url %></h6></strong>
+  <h6>last API Call: <strong><%= @last_call_time %></h6></strong>
 </div>
