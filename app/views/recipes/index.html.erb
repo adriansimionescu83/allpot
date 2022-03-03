@@ -1,20 +1,47 @@
+<div class="bkg-mid-blue">
+  <div class="container main-title">
+    <h1 class="recipes-header">You can make <strong><span class="recipe-count"><%= @recipes.count %> recipes</span></strong> with the <strong><span class="recipe-count"><%= current_user.ingredients.count %></span></strong> ingredients in your pantry!</h1>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row row-cols-1 row-cols-md-4 g-4">
 
   <! -------------- recipes cards -------------- >
-<div class="container mt-4">
 
-  <div class="row">
     <% @recipes.each do |recipe| %>
-      <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-        <div class="card justify-content-center">
 
-          <div class="card-body">
-          <%= link_to recipe_path(recipe) do %>
-            <h5 class="card-title"><strong><%= recipe.title %></strong></h5>
-          <% end %>
+      <div class="col">
+        <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
+          <div class="card h-100">
+
+            <div class="embed-responsive embed-responsive-16by9">
+              <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title"><%= recipe.title %></h5>
+              <p><%= recipe.updated_at %></p>
+            </div>
+
+
+
+            <div class="d-flex card-footer">
+              <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= recipe.ready_in_minutes %> mins</p>
+              <p><strong><%= recipe.used_ingredients_count %> / <%= (recipe.used_ingredients_count + recipe.missed_ingredients_count) %></strong> in stock</p>
+            </div>
 
           </div>
-        </div>
+        <% end %>
       </div>
+
     <% end %>
   </div>
+
+
+  <! -------------- tests -------------- >
+
+
+  <h2>Can user call API?: <strong><%= @user.call_api_recipes %></h2></strong>
+  <h2>last API Call: <strong><%= @last_call_time %></h2></strong>
 </div>
