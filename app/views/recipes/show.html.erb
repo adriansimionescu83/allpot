@@ -1,19 +1,33 @@
 <div class="container mt-5">
 
   <! -------------- recipe details -------------- >
+
   <div class="col-sm-9 offset-md-2 col-md-8 mt-3">
     <%= link_to 'Back', recipes_path, class: "btn btn-red mb-3" %>
 
+    <! -------------- title -------------- >
     <h2 class="mb-3"><strong><%= @recipe.title %></strong></h2>
+
+    <! -------------- image -------------- >
     <img src="<%= @recipe.image_url %>" class="img-fluid" alt="">
-    <% @recipe.recipe_ingredients.each do |ingredient| %>
-      <p><%= ingredient.name %></p>
-    <% end %>
+
+    <! -------------- ingredients -------------- >
     <h3>Ingredients:</h3>
-    <% @recipe.ingredients.each do |ingredient| %>
-      <p><%= ingredient.name %></p>
-    <% end %>
+    <p>Ingredients Used: </p> <% @recipe.recipe_ingredients.each do |used_ingredient| %>
+          <li><%= used_ingredient.ingredient.name %></li>
+        <% end %>
+      <hr>
+      <p>Ingredients Missed: </p> <% @recipe.missed_ingredients.each do |missed_ingredient| %>
+        <li><%= missed_ingredient %></li>
+      <% end %>
+      <hr>
+      <p>Ingredients Unused: </p> <% @recipe.unused_ingredients.each do |unused_ingredient| %>
+        <li><%= unused_ingredient %></li>
+      <% end %>
+
+    <! -------------- directions -------------- >
     <h3>Directions:</h3>
     <p><%= @recipe.description %></p>
+
   </div>
 </div>

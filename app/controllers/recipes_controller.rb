@@ -15,10 +15,12 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.status = 'cooked'
 
+    authorize @recipe
   end
 
   def destroy
     @recipe = Recipe.find(params[:id])
+    authorize @recipe
   end
 
   def show
@@ -63,9 +65,9 @@ class RecipesController < ApplicationController
   end
 
   def create_recipe_from_api(recipe)
-    total_steps = ""
+    description_field = ""
     recipe["analyzedInstructions"][0]["steps"].each do |step |
-      total_steps += "Step #{step["number"]}: #{step["step"]}
+      description_field += "Step #{step["number"]}: #{step["step"]}
       "
     end
 
@@ -83,10 +85,42 @@ class RecipesController < ApplicationController
       summary: recipe["summary"],
       overall_score: recipe["overalScore"],
       health_score: recipe["healthScore"],
-      description: total_steps
-    )
-    # t.string "missed_ingredients", default: [], array: true
-    # t.string "unused_ingredients", default: [], array: true
+
+      description: description_field,
+      missed_ingredients: missed_ingredients(recipe),
+      unused_ingredients: unused_ingredients(recipe)
+      )
+      used_ingredients(new_recipe, recipe)
+  end
+
+  def unused_ingredients(recipe)
+    unused_ingredients = []
+    recipe["unusedIngredients"].each do |ingredient|
+      unused_ingredients << ingredient["name"]
+    end
+    return unused_ingredients
+  end
+
+  def missed_ingredients(recipe)
+    missed_ingredients = []
+    recipe["missedIngredients"].each do |ingredient|
+      missed_ingredients << ingredient["name"]
+    end
+    return missed_ingredients
+  end
+
+  def used_ingredients(new_recipe, recipe)
+    current_user.ingredients.each do |pantry_ingredient|
+      used_ingredient = recipe["usedIngredients"].find { |used_ingredient| used_ingredient["name"].include?(pantry_ingredient.name) }
+
+      if !used_ingredient.nil?
+
+        RecipeIngredient.create(
+          ingredient_id: pantry_ingredient.id,
+          recipe_id: new_recipe.id
+        )
+      end
+    end
   end
 
   def update_recipe_from_api(recipe)
@@ -105,7 +139,8 @@ class RecipesController < ApplicationController
       health_score: recipe["healthScore"],
       description: total_steps,
       is_latest_result: true
-    ) # Needs to e completed with the updates to be done on the recipe
+      )
+      used_ingredients(new_recipe, recipe)
   end
 
   def recipe_params

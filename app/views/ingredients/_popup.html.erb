@@ -9,7 +9,7 @@
                 <%= simple_form_for @ingredient do |f| %>
                   <%= f.input :name %>
                   <%= f.input :measure, collection: Ingredient::UNITS %>
-                  <%= f.input :category %>
+                  <%= f.input :category, collection: Ingredient::CATEGORY %>
                   <%= f.input :quantity %>
                   <%= f.submit "Save", class: "btn btn-flat" %>
                 <% end %>
