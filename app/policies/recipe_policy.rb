@@ -5,4 +5,5 @@ class RecipePolicy < ApplicationPolicy
       scope.all
     end
   end
+
 end
