@@ -1,45 +1,41 @@
 <div class="container mt-4">
+  <h1>Recipes</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    <% @recipes.each do |recipe| %>
-
-      <div class="col">
-
-        <div class="card h-100">
-          <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
-
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          </div>
-
-        </div>
-
-      </div>
-  </div>
-
-</div>
-
+  <div class="row row-cols-1 row-cols-md-4 g-4">
 
   <! -------------- recipes cards -------------- >
 
-<div class="container mt-4">
+    <% @recipes.each do |recipe| %>
 
-  <div class="row">
+      <div class="col">
+        <div class="card h-100">
+
+          <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
+
+          <div class="card-body">
+            <h5 class="card-title"><%= recipe.title %></h5>
+          </div>
+
+          <div class="d-flex card-footer">
+            <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= recipe.ready_in_minutes %> mins</p>
+            <p><em>You have</em> <strong>7 / 10</strong><em> ingredients</em></p>
+          </div>
+
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+
+
+  <! -------------- tests -------------- >
+
   <h2>User ingredients: </h2>
   <% @user.ingredients.each do |ingredient| %>
     <li><%= ingredient.name %></li>
   <% end %>
+
   <h2>Can user call API?: <strong><%= @user.call_api_recipes %></h2></strong>
-    <% @recipes.each do |recipe| %>
-      <div class="card-product col-sm-12 col-md-6 col-lg-4">
-        <div class="image" style="background-image: url(<%= recipe.image_url %>);" >
-        </div>
-        <div class="card-product-infos">
-          <h4><strong><%= recipe.title %></strong></h4>
-          <p><%= recipe.ready_in_minutes %> mins</p>
-        </div>
-      </div>
-    <% end %>
-  </div>
+
 </div>
