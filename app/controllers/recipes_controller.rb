@@ -7,8 +7,14 @@ class RecipesController < ApplicationController
   def index
     get_ingredients
     call_api if current_user.call_api_recipes
-    @recipes = policy_scope(Recipe)
+    @recipes = policy_scope(Recipe).where(user_id: current_user.id)
     @user = current_user
+  end
+
+  def my_recipes
+    @recipes = policy_scope(Recipe).where(user_id: current_user.id, status: 'cooked')
+
+    authorize @recipes
   end
 
   def cooked
@@ -96,7 +102,6 @@ class RecipesController < ApplicationController
       summary: recipe["summary"],
       overall_score: recipe["overalScore"],
       health_score: recipe["healthScore"],
-
       description: description_field,
       missed_ingredients: missed_ingredients(recipe),
       unused_ingredients: unused_ingredients(recipe),
@@ -156,23 +161,20 @@ class RecipesController < ApplicationController
   end
 
   def update_recipe_from_api(recipe)
-    existing_recipe = Recipe.find(api_record_id: recipe["id"])
+    existing_recipe = Recipe.find_by api_record_id: recipe["id"]
 
     existing_recipe.update(
-      title: recipe["title"],
-      image_url: recipe["image"],
       missed_ingredients_count: recipe["missedIngredientCount"],
       used_ingredients_count: recipe["usedIngredientCount"],
       unused_ingredients_count: recipe["unusedIngredientCount"],
-      ready_in_minutes: recipe["readyInMinutes"],
-      servings: recipe["servings"],
-      summary: recipe["summary"],
       overall_score: recipe["overalScore"],
       health_score: recipe["healthScore"],
-      description: total_steps,
-      is_latest_result: true
+      is_latest_result: true,
+      aggregate_likes: recipe["aggregateLikes"],
+      missed_ingredients: missed_ingredients(recipe),
+      unused_ingredients: unused_ingredients(recipe),
+      used_ingredients: used_ingredients(recipe)
       )
-      used_ingredients(new_recipe, recipe)
   end
 
   def recipe_params
