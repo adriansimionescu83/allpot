@@ -26,6 +26,7 @@ class RecipesController < ApplicationController
   end
 
   private
+
   def get_ingredients
     @ingredients = ''
     current_user.ingredients.each do |ingredient|
