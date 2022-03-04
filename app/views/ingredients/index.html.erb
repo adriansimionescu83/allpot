@@ -6,7 +6,7 @@
 
 <div class="container py-3">
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-red col-8 offset-md-2 col-md-8 mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <button type="button" class="btn btn-red col-12 offset-md-2 col-md-8 mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
     ADD ITEM
   </button>
   <% @categories.each do |category| %>
@@ -28,29 +28,31 @@
             </ul>
         <% end %>
         <div class="modal fade" id="exampleModal-<%=ingredient.id%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog d-flex justify-content-center">
-            <div class="modal-content">
-              <%= simple_form_for @ingredient do |f| %>
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-              <div class="modal-body">
+          <div class="vertical-alignment-helper">
+            <div class="modal-dialog vertical-align-center mt-4">
+              <div class="modal-content">
 
-                          <%= f.input :name, input_html: {value: ingredient.name} %>
-                          <%= f.input :measure, selected: ingredient.measure, collection: Ingredient::UNITS %>
-                          <%= f.input :category, selected:  ingredient.category, collection: Ingredient::CATEGORY %>
-                          <%= f.input :quantity, input_html: {value: ingredient.quantity} %>
+                <%= simple_form_for @ingredient do |f| %>
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
 
+                  <div class="modal-body">
+                    <%= f.input :name, input_html: {value: ingredient.name} %>
+                    <%= f.input :measure, selected: ingredient.measure, collection: Ingredient::UNITS %>
+                    <%= f.input :category, selected:  ingredient.category, collection: Ingredient::CATEGORY %>
+                    <%= f.input :quantity, input_html: {value: ingredient.quantity} %>
+                  </div>
 
+                  <div class="modal-footer">
+                    <%# <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> %>
+                    <%= f.submit "UPDATE", class: "btn btn-red w-100" %>
+                  </div>
+                <% end %>
               </div>
-                <div class="modal-footer">
-
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <%= f.submit "Save", class: "btn btn-primary" %>
-                </div>
             </div>
-            <% end %>
+
           </div>
         </div>
       <% end %>
@@ -61,27 +63,35 @@
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-      <%= simple_form_for @ingredient, method: :patch, url: ingredients_path do |f| %>
+      <%= simple_form_for @ingredient do |f| %>
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
 
                     <%= f.input :name %>
-                    <%= f.input :measure, collection: Ingredient::UNITS %>
-                    <%= f.input :category, collection: Ingredient::CATEGORY %>
+                    <%= f.input :measure, collection: Ingredient::UNITS, prompt: "Select unit of measure" %>
+                    <%= f.input :category, collection: Ingredient::CATEGORY, prompt: "Select category", class: "select" %>
                     <%= f.input :quantity %>
 
 
         </div>
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <%= f.submit "Save", class: "btn btn-primary" %>
+          <%# <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> %>
+          <%= f.submit "Add Item", class: "btn btn-red w-100" %>
         </div>
       </div>
       <% end %>
+    </div>
+  </div>
+
+  <! -------------- back to top button -------------- >
+
+  <div class="col-12 offset-md-2 col-md-8">
+    <div class="d-flex justify-content-center my-3">
+      <a href="#top" class="btn btn-red w-100">BACK TO TOP <i class="fas fa-angle-up"></i></a>
     </div>
   </div>
 

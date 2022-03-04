@@ -1,10 +1,10 @@
 <div class="bkg-mid-blue">
   <div class="container main-title">
-    <h1 class="recipes-header">My recipes </h1>
+    <h1 class="recipes-header"><strong>My Recipes</strong></h1>
   </div>
 </div>
 
-<div class="container recipe-index mt-5">
+<div class="container recipe-index my-5">
   <div class="row row-cols-1 row-cols-md-3 g-4">
 
   <! -------------- recipes cards -------------- >
@@ -15,12 +15,19 @@
         <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
           <div class="card h-100 shadow-sm">
 
+  <! -------------- card image -------------- >
+
             <div class="embed-responsive embed-responsive-16by9">
               <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
             </div>
 
             <div class="card-body">
+
+  <! -------------- card title -------------- >
+
               <h5 class="card-title"><%= recipe.title %></h5>
+
+  <! -------------- ingredients used and missed -------------- >
 
               <div class="ingredients mb-3">
                 <p><%= recipe.used_ingredients_count %> used ingredients:</p>
@@ -37,12 +44,24 @@
 
               </div>
 
-              <p><%= recipe.updated_at %></p>
-              <p>Status <strong><%= recipe.status %></p></strong>
-              <p>Latest result? <strong><%= recipe.is_latest_result %></p></strong>
+  <! -------------- show if cooked -------------- >
+
+              <% if recipe.status == "cooked" %>
+                <hr>
+                <div class="cooked d-flex mt-3">
+                  <i class="fas fa-check-square"></i>
+                  <p> You have cooked this before!</p>
+                </div>
+              <% end %>
+
+  <! -------------- tests -------------- >
+              <%# <p><%= recipe.updated_at</p> %>
+              <%# <p>Status <strong><%= recipe.status</p></strong> %>
+              <%# <p>Latest result? <strong><%= recipe.is_latest_result</p></strong>  %>
             </div>
 
 
+  <! -------------- recipe time and ingredient ratio -------------- >
 
             <div class="d-flex card-footer">
               <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= recipe.ready_in_minutes %> mins</p>

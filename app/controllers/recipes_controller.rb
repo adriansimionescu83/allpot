@@ -32,6 +32,7 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+    @recipe.update(comments: params[:comments])
 
     authorize @recipe
   end
@@ -125,7 +126,7 @@ class RecipesController < ApplicationController
   def total_ingredients(recipe)
     total_ingredients = []
     recipe["extendedIngredients"].each do |ingredient|
-      total_ingredients << ingredient["name"]
+      total_ingredients <<  "#{ingredient["measures"]["metric"]["amount"]} #{ingredient["measures"]["metric"]["unitShort"]} <b>#{ingredient["name"]}</b>"
     end
     return total_ingredients
   end
