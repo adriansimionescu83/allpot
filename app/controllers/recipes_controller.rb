@@ -3,7 +3,6 @@ require "open-uri"
 require 'date'
 
 class RecipesController < ApplicationController
-  after_action "save_my_previous_url", only: [:show]
 
   def index
     get_ingredients
@@ -40,11 +39,6 @@ class RecipesController < ApplicationController
   end
 
   private
-
-  def save_my_previous_url
-    # session[:previous_url] is a Rails built-in variable to save last url.
-    session[:my_previous_url] = URI(request.referer || '').path
-  end
 
   def get_ingredients
     @ingredients = ''
