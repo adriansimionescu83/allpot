@@ -29,6 +29,13 @@
 
 
 .fa-pencil-alt:before {
-  content: "\f303";
   cursor: pointer;
+}
+
+.fa-pencil-alt:hover {
+  color: $red;
+}
+
+.fa-trash-alt:hover {
+  color: $red;
 }
