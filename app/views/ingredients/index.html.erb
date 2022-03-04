@@ -27,34 +27,7 @@
               </li>
             </ul>
         <% end %>
-        <div class="modal fade" id="exampleModal-<%=ingredient.id%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="vertical-alignment-helper">
-            <div class="modal-dialog vertical-align-center mt-4">
-              <div class="modal-content">
 
-                <%= simple_form_for @ingredient do |f| %>
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Item</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-
-                  <div class="modal-body">
-                    <%= f.input :name, input_html: {value: ingredient.name} %>
-                    <%= f.input :measure, selected: ingredient.measure, collection: Ingredient::UNITS %>
-                    <%= f.input :category, selected:  ingredient.category, collection: Ingredient::CATEGORY %>
-                    <%= f.input :quantity, input_html: {value: ingredient.quantity} %>
-                  </div>
-
-                  <div class="modal-footer">
-                    <%# <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> %>
-                    <%= f.submit "UPDATE", class: "btn btn-red w-100" %>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-
-          </div>
-        </div>
       <% end %>
     </div>
   <% end %>
