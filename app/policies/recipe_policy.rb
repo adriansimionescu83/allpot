@@ -29,4 +29,8 @@ class RecipePolicy < ApplicationPolicy
   def my_recipes?
     true
   end
+
+  def back?
+    true
+  end
 end

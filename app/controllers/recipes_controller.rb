@@ -31,6 +31,7 @@ class RecipesController < ApplicationController
   end
 
   def show
+
     @recipe = Recipe.find(params[:id])
     @recipe.update(comments: params[:comments])
 

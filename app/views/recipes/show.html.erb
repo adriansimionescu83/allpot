@@ -83,10 +83,9 @@
 
     <! -------------- back to top button -------------- >
 
-    <div class="d-flex justify-content-center my-3">
-      <a href="#top" class="btn btn-red w-100">BACK TO TOP <i class="fas fa-angle-up"></i></a>
+    <div class="d-flex justify-content-center my-3" data-controller="recipe-detail">
+    <button class="btn btn-red w-100" onclick='javascript:window.scrollTo(0, 0);'>BACK TO TOP <i class="fas fa-angle-up"></i></button>
     </div>
-
 
     <%# <div> %>
       <%# <h3>Note to self:</h3> %>
@@ -95,8 +94,6 @@
         <%# <%= f.submit "Add Note", class: "btn btn-red w-100" %>
       <%# <% end %>
     <%# </div> %>
-
-
 
   </div>
 </div>
