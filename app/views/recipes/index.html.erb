@@ -1,7 +1,9 @@
 <div class="bkg-mid-blue">
   <div class="container main-title">
-    <h1 class="recipes-header">You can make <strong><span class="recipe-count"><%= @recipes.count %> recipes</span></strong> with the <strong><span class="recipe-count"><%= current_user.ingredients.count %></span></strong> ingredients in your pantry!</h1>
+    <h1 class="recipes-header">You can make <strong><span class="recipe-count"><%= @recipes.count %> recipes</span></strong> with the <strong><span class="recipe-count"><%= pluralize(current_user.ingredients.count, "ingredient") %></span></strong> in your pantry!</h1>
   </div>
+
+
 </div>
 
 <div class="container recipe-index my-5">
