@@ -21,7 +21,7 @@
 }
 
 .card img {
-  width: 100%;
+  width: 500px;
   height: 200px;
   object-fit: cover;
 }
@@ -54,4 +54,9 @@
 
 .embed-responsive .card-img-top {
   object-fit: cover;
+}
+
+.card-div {
+  position: relative;
+  left: -30px;
 }
