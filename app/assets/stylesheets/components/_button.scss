@@ -26,3 +26,9 @@
   background-color: #eccf26;
   color: $dark-blue;
 }
+
+
+.fa-pencil-alt:before {
+  content: "\f303";
+  cursor: pointer;
+}
