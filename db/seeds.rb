@@ -14,27 +14,29 @@ if User.all.update(call_api_recipes: true)
   puts "All users have been updated to call api recipes"
 end
 
+User.all.each do |current_user|
+
 # --------------- Beverages & Liquids ---------------
   Ingredient.create(
     name: "Soy Milk",
     measure: "ml",
     category: "Beverages",
     quantity: "1000",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Perrier",
     measure: "ml",
     category: "Beverages",
     quantity: "1000",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Orange Juice",
     measure: "ml",
     category: "Beverages",
     quantity: "330",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -42,7 +44,7 @@ end
     measure: "ml",
     category: "Beverages",
     quantity: "1000",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -50,7 +52,7 @@ end
     measure: "ml",
     category: "Beverages",
     quantity: "1000",
-    user_id: 1
+    user_id: current_user.id
   )
 
 # --------------- Bread & Bakery ---------------
@@ -59,7 +61,7 @@ end
     measure: "g",
     category: "Bread & Bakery",
     quantity: "100",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -67,7 +69,7 @@ end
     measure: "g",
     category: "Bread & Bakery",
     quantity: "100",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -75,7 +77,7 @@ end
     measure: "g",
     category: "Bread & Bakery",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -83,7 +85,7 @@ end
     measure: "g",
     category: "Bread & Bakery",
     quantity: "100",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -91,7 +93,7 @@ end
     measure: "g",
     category: "Bread & Bakery",
     quantity: "750",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -99,7 +101,7 @@ end
     measure: "g",
     category: "Bread & Bakery",
     quantity: "300",
-    user_id: 1
+    user_id: current_user.id
   )
 
   # --------------- Canned Food ---------------
@@ -108,14 +110,14 @@ end
     measure: "g",
     category: "Canned Food",
     quantity: "450",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Kidney Beans",
     measure: "g",
     category: "Canned Food",
     quantity: "600",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -123,7 +125,7 @@ end
     measure: "g",
     category: "Canned Food",
     quantity: "300",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -131,7 +133,7 @@ end
     measure: "g",
     category: "Canned Food",
     quantity: "330",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -139,7 +141,7 @@ end
     measure: "g",
     category: "Canned Food",
     quantity: "300",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -147,7 +149,7 @@ end
     measure: "g",
     category: "Canned Food",
     quantity: "330",
-    user_id: 1
+    user_id: current_user.id
   )
 
 
@@ -157,56 +159,56 @@ end
     measure: "g",
     category: "Condiments",
     quantity: "250",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Ketchup",
     measure: "g",
     category: "Condiments",
     quantity: "450",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Olive Oil",
     measure: "g",
     category: "Condiments",
     quantity: "1000",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Canola Oil",
     measure: "g",
     category: "Condiments",
     quantity: "750",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Mayonnaise",
     measure: "g",
     category: "Condiments",
     quantity: "300",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Soy Sauce",
     measure: "g",
     category: "Condiments",
     quantity: "450",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Worcestershire",
     measure: "g",
     category: "Condiments",
     quantity: "450",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Chili Paste",
     measure: "g",
     category: "Condiments",
     quantity: "200",
-    user_id: 1
+    user_id: current_user.id
   )
 
 # --------------- Dairy & Eggs ---------------
@@ -215,42 +217,42 @@ end
     measure: "g",
     category: "Dairy & Eggs",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Cheddar",
     measure: "g",
     category: "Dairy & Eggs",
     quantity: "300",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Butter",
     measure: "g",
     category: "Dairy & Eggs",
     quantity: "250",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Feta",
     measure: "g",
     category: "Dairy & Eggs",
     quantity: "300",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Mozzarella",
     measure: "g",
     category: "Dairy & Eggs",
     quantity: "250",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Eggs",
     measure: "g",
     category: "Dairy & Eggs",
     quantity: "400",
-    user_id: 1
+    user_id: current_user.id
   )
 # --------------- Fruits ---------------
   Ingredient.create(
@@ -258,35 +260,35 @@ end
     measure: "g",
     category: "Fruits",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Banana",
     measure: "g",
     category: "Fruits",
     quantity: "750",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Pineapple",
     measure: "g",
     category: "Fruits",
     quantity: "300",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Strawberries",
     measure: "g",
     category: "Fruits",
     quantity: "250",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Dates",
     measure: "g",
     category: "Fruits",
     quantity: "400",
-    user_id: 1
+    user_id: current_user.id
   )
 
 
@@ -296,7 +298,7 @@ end
     measure: "g",
     category: "Grains & Pasta",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -304,42 +306,42 @@ end
     measure: "g",
     category: "Grains & Pasta",
     quantity: "1000",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Lentils",
     measure: "g",
     category: "Grains & Pasta",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Oats",
     measure: "g",
     category: "Grains & Pasta",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Quinoa",
     measure: "g",
     category: "Grains & Pasta",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Breadcrumbs",
     measure: "g",
     category: "Grains & Pasta",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Spaghetti",
     measure: "g",
     category: "Grains & Pasta",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
 
 # "Herbs & Spices",
@@ -348,84 +350,84 @@ end
     measure: "g",
     category: "Herbs & Spices",
     quantity: "150",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Cinnamon",
     measure: "g",
     category: "Herbs & Spices",
     quantity: "100",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Coriander",
     measure: "g",
     category: "Herbs & Spices",
     quantity: "100",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Cumin",
     measure: "g",
     category: "Herbs & Spices",
     quantity: "50",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Basil",
     measure: "g",
     category: "Herbs & Spices",
     quantity: "150",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Salt",
     measure: "g",
     category: "Herbs & Spices",
     quantity: "300",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Black Pepper",
     measure: "g",
     category: "Herbs & Spices",
     quantity: "300",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Red Chili Flakes",
     measure: "g",
     category: "Herbs & Spices",
     quantity: "150",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Curry Powder",
     measure: "g",
     category: "Herbs & Spices",
     quantity: "150",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Ground Ginger",
     measure: "g",
     category: "Herbs & Spices",
     quantity: "150",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Paprika",
     measure: "g",
     category: "Herbs & Spices",
     quantity: "150",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Oregano",
     measure: "g",
     category: "Herbs & Spices",
     quantity: "150",
-    user_id: 1
+    user_id: current_user.id
   )
 
 
@@ -435,7 +437,7 @@ end
     measure: "g",
     category: "Meat & Seafood",
     quantity: "1000",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -443,7 +445,7 @@ end
     measure: "g",
     category: "Meat & Seafood",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -451,7 +453,7 @@ end
     measure: "g",
     category: "Meat & Seafood",
     quantity: "400",
-    user_id: 1
+    user_id: current_user.id
   )
 
 # "Misc"
@@ -460,7 +462,7 @@ end
     measure: "g",
     category: "Misc",
     quantity: "350",
-    user_id: 1
+    user_id: current_user.id
   )
 
 # "Nuts & Seeds"
@@ -469,35 +471,35 @@ end
     measure: "g",
     category: "Nuts & Seeds",
     quantity: "350",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Peanuts",
     measure: "g",
     category: "Nuts & Seeds",
     quantity: "200",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Sunflower Seeds",
     measure: "g",
     category: "Nuts & Seeds",
     quantity: "250",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Flax Seeds",
     measure: "g",
     category: "Nuts & Seeds",
     quantity: "350",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Pine Nuts",
     measure: "g",
     category: "Nuts & Seeds",
     quantity: "350",
-    user_id: 1
+    user_id: current_user.id
   )
 
 # "Vegetables"
@@ -506,7 +508,7 @@ end
     measure: "g",
     category: "Vegetables",
     quantity: "1000",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -514,7 +516,7 @@ end
     measure: "g",
     category: "Vegetables",
     quantity: "250",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -522,7 +524,7 @@ end
     measure: "g",
     category: "Vegetables",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -530,7 +532,7 @@ end
     measure: "g",
     category: "Vegetables",
     quantity: "750",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -538,7 +540,7 @@ end
     measure: "g",
     category: "Vegetables",
     quantity: "300",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -546,7 +548,7 @@ end
     measure: "g",
     category: "Vegetables",
     quantity: "400",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -554,7 +556,7 @@ end
     measure: "g",
     category: "Vegetables",
     quantity: "200",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -562,7 +564,7 @@ end
     measure: "g",
     category: "Vegetables",
     quantity: "600",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -570,7 +572,7 @@ end
     measure: "g",
     category: "Vegetables",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
 
   Ingredient.create(
@@ -578,14 +580,15 @@ end
     measure: "g",
     category: "Vegetables",
     quantity: "400",
-    user_id: 1
+    user_id: current_user.id
   )
   Ingredient.create(
     name: "Lemon",
     measure: "g",
     category: "Vegetables",
     quantity: "500",
-    user_id: 1
+    user_id: current_user.id
   )
+end
 
 puts "All ingredients now seeded"
