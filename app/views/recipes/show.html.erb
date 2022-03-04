@@ -5,7 +5,8 @@
 
   <div class="col-sm-9 offset-md-2 col-md-8 mt-4 mb-5 justify-content-center">
     <div class="mb-3">
-      <%= link_to "BACK", :back, class: "btn btn-red mt-2" %>
+      <%= link_to "BACK", 'javascript:window.history.back();', class: "btn btn-red mt-2" %>
+
       <a href="<%=@recipe.id%>/cooked", class ="btn btn-yellow mt-2 mx-2 text-decoration-none text" >COOKED IT!</a>
     </div>
 
@@ -87,7 +88,6 @@
       <a href="#top" class="btn btn-red w-100">BACK TO TOP <i class="fas fa-angle-up"></i></a>
     </div>
 
-
     <%# <div> %>
       <%# <h3>Note to self:</h3> %>
       <%# <%= simple_form_for @recipe do |f| %>
@@ -95,8 +95,6 @@
         <%# <%= f.submit "Add Note", class: "btn btn-red w-100" %>
       <%# <% end %>
     <%# </div> %>
-
-
 
   </div>
 </div>
