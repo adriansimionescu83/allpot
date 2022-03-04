@@ -11,6 +11,7 @@ class Ingredient < ApplicationRecord
     "Grains & Pasta",
     "Meat & Seafood",
     "Misc",
+    "Nuts & Seeds",
     "Vegetables"
   ]
 
