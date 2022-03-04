@@ -37,12 +37,68 @@ end
     user_id: 1
   )
 
+  Ingredient.create(
+    name: "Water",
+    measure: "ml",
+    category: "Beverages",
+    quantity: "1000",
+    user_id: 1
+  )
+
+  Ingredient.create(
+    name: "Stock",
+    measure: "ml",
+    category: "Beverages",
+    quantity: "1000",
+    user_id: 1
+  )
+
 # --------------- Bread & Bakery ---------------
   Ingredient.create(
-    name: "White Baguette",
+    name: "Baking Powder",
     measure: "g",
     category: "Bread & Bakery",
-    quantity: "150",
+    quantity: "100",
+    user_id: 1
+  )
+
+  Ingredient.create(
+    name: "Baking Soda",
+    measure: "g",
+    category: "Bread & Bakery",
+    quantity: "100",
+    user_id: 1
+  )
+
+  Ingredient.create(
+    name: "Sugar",
+    measure: "g",
+    category: "Bread & Bakery",
+    quantity: "500",
+    user_id: 1
+  )
+
+  Ingredient.create(
+    name: "Cornstarch",
+    measure: "g",
+    category: "Bread & Bakery",
+    quantity: "100",
+    user_id: 1
+  )
+
+  Ingredient.create(
+    name: "Flour",
+    measure: "g",
+    category: "Bread & Bakery",
+    quantity: "750",
+    user_id: 1
+  )
+
+  Ingredient.create(
+    name: "Honey",
+    measure: "g",
+    category: "Bread & Bakery",
+    quantity: "300",
     user_id: 1
   )
 
@@ -55,12 +111,45 @@ end
     user_id: 1
   )
   Ingredient.create(
-    name: "Coconut Milk",
+    name: "Kidney Beans",
     measure: "g",
     category: "Canned Food",
-    quantity: "900",
+    quantity: "600",
     user_id: 1
   )
+
+  Ingredient.create(
+    name: "Capers",
+    measure: "g",
+    category: "Canned Food",
+    quantity: "300",
+    user_id: 1
+  )
+
+  Ingredient.create(
+    name: "Olives",
+    measure: "g",
+    category: "Canned Food",
+    quantity: "330",
+    user_id: 1
+  )
+
+  Ingredient.create(
+    name: "Peanut Butter",
+    measure: "g",
+    category: "Canned Food",
+    quantity: "300",
+    user_id: 1
+  )
+
+  Ingredient.create(
+    name: "Tomato Paste",
+    measure: "g",
+    category: "Canned Food",
+    quantity: "330",
+    user_id: 1
+  )
+
 
 # --------------- Condiments ---------------
   Ingredient.create(
@@ -75,6 +164,48 @@ end
     measure: "g",
     category: "Condiments",
     quantity: "450",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Olive Oil",
+    measure: "g",
+    category: "Condiments",
+    quantity: "1000",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Canola Oil",
+    measure: "g",
+    category: "Condiments",
+    quantity: "750",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Mayonnaise",
+    measure: "g",
+    category: "Condiments",
+    quantity: "300",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Soy Sauce",
+    measure: "g",
+    category: "Condiments",
+    quantity: "450",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Worcestershire",
+    measure: "g",
+    category: "Condiments",
+    quantity: "450",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Chili Paste",
+    measure: "g",
+    category: "Condiments",
+    quantity: "200",
     user_id: 1
   )
 
@@ -94,10 +225,31 @@ end
     user_id: 1
   )
   Ingredient.create(
-    name: "Halloumi",
+    name: "Butter",
     measure: "g",
     category: "Dairy & Eggs",
     quantity: "250",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Feta",
+    measure: "g",
+    category: "Dairy & Eggs",
+    quantity: "300",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Mozzarella",
+    measure: "g",
+    category: "Dairy & Eggs",
+    quantity: "250",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Eggs",
+    measure: "g",
+    category: "Dairy & Eggs",
+    quantity: "400",
     user_id: 1
   )
 # --------------- Fruits ---------------
@@ -122,6 +274,20 @@ end
     quantity: "300",
     user_id: 1
   )
+  Ingredient.create(
+    name: "Strawberries",
+    measure: "g",
+    category: "Fruits",
+    quantity: "250",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Dates",
+    measure: "g",
+    category: "Fruits",
+    quantity: "400",
+    user_id: 1
+  )
 
 
 # --------------- Grains & Pasta ---------------
@@ -134,10 +300,131 @@ end
   )
 
   Ingredient.create(
-    name: "Jasmine Rice",
+    name: "Rice",
     measure: "g",
     category: "Grains & Pasta",
     quantity: "1000",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Lentils",
+    measure: "g",
+    category: "Grains & Pasta",
+    quantity: "500",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Oats",
+    measure: "g",
+    category: "Grains & Pasta",
+    quantity: "500",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Quinoa",
+    measure: "g",
+    category: "Grains & Pasta",
+    quantity: "500",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Breadcrumbs",
+    measure: "g",
+    category: "Grains & Pasta",
+    quantity: "500",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Spaghetti",
+    measure: "g",
+    category: "Grains & Pasta",
+    quantity: "500",
+    user_id: 1
+  )
+
+# "Herbs & Spices",
+  Ingredient.create(
+    name: "Parsley",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "150",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Cinnamon",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "100",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Coriander",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "100",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Cumin",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "50",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Basil",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "150",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Salt",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "300",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Black Pepper",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "300",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Red Chili Flakes",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "150",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Curry Powder",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "150",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Ground Ginger",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "150",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Paprika",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "150",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Oregano",
+    measure: "g",
+    category: "Herbs & Spices",
+    quantity: "150",
     user_id: 1
   )
 
@@ -176,6 +463,43 @@ end
     user_id: 1
   )
 
+# "Nuts & Seeds"
+  Ingredient.create(
+    name: "Almonds",
+    measure: "g",
+    category: "Nuts & Seeds",
+    quantity: "350",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Peanuts",
+    measure: "g",
+    category: "Nuts & Seeds",
+    quantity: "200",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Sunflower Seeds",
+    measure: "g",
+    category: "Nuts & Seeds",
+    quantity: "250",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Flax Seeds",
+    measure: "g",
+    category: "Nuts & Seeds",
+    quantity: "350",
+    user_id: 1
+  )
+  Ingredient.create(
+    name: "Pine Nuts",
+    measure: "g",
+    category: "Nuts & Seeds",
+    quantity: "350",
+    user_id: 1
+  )
+
 # "Vegetables"
   Ingredient.create(
     name: "Broccoli",
@@ -186,7 +510,7 @@ end
   )
 
   Ingredient.create(
-    name: "Cherry tomato",
+    name: "Tomato",
     measure: "g",
     category: "Vegetables",
     quantity: "250",
@@ -241,6 +565,21 @@ end
     user_id: 1
   )
 
+  Ingredient.create(
+    name: "Lemon",
+    measure: "g",
+    category: "Vegetables",
+    quantity: "500",
+    user_id: 1
+  )
+
+  Ingredient.create(
+    name: "Bell Peppers",
+    measure: "g",
+    category: "Vegetables",
+    quantity: "400",
+    user_id: 1
+  )
   Ingredient.create(
     name: "Lemon",
     measure: "g",
