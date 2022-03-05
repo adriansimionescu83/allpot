@@ -11,7 +11,7 @@
   </button>
 
   <div class="ingredients-container row col-12 offset-md-2 col-md-8 mt-3">
-    <% @categories.each do |category| %>
+    <% @categories.each_with_index do |category, index| %>
 
 
         <div class="accordion mb-4" id="accordion">
@@ -56,14 +56,14 @@
                   <div class="modal-content">
                   <%= simple_form_for @ingredient do |f| %>
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+                      <h5 class="modal-title" id="exampleModalLabel">Add Item %></h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
 
                                 <%= f.input :name %>
                                 <%# <%= f.input :measure, collection: Ingredient::UNITS, prompt: "Select unit of measure" %>
-                                <%= f.input :category, collection: Ingredient::CATEGORY, selected: category, class: "select" %>
+                                <%= f.input :category, collection: Ingredient::CATEGORY, class: "select", selected: category %>
                                 <%# <%= f.input :quantity %>
 
 
