@@ -6,33 +6,87 @@
 
 <div class="container py-3">
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-red col-12 offset-md-2 col-md-8 mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <button type="button" class="btn btn-red col-12 offset-md-2 col-md-8 my-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
     ADD ITEM
   </button>
-  <% @categories.each do |category| %>
-    <div class="col-12 offset-md-2 col-md-8 mb-4">
-      <h4 class="category-title"><strong><%= category %></strong></h4>
-      <% @ingredients.each do |ingredient| %>
-        <% if ingredient.category == category %>
-            <ul class="list-group list-group-horizontal mb-2">
-              <li class="list-group-item quantity"><%= ingredient.quantity %></li>
-              <li class="list-group-item measurement"><%= ingredient.measure %></li>
-              <li class="list-group-item ingredient"><%= ingredient.name %></li>
-              <li class="list-group-item" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=ingredient.id%>"><i class="fas fa-pencil-alt"></i></i></li>
-              <li class="list-group-item">
-                <%= link_to ingredient_path(ingredient),
-                  method: :delete, data: { confirm: "Are you sure?" } do %>
-                  <i class="fas fa-trash-alt"></i>
+
+  <div class="ingredients-container row col-12 offset-md-2 col-md-8 mt-3">
+    <% @categories.each_with_index do |category, index| %>
+
+
+        <div class="accordion mb-4" id="accordion">
+        <div class="accordion-item">
+
+        <! ------------------------ ACCORDIAN HEADER ------------------------ >
+          <h2 class="accordion-header" id="heading<% category %>">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<% category %>" aria-expanded="true" aria-controls="collapse<% category %>">
+              <strong><%= category %></strong>
+            </button>
+          </h2>
+
+        <! ------------------------ ACCORDIAN BODY ------------------------ >
+
+          <div id="collapse<% category %>" class="accordion-collapse collapse show" aria-labelledby="heading<% category %>s" data-bs-parent="#accordion">
+            <div class="accordion-body py-4 px-4">
+
+        <! ------------------------ ADD INGREDIENT FORM ------------------------ >
+
+              <% @ingredients.each do |ingredient| %>
+                <% if ingredient.category == category %>
+                  <div class="d-flex justify-content-between ingredient">
+                    <li class="ingredient"><%= ingredient.name %></li>
+                    <li class="ingredient">
+                        <%= link_to ingredient_path(ingredient),
+                          method: :delete, data: { confirm: "Are you sure?" } do %>
+                          <i class="fas fa-trash-alt"></i>
+                        <% end %>
+                    </li>
+                  </div>
+                  <hr>
                 <% end %>
-              </li>
-            </ul>
-        <% end %>
+              <% end %>
 
-      <% end %>
-    </div>
-  <% end %>
+               <button type="button" class="btn btn-red offset-3 col-6 offset-md-4 col-md-4 my-3" data-bs-toggle="modal" data-bs-target="#ingredientModal">
+                ADD ITEM
+              </button>
 
-  <!-- Modal -->
+        <! ------------------------ ADD INGREDIENT MODAL INSIDE EACH CATEGORY ------------------------ >
+              <div class="modal fade" id="ingredientModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                  <%= simple_form_for @ingredient do |f| %>
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add Item %></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                                <%= f.input :name %>
+                                <%# <%= f.input :measure, collection: Ingredient::UNITS, prompt: "Select unit of measure" %>
+                                <%= f.input :category, collection: Ingredient::CATEGORY, class: "select", selected: category %>
+                                <%# <%= f.input :quantity %>
+
+
+                    </div>
+                    <div class="modal-footer">
+
+                      <%# <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> %>
+                      <%= f.submit "Add Item", class: "btn btn-red w-100" %>
+                    </div>
+                  </div>
+                  <% end %>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+
+<! ------------------------ ADD INGREDIENT TOP OF PAGE ------------------------ >
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -44,9 +98,9 @@
         <div class="modal-body">
 
                     <%= f.input :name %>
-                    <%= f.input :measure, collection: Ingredient::UNITS, prompt: "Select unit of measure" %>
+                    <%# <%= f.input :measure, collection: Ingredient::UNITS, prompt: "Select unit of measure" %>
                     <%= f.input :category, collection: Ingredient::CATEGORY, prompt: "Select category", class: "select" %>
-                    <%= f.input :quantity %>
+                    <%# <%= f.input :quantity %>
 
 
         </div>
@@ -60,7 +114,10 @@
     </div>
   </div>
 
-  <! -------------- back to top button -------------- >
+
+
+
+<! ------------------------ BACK TO TOP BUTTON ------------------------ >
 
   <div class="col-12 offset-md-2 col-md-8">
     <div class="d-flex justify-content-center my-3">
