@@ -1,0 +1,54 @@
+.accordion-item:last-of-type {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.accordion-item:first-of-type {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.accordion-item:last-of-type .accordion-button.collapsed {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.accordion-item:first-of-type .accordion-button {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+
+.accordion-item:first-of-type .accordion-button {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.accordion-button .collapsed {
+  color: $red;
+  background-color: #ffffff;
+  box-shadow: none;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+}
+.accordion-button:not(.collapsed) {
+  color: $dark-blue;
+  background-color: $yellow;
+  box-shadow: none;
+}
+
+.accordion-button {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  color: $dark-blue;
+}
+
+.accordion-button:active {
+  color: $dark-blue;
+}
+
+.ingredients-container {
+  --bs-gutter-x: 0;
+}
