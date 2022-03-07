@@ -52,13 +52,17 @@ class RecipesController < ApplicationController
   end
 
   def call_api
+    diet = current_user.diet.join(',').downcase
+    intolerances = current_user.intolerances.join(',').downcase
     api_key = ENV["SPOONTACULAR_API_KEY"]
-    @url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=10&includeIngredients=#{@ingredients}&addRecipeInformation=true&sort=max-used-ingredients&sortDirection=desc&fillIngredients=true"
+    @url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=10&includeIngredients=#{@ingredients}&addRecipeInformation=true&sort=max-used-ingredients&sortDirection=desc&fillIngredients=true&diet=#{diet}&intolerances=#{intolerances}"
     recipes_serialized = URI.parse(@url).read
     recipes = JSON.parse(recipes_serialized)["results"]
 
-    Recipe.where(status: 'uncooked').destroy_all #removes all recipes that are not cooked so that these are replaced with the new matches found by API
-    Recipe.where(status: 'cooked').update(is_latest_result: false) #marks all existing recipes that are cooked as old records
+    if !recipes.empty?
+      Recipe.where(status: 'uncooked').destroy_all #removes all recipes that are not cooked so that these are replaced with the new matches found by API
+      Recipe.where(status: 'cooked').update(is_latest_result: false) #marks all existing recipes that are cooked as old records
+    end
 
     recipes.each do |recipe|
       if Recipe.exists?(api_record_id: recipe["id"])
@@ -81,9 +85,7 @@ class RecipesController < ApplicationController
         description_steps << "<b>Step #{step["number"]}:</b><br>#{step["step"]}"
         description_field += "<b>Step #{step["number"]}:</b><br>#{step["step"]}"
       end
-
     end
-
 
     # description_field = ""
     # recipe["analyzedInstructions"][0]["steps"].each do |step |
@@ -111,9 +113,10 @@ class RecipesController < ApplicationController
       total_ingredients: total_ingredients(recipe),
       aggregate_likes: recipe["aggregateLikes"],
       source_url: recipe["sourceUrl"],
-      steps: description_steps
+      steps: description_steps,
+      diets: recipe["diets"]
       )
-      used_recipe_ingredients(new_recipe, recipe)
+      # used_recipe_ingredients(new_recipe, recipe) #For now as our logic does not need to create recipe ingredients we can skip this step, Can be used in the future though if we find a way to get recipes by the amount of ingredients used
   end
 
   def unused_ingredients(recipe)
@@ -148,20 +151,6 @@ class RecipesController < ApplicationController
     return missed_ingredients
   end
 
-  def used_recipe_ingredients(new_recipe, recipe)
-    current_user.ingredients.each do |pantry_ingredient|
-      used_ingredient = recipe["usedIngredients"].find { |used_ingredient| used_ingredient["name"].include?(pantry_ingredient.name.downcase) }
-
-      if !used_ingredient.nil?
-
-        RecipeIngredient.create(
-          ingredient_id: pantry_ingredient.id,
-          recipe_id: new_recipe.id
-        )
-      end
-    end
-  end
-
   def update_recipe_from_api(recipe)
     existing_recipe = Recipe.find_by api_record_id: recipe["id"]
 
@@ -182,4 +171,19 @@ class RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(:comments)
   end
+
+  # Obsolete method. #For now as our logic does not need to create recipe ingredients we can skip this step, Can be used in the future though if we find a way to get recipes by the amount of ingredients used
+  # def used_recipe_ingredients(new_recipe, recipe)
+  #   current_user.ingredients.each do |pantry_ingredient|
+  #     used_ingredient = recipe["usedIngredients"].find { |used_ingredient| used_ingredient["name"].include?(pantry_ingredient.name.downcase) }
+
+  #     if !used_ingredient.nil?
+
+  #       RecipeIngredient.create(
+  #         ingredient_id: pantry_ingredient.id,
+  #         recipe_id: new_recipe.id
+  #       )
+  #     end
+  #   end
+  # end
 end

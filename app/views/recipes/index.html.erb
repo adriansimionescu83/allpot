@@ -65,9 +65,14 @@
 
               </div>
 
-              <%# <p><%= recipe.updated_at</p> %>
-              <%# <p>Status <strong><%= recipe.status</p></strong>  %>
-              <%# <p>Latest result? <strong><%= recipe.is_latest_result</p></strong> %>
+              <%# <p>Updated At <%= recipe.updated_at %>
+              <%# Status <%= recipe.status%>
+              <%# Latest result? <%= recipe.is_latest_result%>
+
+              <% recipe.diets.each do |diet| %>
+                <span class="badge rounded-pill bg-dark"><%= diet %></span>
+              <% end %>
+
             </div>
 
 
