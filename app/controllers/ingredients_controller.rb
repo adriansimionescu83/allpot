@@ -47,14 +47,15 @@ class IngredientsController < ApplicationController
 
   def build_shopping_list
     checked_ingredients = params[:recipe][:ingredients]
-    @ingredients = Ingredient.where(name: checked_ingredients).each do |ingredient|
+    checked_ingredients.each do |ingredient|
       ingredient.is_available = 'false'
       ingredient.save
     end
 
+
     redirect_to shopping_list_path
 
-    authorize @ingredient
+    authorize @ingredients
   end
 
   private
