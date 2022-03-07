@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_03_184636) do
+ActiveRecord::Schema.define(version: 2022_03_07_084330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2022_03_03_184636) do
     t.string "total_ingredients", default: [], array: true
     t.string "source_url"
     t.string "steps", default: [], array: true
+    t.string "diets", default: [], array: true
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
@@ -77,6 +78,8 @@ ActiveRecord::Schema.define(version: 2022_03_03_184636) do
     t.string "first_name"
     t.string "last_name"
     t.boolean "call_api_recipes", default: true
+    t.string "diet", default: [], array: true
+    t.string "intolerances", default: [], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

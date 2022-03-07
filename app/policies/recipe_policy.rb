@@ -30,6 +30,10 @@ class RecipePolicy < ApplicationPolicy
     true
   end
 
+  def show_preferences?
+    true
+  end
+
   def back?
     true
   end
