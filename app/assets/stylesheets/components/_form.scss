@@ -34,3 +34,15 @@
 .form-actions .btn{
   width: 100%;
 }
+
+.no-bs-validation {
+     color: $dark-blue !important;
+    &:focus {
+      color: $dark-blue !important;
+     }
+
+}
+
+.search-form {
+  width: 60%;
+}

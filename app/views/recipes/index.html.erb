@@ -8,11 +8,23 @@
       <%= link_to "MY PANTRY", ingredients_path, class: "btn btn-red" %>
     <% end %>
   </div>
-
-
-
-
 </div>
+
+<!-------------------PgSearch---------------------->
+<div class="container py-3">
+  <div class="search-form col-12 offset-md-2 col-md-8 my-3">
+    <%= form_tag recipes_path, class: "d-flex", method: :get do %>
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "Find a recipe"
+      %>
+      <%= submit_tag "Search", class: "btn btn-red ml-3" %>
+    <% end %>
+  </div>
+</div>
+
+
 
 <div class="container recipe-index my-5">
   <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -65,9 +77,14 @@
 
               </div>
 
-              <%# <p><%= recipe.updated_at</p> %>
-              <%# <p>Status <strong><%= recipe.status</p></strong>  %>
-              <%# <p>Latest result? <strong><%= recipe.is_latest_result</p></strong> %>
+              <%# <p>Updated At <%= recipe.updated_at %>
+              <%# Status <%= recipe.status%>
+              <%# Latest result? <%= recipe.is_latest_result%>
+
+              <% recipe.diets.each do |diet| %>
+                <span class="badge rounded-pill bg-dark"><%= diet %></span>
+              <% end %>
+
             </div>
 
 
