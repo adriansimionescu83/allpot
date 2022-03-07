@@ -17,4 +17,12 @@ class IngredientPolicy < ApplicationPolicy
   def destroy?
     return true
   end
+
+  def build_shopping_list?
+    true
+  end
+
+  def shopping_list?
+    true
+  end
 end

@@ -1,0 +1,5 @@
+<% @ingredients.each do |ingredient| %>
+  <% if ingredient.is_available == false %>
+    <%= ingredient %>
+ <% end %>
+<% end %>

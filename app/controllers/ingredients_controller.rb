@@ -42,10 +42,19 @@ class IngredientsController < ApplicationController
     current_user.call_api_recipes = true # When new ingredients are updated this qualifies the user for a new API Call
     current_user.save
 
-
     redirect_to ingredients_path
+  end
 
+  def build_shopping_list
+    checked_ingredients = params[:recipe][:ingredients]
+    @ingredients = Ingredient.where(name: checked_ingredients).each do |ingredient|
+      ingredient.is_available = 'false'
+      ingredient.save
+    end
 
+    redirect_to shopping_list_path
+
+    authorize @ingredient
   end
 
   private
