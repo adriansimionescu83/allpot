@@ -9,6 +9,10 @@ class RecipesController < ApplicationController
     call_api if current_user.call_api_recipes
     @recipes = policy_scope(Recipe).where(user_id: current_user.id)
     @user = current_user
+
+    if params[:query].present?
+      @recipes = Recipe.global_search(params[:query])
+    end
   end
 
   def my_recipes
