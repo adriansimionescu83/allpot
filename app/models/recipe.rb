@@ -6,7 +6,7 @@ class Recipe < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :global_search,
-    against: %i[title summary total_ingredients],
+    against: %i[title summary total_ingredients diets],
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
