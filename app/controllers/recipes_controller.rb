@@ -46,8 +46,9 @@ class RecipesController < ApplicationController
 
   def get_ingredients
     @ingredients = ''
-    current_user.ingredients.each do |ingredient|
-      if ingredient == current_user.ingredients.last
+    available_ingredients = current_user.ingredients.select { |item|  item.is_available }
+    available_ingredients.each do |ingredient|
+      if ingredient == available_ingredients.last
         @ingredients += "#{ingredient.name.downcase}"
       else
        @ingredients += "#{ingredient.name.downcase},"
