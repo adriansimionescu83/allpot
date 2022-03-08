@@ -25,6 +25,9 @@
   background-color: $yellow;
   border-radius: 10px;
 
+  label {
+    width: 100%;
+  }
 
 }
 
@@ -56,3 +59,11 @@
 .select > option:first-child {
   border-bottom: 1px solid $mid-blue;
 }
+
+.modal-body input {
+  margin-right: 5px;
+}
+
+.check_box:checked:after{
+  background-color: $red;
+  }
