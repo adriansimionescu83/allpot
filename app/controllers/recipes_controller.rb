@@ -79,6 +79,8 @@ class RecipesController < ApplicationController
     recipes_serialized = URI.parse(@url).read
     recipes = JSON.parse(recipes_serialized)["results"]
 
+    binding.pry
+
     if !recipes.empty?
       Recipe.where(status: 'uncooked').destroy_all #removes all recipes that are not cooked so that these are replaced with the new matches found by API
       Recipe.where(status: 'cooked').update(is_latest_result: false) #marks all existing recipes that are cooked as old records
@@ -140,6 +142,7 @@ class RecipesController < ApplicationController
       carbs: recipe["carbs"],
       protein: recipe["protein"]
       )
+
       used_recipe_ingredients(new_recipe, recipe)
   end
 
