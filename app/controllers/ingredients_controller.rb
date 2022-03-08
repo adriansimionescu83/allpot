@@ -49,13 +49,16 @@ class IngredientsController < ApplicationController
     checked_ingredients = params[:recipe][:ingredients]
     @ingredients = current_user.ingredients.each do |pantry_ingredient|
       checked_ingredients.each do |checked_ingredient|
-        if checked_ingredient.include?(pantry_ingredient.name.downcase)
+
+        if (checked_ingredient.downcase.split(" ") & pantry_ingredient.downcase.split(" ")).length >= 1
           pantry_ingredient.is_available = false
           pantry_ingredient.save
-          authorize pantry_ingredient
+          # authorize pantry_ingredient
         end
       end
     end
+
+    authorize @ingredients.first
 
     redirect_to shopping_list_path
   end

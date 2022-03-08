@@ -6,6 +6,9 @@
           >Select all checkboxes
   </label>
   <input type="checkbox" id="select_all_checkboxes" />
-  <%= f.input :ingredients, collection: @ingredients, wrapper_html: {class: 'form-group', multiple: true }, input_html: { class: 'no-bs-validation', multiple: false, checked: false}, include_hidden: false, as: :check_boxes %>
+  <%= f.input :ingredients, collection: @ingredients,
+              wrapper_html: {class: 'form-group', multiple: true },
+              input_html: { class: 'no-bs-validation', multiple: false, checked: false},
+              include_hidden: false, as: :check_boxes %>
   <%= f.submit "ADD TO PANTRY", class: "btn btn-red w-100" %>
 <% end %>
