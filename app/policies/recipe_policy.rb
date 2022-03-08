@@ -29,4 +29,17 @@ class RecipePolicy < ApplicationPolicy
   def my_recipes?
     true
   end
+
+  def show_preferences?
+    true
+  end
+
+  def back?
+    true
+  end
+
+  def favorite?
+    true
+  end
+
 end

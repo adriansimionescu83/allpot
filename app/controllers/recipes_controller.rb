@@ -7,7 +7,7 @@ class RecipesController < ApplicationController
   def index
     get_ingredients
     call_api if current_user.call_api_recipes
-    @recipes = policy_scope(Recipe).where(user_id: current_user.id)
+    @recipes = policy_scope(Recipe).where(user_id: current_user.id).order(created_at: :desc)
     @user = current_user
 
     if params[:query].present?
@@ -15,11 +15,26 @@ class RecipesController < ApplicationController
     end
   end
 
+  def favorite
+    @recipe = Recipe.find(params[:id])
+    if @recipe.favorite == false
+     @recipe.favorite = true
+    else @recipe.favorite == true
+     @recipe.favorite = false
+    end
+
+    @recipe.save
+    redirect_to recipes_path
+
+    authorize @recipe
+  end
+
   def my_recipes
     @recipes = policy_scope(Recipe).where(user_id: current_user.id, status: 'cooked')
-
+    @favorite_recipes = policy_scope(Recipe).where(user_id: current_user.id, favorite: true)
     authorize @recipes
   end
+
 
   def cooked
     @recipe = Recipe.find(params[:id])
@@ -35,7 +50,6 @@ class RecipesController < ApplicationController
   end
 
   def show
-
     @recipe = Recipe.find(params[:id])
     @recipe.update(comments: params[:comments])
 
