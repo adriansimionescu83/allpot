@@ -21,12 +21,20 @@
           <! --- modal form --- >
           <%= simple_form_for @recipe , url: build_shopping_list_path do |f| %>
             <div class="modal-body">
-<%#
-            <%= f.input :ingredients, collection: @used_ingredients.ingredient.name, wrapper_html: {class: 'form-group', multiple: true }, input_html: { class: 'no-bs-validation', multiple: false, checked: false}, include_hidden: false, as: :check_boxes %>
 
+              <%# <% ingredients = @recipe.used_ingredients.map { |used_ingredient| [used_ingredient] } %>
+              <%# <%= f.input :ingredients, collection: ingredients, %>
+              <%# wrapper_html: {class: 'form-group', multiple: true }, %>
+              <%# input_html: { class: 'no-bs-validation', multiple: false, checked: false}, %>
+              <%# include_hidden: false, as: :check_boxes %>
 
               <% ingredients = @recipe.used_ingredients.map { |used_ingredient| [used_ingredient] } %>
-              <%= f.collection_check_boxes :ingredients, ingredients, :first, :first %>
+              <div class="col-12">
+                <%= f.collection_check_boxes :ingredients, ingredients, :first, :first,
+                                wrapper_html: {class: 'form-group', multiple: true },
+                                input_html: { class: 'no-bs-validation', multiple: false, checked: false},
+                                include_hidden: false, as: :check_boxes %>
+              </div>
               <div class="modal-footer">
                 <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100" %>
               </div>
@@ -53,8 +61,8 @@
     <div class="mb-3">
       <div class="ingredients p-4 mb-3 shadow-sm">
         <p><%= @recipe.used_ingredients_count %> used ingredients:</p>
-        <% @recipe.recipe_ingredients.each do |used_ingredient| %>
-          <span class="badge bg-red"><%= used_ingredient.ingredient.name %></span>
+        <% @recipe.used_ingredients.each do |used_ingredient| %>
+          <span class="badge bg-red"><%= used_ingredient %></span>
         <% end %>
 
       </div>

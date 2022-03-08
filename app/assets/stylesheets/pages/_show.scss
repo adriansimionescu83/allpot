@@ -54,3 +54,23 @@
   color: $dark-blue;
   font-weight: 400;
 }
+
+
+
+// shopping list modal
+
+.form-check-input.is-valid ~ .form-check-label {
+  color: $dark-blue;
+}
+
+.was-validated .form-check-input:valid, .form-check-input.is-valid {
+  border-color: $dark-blue;
+}
+
+.form-check-input.is-valid:checked {
+  background-color: $red;
+}
+
+.col-form-label {
+  display: none;
+}
