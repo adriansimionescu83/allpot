@@ -25,4 +25,8 @@ class IngredientPolicy < ApplicationPolicy
   def shopping_list?
     true
   end
+
+  def move_to_pantry?
+    true
+  end
 end

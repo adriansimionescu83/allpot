@@ -47,15 +47,34 @@ class IngredientsController < ApplicationController
 
   def build_shopping_list
     checked_ingredients = params[:recipe][:ingredients]
-    checked_ingredients.each do |ingredient|
-      ingredient.is_available = 'false'
-      ingredient.save
+    @ingredients = current_user.ingredients.each do |pantry_ingredient|
+      checked_ingredients.each do |checked_ingredient|
+        if checked_ingredient.include?(pantry_ingredient.name.downcase)
+          pantry_ingredient.is_available = false
+          pantry_ingredient.save
+          authorize pantry_ingredient
+        end
+      end
     end
 
-
     redirect_to shopping_list_path
+  end
 
+  def shopping_list
+    @ingredients = current_user.ingredients.where(is_available: false)
     authorize @ingredients
+  end
+
+  def move_to_pantry
+    checked_ingredients = params[:user][:ingredients]
+    checked_ingredients.each do |ingredient|
+      @ingredient = Ingredient.find(ingredient.to_i)
+      @ingredient.is_available = true
+      @ingredient.save
+      authorize @ingredient
+    end
+
+    redirect_to ingredients_path
   end
 
   private

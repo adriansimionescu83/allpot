@@ -21,13 +21,13 @@
           <! --- modal form --- >
           <%= simple_form_for @recipe , url: build_shopping_list_path do |f| %>
             <div class="modal-body">
+<%#
+            <%= f.input :ingredients, collection: @used_ingredients.ingredient.name, wrapper_html: {class: 'form-group', multiple: true }, input_html: { class: 'no-bs-validation', multiple: false, checked: false}, include_hidden: false, as: :check_boxes %>
 
-            <%= f.input :ingredients, collection: @recipe.used_ingredients, wrapper_html: {class: 'form-group', multiple: true }, input_html: { class: 'no-bs-validation', multiple: false, checked: false}, include_hidden: false, as: :check_boxes %>
 
-
-              <%# <% ingredients = @recipe.used_ingredients.map { |used_ingredient| [used_ingredient] } %>
-              <%# <%= f.collection_check_boxes :ingredients, ingredients, :first, :first %>
-              <%# <div class="modal-footer"> %>
+              <% ingredients = @recipe.used_ingredients.map { |used_ingredient| [used_ingredient] } %>
+              <%= f.collection_check_boxes :ingredients, ingredients, :first, :first %>
+              <div class="modal-footer">
                 <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100" %>
               </div>
             </div>
