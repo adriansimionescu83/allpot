@@ -6,7 +6,36 @@
   <div class="col-sm-9 offset-md-2 col-md-8 mt-4 mb-5 justify-content-center">
     <div class="mb-3">
       <%= link_to "BACK", :back, class: "btn btn-red mt-2" %>
-      <a href="<%=@recipe.id%>/cooked", class ="btn btn-yellow mt-2 mx-2 text-decoration-none text" >COOKED IT!</a>
+      <a href="<%=@recipe.id%>/cooked", class ="btn btn-yellow mt-2 mx-2 text-decoration-none text" data-bs-toggle="modal" data-bs-target="#shoppingListModal" >COOKED IT!</a>
+    </div>
+
+    <! -------------- modal for shopping list -------------- >
+    <div class="modal fade" id="shoppingListModal" tabindex="-1" aria-labelledby="shoppingListModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+           <! --- modal header --- >
+          <div class="modal-header">
+            <h5 class="modal-title" id="shoppingListModalLabel">Do you want to add these items to your <span style="color:#ed254e">shopping list?</span></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <! --- modal form --- >
+          <%= simple_form_for @recipe , url: build_shopping_list_path do |f| %>
+            <div class="modal-body">
+<%#
+            <%= f.input :ingredients, collection: @used_ingredients.ingredient.name, wrapper_html: {class: 'form-group', multiple: true }, input_html: { class: 'no-bs-validation', multiple: false, checked: false}, include_hidden: false, as: :check_boxes %>
+
+
+              <% ingredients = @recipe.used_ingredients.map { |used_ingredient| [used_ingredient] } %>
+              <%= f.collection_check_boxes :ingredients, ingredients, :first, :first %>
+              <div class="modal-footer">
+                <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100" %>
+              </div>
+            </div>
+          <% end %>
+
+
+        </div>
+      </div>
     </div>
 
     <! -------------- title -------------- >

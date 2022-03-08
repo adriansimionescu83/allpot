@@ -35,10 +35,10 @@ class RecipesController < ApplicationController
   end
 
   def show
-
     @recipe = Recipe.find(params[:id])
     @recipe.update(comments: params[:comments])
 
+    @used_ingredients = @recipe.recipe_ingredients
     authorize @recipe
   end
 
@@ -177,7 +177,7 @@ class RecipesController < ApplicationController
     params.require(:recipe).permit(:comments)
   end
 
-  Obsolete method. For now as our logic does not need to create recipe ingredients we can skip this step, Can be used in the future though if we find a way to get recipes by the amount of ingredients used
+  # Obsolete method. For now as our logic does not need to create recipe ingredients we can skip this step, Can be used in the future though if we find a way to get recipes by the amount of ingredients used
   def used_recipe_ingredients(new_recipe, recipe)
     current_user.ingredients.each do |pantry_ingredient|
       used_ingredient = recipe["usedIngredients"].find { |used_ingredient| used_ingredient["name"].include?(pantry_ingredient.name.downcase) }
