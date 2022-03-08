@@ -37,4 +37,9 @@ class RecipePolicy < ApplicationPolicy
   def back?
     true
   end
+
+  def favorite?
+    true
+  end
+
 end

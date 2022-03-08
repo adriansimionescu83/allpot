@@ -41,6 +41,21 @@
 
             <div class="card-div embed-responsive embed-responsive-16by9">
               <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
+
+                <% if recipe.favorite == false %>
+
+                  <%= link_to favorites_path(recipe) do %>
+                  <i class="fas fa-heart"></i>
+                  <% end %>
+
+                <% elsif recipe.favorite == true %>
+
+                  <%= link_to favorites_path(recipe) do %>
+                  <i class="fas fa-heart" style="color: #ed254e"></i>
+                  <% end %>
+
+                <% end %>
+
             </div>
 
             <div class="card-body">
@@ -48,6 +63,7 @@
   <! -------------- card title -------------- >
 
               <h5 class="card-title"><%= recipe.title %></h5>
+
 
 
   <! -------------- ingredients used and missed -------------- >

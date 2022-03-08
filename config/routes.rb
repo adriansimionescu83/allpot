@@ -7,7 +7,5 @@ Rails.application.routes.draw do
   resources :ingredients, only: %i[index create update destroy]
   get 'recipes/:id/cooked', to: 'recipes#cooked'
   get 'my_recipes', to: 'recipes#my_recipes'
-
-
-
+  get 'recipes/:id/favorite', to: 'recipes#favorite', as: :favorites
 end
