@@ -134,7 +134,11 @@ class RecipesController < ApplicationController
       aggregate_likes: recipe["aggregateLikes"],
       source_url: recipe["sourceUrl"],
       steps: description_steps,
-      diets: recipe["diets"]
+      diets: recipe["diets"],
+      calories: recipe["calories"],
+      fat: recipe["fat"],
+      carbs: recipe["carbs"],
+      protein: recipe["protein"]
       )
       used_recipe_ingredients(new_recipe, recipe)
   end
