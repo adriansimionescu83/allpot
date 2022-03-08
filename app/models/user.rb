@@ -6,8 +6,12 @@ class User < ApplicationRecord
   has_many :ingredients, dependent: :destroy
   has_many :recipes, dependent: :destroy
 
+  validates :password, length: { in: 6..128 }, if: lambda {self.password.present?}
+  validates_confirmation_of :password, if: lambda {self.password.present?}
+
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable
+        #  , :validatable
 
   def password_required?
     if respond_to?(:reset_password_token)
