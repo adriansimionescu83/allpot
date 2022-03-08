@@ -12,20 +12,31 @@
 
   <div class="ingredients-container row col-12 offset-md-2 col-md-8 mt-3">
     <% @categories.each_with_index do |category, index| %>
-
       <div class="accordion mb-4" id="accordion">
-        <div class="accordion-item">
+        <div class="accordion-item ">
 
           <! ------------------------ ACCORDIAN HEADER ------------------------ >
-          <h2 class="accordion-header" id="heading-<%= index %>">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= index %>" aria-expanded="false" aria-controls="collapse-<%= index %>">
+          <%# <div class="d-flex justify-content-space-between"> %>
+          <h2 class="accordion-header d-flex" id="heading-<%= index %>">
+            <div class="d-flex align-items-start" >
+              <button type="button" class="btn-plus" data-bs-toggle="modal" data-bs-target="#ingredientModal-<%= index %>">
+              <i class="fas fa-plus"></i></button>
+            </div>
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= index %>" aria-expanded="false" aria-controls="collapse-<%= index %>">
+
               <strong><%= category %></strong>
             </button>
           </h2>
 
+
+
+
+<%# style="right:100px; z-index:1000;" %>
+
+
           <! ------------------------ ACCORDIAN BODY ------------------------ >
 
-          <div id="collapse-<%= index %>" class="accordion-collapse collapse" aria-labelledby="heading-<%= index %>" data-bs-parent="#accordion">
+          <div id="collapse-<%= index %>" class="accordion-collapse collapse show" aria-labelledby="heading-<%= index %>" data-bs-parent="#accordion">
             <div class="accordion-body py-4 px-4">
 
                 <! ------------------------ ADD INGREDIENT FORM ------------------------ >
@@ -44,11 +55,6 @@
                   <hr>
                 <% end %>
               <% end %>
-
-               <button type="button" class="btn btn-red offset-3 col-6 offset-md-4 col-md-4 my-3" data-bs-toggle="modal" data-bs-target="#ingredientModal-<%= index %>">
-                ADD ITEM
-              </button>
-
               <! ------------------------ ADD INGREDIENT MODAL INSIDE EACH CATEGORY ------------------------ >
               <div class="modal fade" id="ingredientModal-<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

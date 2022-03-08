@@ -21,25 +21,15 @@
           <! --- modal form --- >
           <%= simple_form_for @recipe , url: build_shopping_list_path do |f| %>
             <div class="modal-body">
+              <% ingredients = @recipe.recipe_ingredients.map { |used_ingredient| [used_ingredient.ingredient.name, used_ingredient.ingredient_id]} %>
+               <%= f.collection_check_boxes :ingredients, ingredients, :last, :first,
+               {:item_wrapper_class => 'checkbox_container'} %>
 
-              <%# <% ingredients = @recipe.used_ingredients.map { |used_ingredient| [used_ingredient] } %>
-              <%# <%= f.input :ingredients, collection: ingredients, %>
-              <%# wrapper_html: {class: 'form-group', multiple: true }, %>
-              <%# input_html: { class: 'no-bs-validation', multiple: false, checked: false}, %>
-              <%# include_hidden: false, as: :check_boxes %>
+                <%# :ingredients are sent to params
+                    ingredients is an array of arrays only the ones checked will be sent to the controller
+                    :first is the element of array that will be displayed in the list
+                    :last is the second element of the array that will be sent in params%>
 
-              <% ingredients = @recipe.used_ingredients.map { |used_ingredient| [used_ingredient] } %>
-              <div class="mb-4">
-                <%= f.collection_check_boxes :ingredients, ingredients, :first, :first,
-                                wrapper_html: {class: 'form-group', multiple: true },
-                                input_html: { class: 'no-bs-validation', multiple: false, checked: false},
-                                include_hidden: false, as: :check_boxes do |item| %>
-                  <%= item.label(class: "check_box") do %>
-                    <%= item.check_box(class: "check_box_red") %>
-                    <%= item.object.first %>
-                    <br>
-                  <% end %>
-                <% end %>
               </div>
               <div class="modal-footer">
                 <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100" %>
@@ -70,7 +60,6 @@
         <% @recipe.used_ingredients.each do |used_ingredient| %>
           <span class="badge bg-red"><%= used_ingredient %></span>
         <% end %>
-
       </div>
 
       <div class="ingredients p-4 shadow-sm mb-4">

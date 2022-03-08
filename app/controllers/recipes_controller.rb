@@ -53,8 +53,8 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.update(comments: params[:comments])
 
-    @used_ingredients = @recipe.recipe_ingredients
-
+    @ingredients = @recipe.recipe_ingredients
+    create_recipe_ingredients(@recipe) unless @recipe.recipe_ingredients.count > 0
     authorize @recipe
   end
 
@@ -137,7 +137,6 @@ class RecipesController < ApplicationController
       steps: description_steps,
       diets: recipe["diets"]
       )
-      used_recipe_ingredients(new_recipe, recipe)
   end
 
   def unused_ingredients(recipe)
@@ -193,17 +192,16 @@ class RecipesController < ApplicationController
     params.require(:recipe).permit(:comments)
   end
 
-  def used_recipe_ingredients(new_recipe, recipe)
+  def create_recipe_ingredients(recipe)
     current_user.ingredients.each do |pantry_ingredient|
-      used_ingredient = recipe["usedIngredients"].find { |used_ingredient| used_ingredient["name"].include?(pantry_ingredient.name.downcase) }
-
-      if !used_ingredient.nil?
-
-        RecipeIngredient.create(
-          ingredient_id: pantry_ingredient.id,
-          recipe_id: new_recipe.id
-        )
-      end
+      recipe.used_ingredients.each do |used_ingredient|
+        if (used_ingredient.downcase.split(" ") & pantry_ingredient.name.downcase.split(" ")).length >= 1
+          RecipeIngredient.create(
+            ingredient_id: pantry_ingredient.id,
+            recipe_id: recipe.id,
+          )
+        end
+     end
     end
   end
 end
