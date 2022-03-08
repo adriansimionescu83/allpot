@@ -42,6 +42,53 @@
      }
 }
 
-.search-form {
-  width: 60%;
+
+.search-input {
+  margin-right: -1px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.search-button {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.check_box_red {
+  background-color: $red;
+}
+input.check_box:checked {
+  background-color: $red;
+}
+
+
+.check-box-design {
+  color: red;
+}
+
+
+
+.form-check {
+  border-bottom: 1px solid #cfcfcf;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  padding-left: 50px;
+}
+
+
+
+.form-check-input {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.form-check-input[type="checkbox"] {
+  border-radius: 1em;
+}
+
+.form-check-input.is-valid ~ .form-check-label {
+  margin-left: 5px;
+  margin-top: 2px;
 }

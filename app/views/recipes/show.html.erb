@@ -29,6 +29,7 @@
                     ingredients is an array of arrays only the ones checked will be sent to the controller
                     :first is the element of array that will be displayed in the list
                     :last is the second element of the array that will be sent in params%>
+
               </div>
               <div class="modal-footer">
                 <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100" %>
@@ -44,18 +45,18 @@
     <! -------------- title -------------- >
     <h2 class="mb-2"><strong><%= @recipe.title %></strong></h2>
     <div class="d-flex">
-    <p class="card-text mb-3"><span><i class="fas fa-hourglass-half"></i></span> <%= @recipe.ready_in_minutes %> mins</p>
-    <p class="card-text mb-3 mx-3"><span><i class="fas fa-heart"></i></span> <%= @recipe.aggregate_likes %> likes</p>
-    <p class="card-text mb-3 mx-3"><span><i class="fas fa-utensils"></i></span> <%= @recipe.servings %> servings</p>
+    <p class="card-text mb-3"><span><i class="fas fa-hourglass-half"></i></span> <%= pluralize(@recipe.ready_in_minutes, "min") %></p>
+    <p class="card-text mb-3 mx-3"><span><i class="fas fa-heart"></i></span> <%= pluralize(@recipe.aggregate_likes, "like") %></p>
+    <p class="card-text mb-3"><span><i class="fas fa-utensils"></i></span> <%= pluralize(@recipe.servings, "serving") %></p>
     </div>
 
     <! -------------- image -------------- >
     <img src="<%= @recipe.image_url %>" class="img-fluid mb-4 shadow-sm" alt="">
 
-    <! -------------- used and missed ingredients -------------- >
+    <! -------------- available and missed ingredients -------------- >
     <div class="mb-3">
       <div class="ingredients p-4 mb-3 shadow-sm">
-        <p><%= @recipe.used_ingredients_count %> used ingredients:</p>
+        <p><%= @recipe.used_ingredients_count %> available ingredients:</p>
         <% @recipe.used_ingredients.each do |used_ingredient| %>
           <span class="badge bg-red"><%= used_ingredient %></span>
         <% end %>

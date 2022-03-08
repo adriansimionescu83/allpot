@@ -1,14 +1,30 @@
-<h1>shopping list</h1>
-<%= simple_form_for current_user, url: move_to_pantry_path do |f| %>
-  <label
-          for="select_all_checkboxes"
-          class="visuallyhidden"
-          >Select all checkboxes
-  </label>
-  <input type="checkbox" id="select_all_checkboxes" />
-  <%= f.input :ingredients, collection: @ingredients,
-              wrapper_html: {class: 'form-group', multiple: true },
-              input_html: { class: 'no-bs-validation', multiple: false, checked: false},
-              include_hidden: false, as: :check_boxes %>
-  <%= f.submit "ADD TO PANTRY", class: "btn btn-red w-100" %>
-<% end %>
+<div class="header">
+  <h1>Shopping List</h1>
+</div>
+
+<div class="container py-3">
+
+  <div class="ingredients-container row col-12 offset-md-2 col-md-8 mt-3">
+
+
+    <%= simple_form_for current_user, url: move_to_pantry_path do |f| %>
+      <input type="checkbox" id="select_all_checkboxes" />
+      <label
+              for="select_all_checkboxes"
+              class="visuallyhidden"
+              >Select all
+      </label>
+
+      <%= f.input :ingredients, collection: @ingredients,
+                  wrapper_html: {class: 'form-group mt-3', multiple: true },
+                  input_html: { class: 'no-bs-validation', multiple: false, checked: false},
+                  include_hidden: false, as: :check_boxes %>
+
+
+      <%= f.submit "ADD TO PANTRY", class: "btn btn-red w-100" %>
+    <% end %>
+
+
+  </div>
+
+</div>

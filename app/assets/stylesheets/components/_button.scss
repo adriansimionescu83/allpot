@@ -35,14 +35,23 @@
   color: $red;
 }
 
-.fa-heart {
-  position:   absolute;
-  top: 10px;
-  right: 12px;
-}
+.card-div {
 
-.fa-heart:hover {
-  color:$red;
+  .fa-heart {
+    position:   absolute;
+    top: 10px;
+    right: 12px;
+    color: rgb(183, 183, 183);
+    font-size: 1.2rem;
+    padding: 7px;
+    background-color: white;
+    border-radius: 20px;
+  }
+
+  .fa-heart:hover {
+    color:$red;
+
+  }
 }
 
 .btn-plus {
