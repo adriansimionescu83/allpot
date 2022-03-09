@@ -1,6 +1,7 @@
 .accordion-item:last-of-type {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
+  overflow: hidden;
 }
 
 .accordion-item:first-of-type {
@@ -10,18 +11,18 @@
 
 .accordion-item:last-of-type .accordion-button.collapsed {
   border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 0px;
 }
 
 .accordion-item:first-of-type .accordion-button {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 5px;
 }
 
 
 .accordion-item:first-of-type .accordion-button {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
 }
 
 .accordion-button .collapsed {

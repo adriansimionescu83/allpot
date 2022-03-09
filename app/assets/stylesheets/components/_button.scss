@@ -59,5 +59,20 @@
   border: none;
   height: 100%;
   font-size: 16px;
+  color: $dark-blue;
+  width: 45px;
+  padding: 10px;
+  border-top-left-radius: 0px;
+
+}
+
+.btn-plus:hover {
   color: $red;
+}
+
+
+.ingredient button {
+  border: none;
+  background-color: transparent;
+
 }
