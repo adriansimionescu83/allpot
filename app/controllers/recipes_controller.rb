@@ -87,7 +87,7 @@ class RecipesController < ApplicationController
     recipes = JSON.parse(recipes_serialized)["results"]
 
     if !recipes.empty?
-      Recipe.where(status: 'uncooked').destroy_all #removes all recipes that are not cooked so that these are replaced with the new matches found by API
+      Recipe.where(status: 'uncooked', favorite: false).destroy_all #removes all recipes that are not cooked so that these are replaced with the new matches found by API
       Recipe.where(status: 'cooked').update(is_latest_result: false) #marks all existing recipes that are cooked as old records
     end
 
@@ -141,7 +141,7 @@ class RecipesController < ApplicationController
       aggregate_likes: recipe["aggregateLikes"],
       source_url: recipe["sourceUrl"],
       steps: description_steps,
-      diets: recipe["diets"],
+      diets: recipe["diets"]
       )
   end
 
