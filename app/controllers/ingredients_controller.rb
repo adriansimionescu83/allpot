@@ -52,7 +52,17 @@ class IngredientsController < ApplicationController
     @ingredients.update_all(is_available: false) unless @ingredients.empty?
     authorize @ingredients
 
-    redirect_to shopping_list_path
+    redirect_to recipes_path
+  end
+
+  def add_to_shopping_list
+    @ingredient = Ingredient.find(params[:id])
+    @ingredient.update(is_available: false)
+    @ingredient.save
+
+    authorize @ingredient
+
+    redirect_to ingredients_path
   end
 
   def shopping_list

@@ -3,129 +3,120 @@
 
   <! -------------- recipe details -------------- >
 
-  <div class="col-sm-9 offset-md-2 col-md-8 mt-4 mb-5 justify-content-center">
-    <div class="mb-3">
-      <%= link_to "BACK", :back, class: "btn btn-red mt-2" %>
-      <a href="<%=@recipe.id%>/cooked", class ="btn btn-yellow mt-2 mx-2 text-decoration-none text" data-bs-toggle="modal" data-bs-target="#shoppingListModal" >COOKED IT!</a>
-    </div>
+  <div class="my-3">
+    <%= link_to "BACK", :back, class: "btn btn-red mt-2" %>
+    <a href="<%=@recipe.id%>/cooked", class ="btn btn-yellow mt-2 mx-2 text-decoration-none text" data-bs-toggle="modal" data-bs-target="#shoppingListModal" >COOKED IT!</a>
+  </div>
 
-    <! -------------- modal for shopping list -------------- >
-    <div class="modal fade" id="shoppingListModal" tabindex="-1" aria-labelledby="shoppingListModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-           <! --- modal header --- >
-          <div class="modal-header">
-            <h5 class="modal-title" id="shoppingListModalLabel">Do you want to add these items to your <span style="color:#ed254e">shopping list?</span></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <! --- modal form --- >
-          <%= simple_form_for @recipe , url: build_shopping_list_path do |f| %>
-            <div class="modal-body">
-              <% ingredients = @recipe.recipe_ingredients.map { |used_ingredient| [used_ingredient.ingredient.name, used_ingredient.ingredient_id]} %>
-               <%= f.collection_check_boxes :ingredients, ingredients, :last, :first,
-               {:item_wrapper_class => 'checkbox_container'} %>
-
-                <%# :ingredients are sent to params
-                    ingredients is an array of arrays only the ones checked will be sent to the controller
-                    :first is the element of array that will be displayed in the list
-                    :last is the second element of the array that will be sent in params%>
-
-              </div>
-              <div class="modal-footer">
-                <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100" %>
-              </div>
-            </div>
-          <% end %>
-
-
+  <! -------------- modal for shopping list -------------- >
+  <div class="modal fade" id="shoppingListModal" tabindex="-1" aria-labelledby="shoppingListModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+          <! --- modal header --- >
+        <div class="modal-header">
+          <h5 class="modal-title" id="shoppingListModalLabel">Do you want to add these items to your <span style="color:#ed254e">shopping list?</span></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <! --- modal form --- >
+        <%= simple_form_for @recipe , url: build_shopping_list_path do |f| %>
+          <div class="modal-body">
+            <% ingredients = @recipe.recipe_ingredients.map { |used_ingredient| [used_ingredient.ingredient.name, used_ingredient.ingredient_id]} %>
+              <%= f.collection_check_boxes :ingredients, ingredients, :last, :first,
+              {:item_wrapper_class => 'checkbox_container'} %>
+
+              <%# :ingredients are sent to params
+                  ingredients is an array of arrays only the ones checked will be sent to the controller
+                  :first is the element of array that will be displayed in the list
+                  :last is the second element of the array that will be sent in params%>
+
+            <div class="modal-footer">
+              <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100" %>
+            </div>
+          </div>
+        <% end %>
+
+
       </div>
     </div>
+  </div>
 
-    <! -------------- title -------------- >
-    <h2 class="mb-2"><strong><%= @recipe.title %></strong></h2>
-    <div class="d-flex">
+
+
+  <! -------------- title -------------- >
+  <h2 class="mb-2"><strong><%= @recipe.title %></strong></h2>
+  <div class="d-flex">
     <p class="card-text mb-3"><span><i class="fas fa-hourglass-half"></i></span> <%= pluralize(@recipe.ready_in_minutes, "min") %></p>
     <p class="card-text mb-3 mx-3"><span><i class="fas fa-heart"></i></span> <%= pluralize(@recipe.aggregate_likes, "like") %></p>
     <p class="card-text mb-3"><span><i class="fas fa-utensils"></i></span> <%= pluralize(@recipe.servings, "serving") %></p>
+  </div>
+
+  <! -------------- image -------------- >
+  <img src="<%= @recipe.image_url %>" class="img-fluid mb-4 shadow-sm" alt="">
+
+  <! -------------- available and missed ingredients -------------- >
+  <div class="mb-3">
+    <div class="ingredients p-4 mb-3 shadow-sm">
+      <p><%= @recipe.used_ingredients_count %> available ingredients:</p>
+      <% @recipe.used_ingredients.each do |used_ingredient| %>
+        <span class="badge bg-red"><%= used_ingredient %></span>
+      <% end %>
     </div>
 
-    <! -------------- image -------------- >
-    <img src="<%= @recipe.image_url %>" class="img-fluid mb-4 shadow-sm" alt="">
-
-    <! -------------- available and missed ingredients -------------- >
-    <div class="mb-3">
-      <div class="ingredients p-4 mb-3 shadow-sm">
-        <p><%= @recipe.used_ingredients_count %> available ingredients:</p>
-        <% @recipe.used_ingredients.each do |used_ingredient| %>
-          <span class="badge bg-red"><%= used_ingredient %></span>
-        <% end %>
-      </div>
-
-      <div class="ingredients p-4 shadow-sm mb-4">
-        <p><%= @recipe.missed_ingredients_count %> missed ingredients:</p>
-        <% @recipe.missed_ingredients.each do |missed_ingredient| %>
-          <span class="badge bg-grey"><%= missed_ingredient %></span>
-        <% end %>
-      </div>
-
-      <! -------------- about -------------- >
-
-      <div class="directions">
-        <h3>About this recipe:</h3>
-        <p><%= simple_format(@recipe.summary) %></p>
-      </div>
-
-      <br>
-      <hr>
-      <br>
-
-      <! -------------- total ingredients -------------- >
-
-      <div class="directions">
-        <h3>Ingredients:</h3>
-        <% @recipe.total_ingredients.each do |total_ingredient| %>
-          <li><%= raw total_ingredient %></li>
-        <% end %>
-      </div>
-
-      <br>
-      <hr>
-      <br>
-
+    <div class="ingredients p-4 shadow-sm mb-4">
+      <p><%= @recipe.missed_ingredients_count %> missed ingredients:</p>
+      <% @recipe.missed_ingredients.each do |missed_ingredient| %>
+        <span class="badge bg-grey"><%= missed_ingredient %></span>
+      <% end %>
     </div>
 
-    <! -------------- directions -------------- >
-    <% if @recipe.steps%>
-      <div class="directions mb-3">
-        <h3>Directions:</h3>
-        <% @recipe.steps.each do |step| %>
-          <div class="steps p-3 shadow-sm mb-3">
-            <p><%= raw step %></p>
-          </div>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="directions mb-4">
-        <h3>Directions:</h3>
-        <p>Visit <%= @recipe.source_url %></p>
-      </div>
-    <% end %>
+    <! -------------- about -------------- >
 
-
-    <! -------------- back to top button -------------- >
-
-    <div class="d-flex justify-content-center my-3" data-controller="recipe-detail">
-    <button class="btn btn-red w-100" onclick='javascript:window.scrollTo(0, 0);'>BACK TO TOP <i class="fas fa-angle-up"></i></button>
+    <div class="directions">
+      <h3>About this recipe:</h3>
+      <p><%= simple_format(@recipe.summary) %></p>
     </div>
 
-    <%# <div> %>
-      <%# <h3>Note to self:</h3> %>
-      <%# <%= simple_form_for @recipe do |f| %>
-        <%# <%= f.text :comments %>
-        <%# <%= f.submit "Add Note", class: "btn btn-red w-100" %>
-      <%# <% end %>
-    <%# </div> %>
+    <br>
+    <hr>
+    <br>
+
+    <! -------------- total ingredients -------------- >
+
+    <div class="directions">
+      <h3>Ingredients:</h3>
+      <% @recipe.total_ingredients.each do |total_ingredient| %>
+        <li><%= raw total_ingredient %></li>
+      <% end %>
+    </div>
+
+    <br>
+    <hr>
+    <br>
 
   </div>
+
+  <! -------------- directions -------------- >
+  <% if @recipe.steps%>
+    <div class="directions mb-3">
+      <h3>Directions:</h3>
+      <% @recipe.steps.each do |step| %>
+        <div class="steps p-3 shadow-sm mb-3">
+          <p><%= raw step %></p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="directions mb-4">
+      <h3>Directions:</h3>
+      <p>Visit <%= @recipe.source_url %></p>
+    </div>
+  <% end %>
+
+
+  <! -------------- back to top button -------------- >
+
+  <div class="d-flex justify-content-center my-5" data-controller="recipe-detail">
+    <button class="btn btn-red w-100" onclick='javascript:window.scrollTo(0, 0);'>BACK TO TOP <i class="fas fa-angle-up"></i></button>
+  </div>
+
 </div>
