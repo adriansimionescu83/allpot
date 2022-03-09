@@ -35,7 +35,6 @@ class IngredientsController < ApplicationController
 
   def destroy
     ingredient_find
-    authorize @ingredient
 
     @ingredient.destroy
 
@@ -43,21 +42,26 @@ class IngredientsController < ApplicationController
     current_user.save
 
     redirect_to ingredients_path
+    authorize @ingredient
+
   end
 
   def build_shopping_list
-    checked_ingredients = params[:recipe][:ingredients]
-    @ingredients = current_user.ingredients.each do |pantry_ingredient|
-      checked_ingredients.each do |checked_ingredient|
-        if checked_ingredient.include?(pantry_ingredient.name.downcase)
-          pantry_ingredient.is_available = false
-          pantry_ingredient.save
-          authorize pantry_ingredient
-        end
-      end
-    end
+    @ingredients = current_user.ingredients.where(id: params[:recipe][:ingredients])
+    @ingredients.update_all(is_available: false) unless @ingredients.empty?
+    authorize @ingredients
 
-    redirect_to shopping_list_path
+    redirect_to recipes_path
+  end
+
+  def add_to_shopping_list
+    @ingredient = Ingredient.find(params[:id])
+    @ingredient.update(is_available: false)
+    @ingredient.save
+
+    authorize @ingredient
+
+    redirect_to ingredients_path
   end
 
   def shopping_list

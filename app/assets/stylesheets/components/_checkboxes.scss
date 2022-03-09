@@ -1,0 +1,15 @@
+.checkbox_container {
+  display: block;
+  vertical-align: 1px;
+  margin: 5px;
+ }
+.checkbox_container input {
+  display: inline;
+  background-color: $red !important;
+  color: $red !important;
+ }
+.checkbox_container .collection_check_boxes{
+  display: inline;
+  vertical-align: 1px;
+  margin: 10px;
+ }

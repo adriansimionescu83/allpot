@@ -12,42 +12,19 @@
 
   <div class="ingredients-container row col-12 offset-md-2 col-md-8 mt-3">
     <% @categories.each_with_index do |category, index| %>
-
       <div class="accordion mb-4" id="accordion">
-        <div class="accordion-item">
+        <div class="accordion-item ">
 
           <! ------------------------ ACCORDIAN HEADER ------------------------ >
-          <h2 class="accordion-header" id="heading-<%= index %>">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= index %>" aria-expanded="true" aria-controls="collapse-<%= index %>">
-              <strong><%= category %></strong>
-            </button>
-          </h2>
+          <%# <div class="d-flex justify-content-space-between"> %>
+          <h2 class="accordion-header d-flex" id="heading-<%= index %>">
+            <div class="d-flex align-items-start" >
+              <button type="button" class="btn-plus" data-bs-toggle="modal" data-bs-target="#ingredientModal-<%= index %>">
+              <i class="fas fa-plus"></i></button>
+            </div>
 
-          <! ------------------------ ACCORDIAN BODY ------------------------ >
 
-          <div id="collapse-<%= index %>" class="accordion-collapse collapse" aria-labelledby="heading-<%= index %>" data-bs-parent="#accordion">
-            <div class="accordion-body py-4 px-4">
 
-                <! ------------------------ ADD INGREDIENT FORM ------------------------ >
-
-              <% @ingredients.each do |ingredient| %>
-                <% if ingredient.category == category && ingredient.is_available == true %>
-                  <div class="d-flex justify-content-between ingredient">
-                    <li class="ingredient"><%= ingredient.name %></li>
-                    <li class="ingredient">
-                        <%= link_to ingredient_path(ingredient),
-                          method: :delete, data: { confirm: "Are you sure?" } do %>
-                          <i class="fas fa-trash-alt"></i>
-                        <% end %>
-                    </li>
-                  </div>
-                  <hr>
-                <% end %>
-              <% end %>
-
-               <button type="button" class="btn btn-red offset-3 col-6 offset-md-4 col-md-4 my-3" data-bs-toggle="modal" data-bs-target="#ingredientModal-<%= index %>">
-                ADD ITEM
-              </button>
 
               <! ------------------------ ADD INGREDIENT MODAL INSIDE EACH CATEGORY ------------------------ >
               <div class="modal fade" id="ingredientModal-<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -74,6 +51,66 @@
                   <% end %>
                 </div>
               </div>
+
+
+
+
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= index %>" aria-expanded="false" aria-controls="collapse-<%= index %>">
+              <strong><%= category %></strong>
+            </button>
+
+          </h2>
+
+
+
+
+<%# style="right:100px; z-index:1000;" %>
+
+
+          <! ------------------------ ACCORDIAN BODY ------------------------ >
+
+          <div id="collapse-<%= index %>" class="accordion-collapse collapse show" aria-labelledby="heading-<%= index %>" data-bs-parent="#accordion">
+            <div class="accordion-body py-4 px-4">
+
+              <! ------------------------ LIST OF INGREDIENTS ------------------------ >
+
+              <% @ingredients.each_with_index do |ingredient, index| %>
+                <% if ingredient.category == category && ingredient.is_available == true %>
+                  <div class="d-flex justify-content-between ingredient">
+                    <li class="ingredient"><%= ingredient.name %></li>
+                    <button data-bs-toggle="modal" data-bs-target="#deleteModal-<%= index %>">
+                      <li class="ingredient"><i class="fas fa-trash-alt"></i></li>
+                    </button>
+                  </div>
+                  <hr>
+                <% end %>
+
+                <! ------------------------ DELETE OR ADD TO SHOPPING LIST MODAL ------------------------ >
+                <div class="modal fade" id="deleteModal-<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <%= simple_form_for @ingredient do |f| %>
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%= ingredient.name %>:</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-footer">
+                          <%= link_to "DELETE ONLY", ingredient_path(ingredient), method: :delete, class: "btn btn-red w-100" %>
+                          <%= link_to "DELETE & ADD TO SHOPPING LIST", add_to_shopping_list_path(ingredient), method: :patch, class: "btn btn-red w-100" %>
+                        </div>
+
+                      <% end %>
+
+                    </div>
+                  </div>
+                </div>
+
+
+
+              <% end %>
+
+
 
             </div>
           </div>

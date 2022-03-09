@@ -57,7 +57,8 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.update(comments: params[:comments])
 
-    @used_ingredients = @recipe.recipe_ingredients
+    @ingredients = @recipe.recipe_ingredients
+    create_recipe_ingredients(@recipe) unless @recipe.recipe_ingredients.count > 0
     authorize @recipe
   end
 
@@ -78,8 +79,10 @@ class RecipesController < ApplicationController
   def call_api
     diet = current_user.diet.join(',').downcase
     intolerances = current_user.intolerances.join(',').downcase
+    sort_by = 'min-missing-ingredients' #More options on sorting here https://spoonacular.com/food-api/docs#Recipe-Sorting-Options
+    sort_direction = 'asc'
     api_key = ENV["SPOONTACULAR_API_KEY"]
-    @url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=10&includeIngredients=#{@ingredients}&addRecipeInformation=true&sort=max-used-ingredients&sortDirection=desc&fillIngredients=true&diet=#{diet}&intolerances=#{intolerances}"
+    @url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=100&includeIngredients=#{@ingredients}&addRecipeInformation=true&sort=#{sort_by}&sortDirection=#{sort_direction}&fillIngredients=true&diet=#{diet}&intolerances=#{intolerances}"
     recipes_serialized = URI.parse(@url).read
     recipes = JSON.parse(recipes_serialized)["results"]
 
@@ -142,8 +145,6 @@ class RecipesController < ApplicationController
       steps: description_steps,
       diets: recipe["diets"],
       )
-
-      used_recipe_ingredients(new_recipe, recipe)
   end
 
   def unused_ingredients(recipe)
@@ -199,18 +200,16 @@ class RecipesController < ApplicationController
     params.require(:recipe).permit(:comments)
   end
 
-  # Obsolete method. For now as our logic does not need to create recipe ingredients we can skip this step, Can be used in the future though if we find a way to get recipes by the amount of ingredients used
-  def used_recipe_ingredients(new_recipe, recipe)
+  def create_recipe_ingredients(recipe)
     current_user.ingredients.each do |pantry_ingredient|
-      used_ingredient = recipe["usedIngredients"].find { |used_ingredient| used_ingredient["name"].include?(pantry_ingredient.name.downcase) }
-
-      if !used_ingredient.nil?
-
-        RecipeIngredient.create(
-          ingredient_id: pantry_ingredient.id,
-          recipe_id: new_recipe.id
-        )
-      end
+      recipe.used_ingredients.each do |used_ingredient|
+       if used_ingredient.downcase.split(" ").any? {|ingredient| pantry_ingredient.name.include? ingredient} || pantry_ingredient.name.downcase.split(" ").any? {|ingredient| used_ingredient.include? ingredient}
+          RecipeIngredient.create(
+            ingredient_id: pantry_ingredient.id,
+            recipe_id: recipe.id,
+          )
+        end
+     end
     end
   end
 end

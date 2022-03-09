@@ -1,31 +1,37 @@
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Favorites</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">My Recipes</button>
-  </li>
-</ul>
+
+<! -------------- tabs -------------- >
+<div class="col-12">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+    <! -------------- favorites tab -------------- >
+      <li class="nav-item w-50" role="presentation">
+        <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Favorites</button>
+      </li>
+
+    <! -------------- cooked tab -------------- >
+      <li class="nav-item w-50" role="presentation">
+        <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Cooked</button>
+      </li>
+  </ul>
+
+</div>
+
 <div class="tab-content" id="myTabContent">
+  <! -------------- favorites content -------------- >
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-    <div class="bkg-mid-blue">
-  <div class="container main-title">
-    <h1 class="recipes-header"><strong>Favorites</strong></h1>
-  </div>
-</div>
 
-<div class="container recipe-index my-5">
-  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="container recipe-index my-5">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
 
-  <! -------------- recipes cards -------------- >
+        <! -------------- recipes cards -------------- >
 
-    <% @favorite_recipes.each do |recipe| %>
+        <% @favorite_recipes.each do |recipe| %>
 
-      <div class="col">
-        <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
-          <div class="card h-100 shadow-sm">
+          <div class="col">
+            <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
+              <div class="card h-100 shadow-sm">
 
-  <! -------------- card image -------------- >
+                <! -------------- card image -------------- >
 
             <div class="card-div embed-responsive embed-responsive-16by9" data-controller="favorite">
               <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
@@ -46,82 +52,75 @@
 
             </div>
 
-            <div class="card-body">
+                <div class="card-body">
 
-  <! -------------- card title -------------- >
+                  <! -------------- card title -------------- >
 
-              <h5 class="card-title"><%= recipe.title %></h5>
+                  <h5 class="card-title"><%= recipe.title %></h5>
 
-  <! -------------- ingredients used and missed -------------- >
+                  <! -------------- ingredients used and missed -------------- >
 
-              <div class="ingredients mb-3">
-                <p><%= recipe.used_ingredients_count %> used ingredients:</p>
-                <% recipe.used_ingredients.each do |used_ingredient| %>
-                  <span class="badge bg-red"><%= used_ingredient %></span>
-                <% end %>
+                  <div class="ingredients mb-3">
+                    <p><%= recipe.used_ingredients_count %> used ingredients:</p>
+                    <% recipe.used_ingredients.each do |used_ingredient| %>
+                      <span class="badge bg-red"><%= used_ingredient %></span>
+                    <% end %>
 
-                <hr>
+                    <hr>
 
-                <p><%= recipe.missed_ingredients_count %> missed ingredients:</p>
-                <% recipe.missed_ingredients.each do |missed_ingredient| %>
-                  <span class="badge bg-grey"><%= missed_ingredient %></span>
-                <% end %>
+                    <p><%= recipe.missed_ingredients_count %> missed ingredients:</p>
+                    <% recipe.missed_ingredients.each do |missed_ingredient| %>
+                      <span class="badge bg-grey"><%= missed_ingredient %></span>
+                    <% end %>
+
+                  </div>
+
+                  <! -------------- show if cooked -------------- >
+
+                  <% if recipe.status == "cooked" %>
+                    <hr>
+                    <div class="cooked d-flex mt-3">
+                      <i class="fas fa-check-square"></i>
+                      <p> You have cooked this before!</p>
+                    </div>
+                  <% end %>
+                </div>
+
+
+                <! -------------- recipe time and ingredient ratio -------------- >
+
+                <div class="d-flex card-footer">
+                  <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= recipe.ready_in_minutes %> mins</p>
+                  <p><strong><%= recipe.used_ingredients_count %> / <%= (recipe.used_ingredients_count + recipe.missed_ingredients_count) %></strong> in stock</p>
+                </div>
 
               </div>
-
-  <! -------------- show if cooked -------------- >
-
-              <% if recipe.status == "cooked" %>
-                <hr>
-                <div class="cooked d-flex mt-3">
-                  <i class="fas fa-check-square"></i>
-                  <p> You have cooked this before!</p>
-                </div>
-              <% end %>
-
-  <! -------------- tests -------------- >
-              <%# <p><%= recipe.updated_at</p> %>
-              <%# <p>Status <strong><%= recipe.status</p></strong> %>
-              <%# <p>Latest result? <strong><%= recipe.is_latest_result</p></strong>  %>
-            </div>
-
-
-  <! -------------- recipe time and ingredient ratio -------------- >
-
-            <div class="d-flex card-footer">
-              <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= recipe.ready_in_minutes %> mins</p>
-              <p><strong><%= recipe.used_ingredients_count %> / <%= (recipe.used_ingredients_count + recipe.missed_ingredients_count) %></strong> in stock</p>
-            </div>
-
+            <% end %>
           </div>
+
         <% end %>
       </div>
 
-    <% end %>
-  </div>
-
-</div>
+    </div>
 
   </div>
+
+  <! -------------- cooked content -------------- >
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-    <div class="bkg-mid-blue">
-  <div class="container main-title">
-    <h1 class="recipes-header"><strong>My Recipes</strong></h1>
-  </div>
-</div>
 
-<div class="container recipe-index my-5">
-  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="container recipe-index my-5">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
 
-  <! -------------- recipes cards -------------- >
+        <! -------------- recipes cards -------------- >
 
-    <% @recipes.each do |recipe| %>
+        <% @recipes.each do |recipe| %>
 
-      <div class="col">
-        <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
-          <div class="card h-100 shadow-sm">
+          <div class="col">
+            <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
+              <div class="card h-100 shadow-sm">
 
-  <! -------------- card image -------------- >
+                <! -------------- card image -------------- >
+
 
             <div class="card-div embed-responsive embed-responsive-16by9" data-controller="favorite">
               <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
@@ -142,61 +141,59 @@
 
             </div>
 
-            <div class="card-body">
+                <div class="card-body">
 
-  <! -------------- card title -------------- >
+                  <! -------------- card title -------------- >
 
-              <h5 class="card-title"><%= recipe.title %></h5>
+                  <h5 class="card-title"><%= recipe.title %></h5>
 
-  <! -------------- ingredients used and missed -------------- >
+                  <! -------------- ingredients used and missed -------------- >
 
-              <div class="ingredients mb-3">
-                <p><%= recipe.used_ingredients_count %> used ingredients:</p>
-                <% recipe.used_ingredients.each do |used_ingredient| %>
-                  <span class="badge bg-red"><%= used_ingredient %></span>
-                <% end %>
+                  <div class="ingredients mb-3">
+                    <p><%= recipe.used_ingredients_count %> used ingredients:</p>
+                    <% recipe.used_ingredients.each do |used_ingredient| %>
+                      <span class="badge bg-red"><%= used_ingredient %></span>
+                    <% end %>
 
-                <hr>
+                    <hr>
 
-                <p><%= recipe.missed_ingredients_count %> missed ingredients:</p>
-                <% recipe.missed_ingredients.each do |missed_ingredient| %>
-                  <span class="badge bg-grey"><%= missed_ingredient %></span>
-                <% end %>
+                    <p><%= recipe.missed_ingredients_count %> missed ingredients:</p>
+                    <% recipe.missed_ingredients.each do |missed_ingredient| %>
+                      <span class="badge bg-grey"><%= missed_ingredient %></span>
+                    <% end %>
+
+                  </div>
+
+                  <! -------------- show if cooked -------------- >
+
+                  <% if recipe.status == "cooked" %>
+                    <hr>
+                    <div class="cooked d-flex mt-3">
+                      <i class="fas fa-check-square"></i>
+                      <p> You have cooked this before!</p>
+                    </div>
+                  <% end %>
+
+                  <! -------------- tests -------------- >
+                  <%# <p><%= recipe.updated_at</p> %>
+                  <%# <p>Status <strong><%= recipe.status</p></strong> %>
+                  <%# <p>Latest result? <strong><%= recipe.is_latest_result</p></strong>  %>
+                </div>
+
+
+                <! -------------- recipe time and ingredient ratio -------------- >
+
+                <div class="d-flex card-footer">
+                  <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= recipe.ready_in_minutes %> mins</p>
+                  <p><strong><%= recipe.used_ingredients_count %> / <%= (recipe.used_ingredients_count + recipe.missed_ingredients_count) %></strong> in stock</p>
+                </div>
 
               </div>
-
-  <! -------------- show if cooked -------------- >
-
-              <% if recipe.status == "cooked" %>
-                <hr>
-                <div class="cooked d-flex mt-3">
-                  <i class="fas fa-check-square"></i>
-                  <p> You have cooked this before!</p>
-                </div>
-              <% end %>
-
-  <! -------------- tests -------------- >
-              <%# <p><%= recipe.updated_at</p> %>
-              <%# <p>Status <strong><%= recipe.status</p></strong> %>
-              <%# <p>Latest result? <strong><%= recipe.is_latest_result</p></strong>  %>
-            </div>
-
-
-  <! -------------- recipe time and ingredient ratio -------------- >
-
-            <div class="d-flex card-footer">
-              <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= recipe.ready_in_minutes %> mins</p>
-              <p><strong><%= recipe.used_ingredients_count %> / <%= (recipe.used_ingredients_count + recipe.missed_ingredients_count) %></strong> in stock</p>
-            </div>
-
+            <% end %>
           </div>
+
         <% end %>
       </div>
-
-    <% end %>
-  </div>
-
-</div>
-
+    </div>
   </div>
 </div>

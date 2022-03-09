@@ -12,21 +12,21 @@
 
 <!-------------------PgSearch---------------------->
 <div class="container py-3">
-  <div class="search-form col-12 offset-md-2 col-md-8 my-3">
+  <div class="search-form col-12 offset-md-2 col-md-8 mt-3">
     <%= form_tag recipes_path, class: "d-flex", method: :get do %>
       <%= text_field_tag :query,
         params[:query],
-        class: "form-control",
+        class: "form-control search-input",
         placeholder: "Find a recipe"
       %>
-      <%= submit_tag "Search", class: "btn btn-red ml-3" %>
+      <%= submit_tag "Search", class: "btn btn-red search-button" %>
     <% end %>
   </div>
 </div>
 
 
 
-<div class="container recipe-index my-5">
+<div class="container recipe-index mt-3 mb-5">
   <div class="row row-cols-1 row-cols-md-3 g-4">
 
   <! -------------- recipes cards -------------- >
@@ -45,13 +45,14 @@
                 <% if !recipe.favorite %>
 
                   <%= link_to favorites_recipe_path(recipe) do %>
-                    <i class="fas fa-heart" data-uid="<%= recipe.id%>" data-action="click->favorite#stopRefresh"></i>
+                    <i class="fas fa-heart shadow" data-uid="<%= recipe.id%>" data-action="click->favorite#stopRefresh"></i>
                   <% end %>
 
                 <% else %>
 
+
                   <%= link_to favorites_recipe_path(recipe) do %>
-                    <i class="fas fa-heart fa-red" data-uid="<%= recipe.id%>"  data-action="click->favorite#stopRefresh"></i>
+                    <i class="fas fa-heart fa-red shadow" data-uid="<%= recipe.id%>"  data-action="click->favorite#stopRefresh"></i>
                   <% end %>
 
                 <% end %>
@@ -71,14 +72,14 @@
               <div class="ingredients mb-3">
                 <p><%= recipe.used_ingredients_count %> available ingredients</p>
                 <% recipe.used_ingredients.each do |used_ingredient| %>
-                  <span class="badge bg-red"><%= used_ingredient %></span>
+                  <span class="badge rounded-pill bg-red"><%= used_ingredient %></span>
                 <% end %>
 
                 <hr>
 
                 <p><%= recipe.missed_ingredients_count %> missing ingredients:</p>
                 <% recipe.missed_ingredients.each do |missed_ingredient| %>
-                  <span class="badge bg-grey"><%= missed_ingredient %></span>
+                  <span class="badge rounded-pill bg-grey"><%= missed_ingredient %></span>
                 <% end %>
 
   <! -------------- show if cooked -------------- >
@@ -98,17 +99,17 @@
               <%# Latest result? <%= recipe.is_latest_result%>
 
               <% recipe.diets.each do |diet| %>
-                <span class="badge rounded-pill bg-dark"><%= diet %></span>
+                <span class="badge rounded-pill bg-dark mb-3"><%= diet %></span>
               <% end %>
 
             </div>
 
 
-  <! -------------- recipe time and ingredient ratio -------------- >
+  <! -------------- recipe likes and ingredient ratio -------------- >
 
 
             <div class="d-flex card-footer">
-              <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= recipe.ready_in_minutes %> mins</p>
+              <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= pluralize(recipe.ready_in_minutes, "min") %> </p>
               <p><strong><%= recipe.used_ingredients_count %> / <%= (recipe.used_ingredients_count + recipe.missed_ingredients_count) %></strong> in stock</p>
             </div>
 
