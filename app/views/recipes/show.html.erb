@@ -1,4 +1,4 @@
-<div class="container recipe-show">
+<div class="container recipe-show" data-controller="check">
 
 
   <! -------------- recipe details -------------- >
@@ -18,24 +18,23 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <! --- modal form --- >
-          <div data-controller = "check-all-checkboxes">
-            <%= simple_form_for @recipe , url: build_shopping_list_path, html: { class:'mb-4', data: { check_all_checkboxes_target: 'form' } } do |f| %>
+          <div>
+            <%= simple_form_for @recipe , url: build_shopping_list_path, html: { class:'mb-4', data: { check_target: 'form' } } do |f| %>
                 <div class="modal-body">
                   <div class="d-flex mb-2">
-                    <input id="check-all" type="checkbox" class="form-check-input mx-1" data-action="change->check-all-checkboxes#checkAll" data-check-all-checkboxes-target="checkboxall">
+                    <input id="check-all" type="checkbox" class="form-check-input mx-1" data-action="change->check#checkAll" data-check-target="checkboxall">
                     <label for="check-all" class="mx-2 mt-1"><strong>Check all</strong></label>
                   </div>
-                <% ingredients = @recipe.recipe_ingredients.map { |used_ingredient| [used_ingredient.ingredient.name, used_ingredient.ingredient_id]} %>
-                <%= f.collection_check_boxes :ingredients, ingredients, :last, :first,
-                {:item_wrapper_class => 'checkbox_container'},
-                data: { check_all_checkboxes_target: "checkbox"} %>
+                  <% ingredients = @recipe.recipe_ingredients.map { |used_ingredient| [used_ingredient.ingredient.name, used_ingredient.ingredient_id]} %>
+                  <%= f.collection_check_boxes :ingredients, ingredients, :last, :first,
+                  {:item_wrapper_class => 'checkbox_container'},
+                  data: { check_target: "checkbox"} %>
 
-              </div>
+                </div>
               <div class="modal-footer">
                 <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100" %>
               </div>
 
-            </div>
           </div>
         <% end %>
 
@@ -77,14 +76,14 @@
     <div class="ingredients p-4 mb-3 shadow-sm">
       <p><%= @recipe.used_ingredients_count %> available ingredients:</p>
       <% @recipe.used_ingredients.each do |used_ingredient| %>
-        <span class="badge bg-red"><%= used_ingredient %></span>
+        <span class="badge bg-green"><%= used_ingredient %></span>
       <% end %>
     </div>
 
     <div class="ingredients p-4 shadow-sm mb-4">
       <p><%= @recipe.missed_ingredients_count %> missed ingredients:</p>
       <% @recipe.missed_ingredients.each do |missed_ingredient| %>
-        <span class="badge bg-grey"><%= missed_ingredient %></span>
+        <span class="badge bg-red"><%= missed_ingredient %></span>
       <% end %>
     </div>
 
