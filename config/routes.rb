@@ -3,10 +3,15 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   get '/user' => "recipes#index", :as => :user_root
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :recipes, only: [:index, :show, :update]
+  resources :recipes, only: [:index, :show, :update] do
+    member do
+      patch :favorites
+    end
+  end
+
   resources :ingredients, only: %i[index create update destroy]
-  
-  get 'recipes/:id/favorite', to: 'recipes#favorite', as: :favorites
+
+  # patch 'recipes/:id/favorite', to: 'recipes#favorite', as: :favorites
 
   get 'recipes/:id/cooked', to: 'recipes#cooked'
 
