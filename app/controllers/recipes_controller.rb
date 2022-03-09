@@ -195,7 +195,7 @@ class RecipesController < ApplicationController
   def create_recipe_ingredients(recipe)
     current_user.ingredients.each do |pantry_ingredient|
       recipe.used_ingredients.each do |used_ingredient|
-        if (used_ingredient.downcase.split(" ") & pantry_ingredient.name.downcase.split(" ")).length >= 1
+        if used_ingredient.downcase.split(" ").any? {|ingredient| pantry_ingredient.name.include? ingredient} || pantry_ingredient.name.downcase.split(" ").any? {|ingredient| used_ingredient.include? ingredient}
           RecipeIngredient.create(
             ingredient_id: pantry_ingredient.id,
             recipe_id: recipe.id,
