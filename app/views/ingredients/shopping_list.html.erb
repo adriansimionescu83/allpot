@@ -4,22 +4,20 @@
 
 <div class="container py-3">
 
-  <div class="ingredients-container row col-12 offset-md-2 col-md-8 mt-3">
+  <div class="ingredients-container row col-12 offset-md-2 col-md-8 mt-3" data-controller="check-all-checkboxes">
 
 
-    <%= simple_form_for current_user, url: move_to_pantry_path do |f| %>
-      <input type="checkbox" id="select_all_checkboxes" />
-      <label
-              for="select_all_checkboxes"
-              class="visuallyhidden"
-              >Select all
-      </label>
+    <%= simple_form_for current_user, url: move_to_pantry_path, html: { class:'mb-4', data: { check_all_checkboxes_target: 'form' } } do |f| %>
+      <div class="d-flex form-check">
+        <input id="check-all" type="checkbox" class="form-check-input is-valid check-boxes optional no-bs-validation" data-action="change->check-all-checkboxes#checkAll" data-check-all-checkboxes-target="checkboxall">
+        <label for="check-all" class="mx-2 mt-1"><strong>Check all</strong></label>
+
+      </div>
 
       <%= f.input :ingredients, collection: @ingredients,
                   wrapper_html: {class: 'form-group mt-3', multiple: true },
-                  input_html: { class: 'no-bs-validation', multiple: false, checked: false},
+                  input_html: { class: 'no-bs-validation', multiple: false, checked: false, data: { check_all_checkboxes_target: "checkbox"}},
                   include_hidden: false, as: :check_boxes %>
-
 
       <%= f.submit "ADD TO PANTRY", class: "btn btn-red w-100" %>
     <% end %>
