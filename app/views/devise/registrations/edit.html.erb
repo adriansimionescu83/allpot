@@ -71,10 +71,31 @@
 
             <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
               <%= f.error_notification %>
-
               <div class="form-inputs">
-                <%= f.input :intolerances, collection: User::INTOLERANCES, wrapper_html: {class: 'form-group', multiple: true, novalidate: true,}, input_html: { class: 'no-bs-validation', multiple: true}, include_hidden: false, as: :check_boxes %>
-                <%= f.input :diet, collection: User::DIET, wrapper_html: { class: 'form-group', multiple: true }, as: :check_boxes, include_hidden: false, input_html: { multiple: true} %>
+                <!------------------Accordion for Preferences------------------>
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Intolerances
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <%= f.input :intolerances, collection: User::INTOLERANCES, wrapper_html: {class: 'form-group', multiple: true, novalidate: true,}, input_html: { class: 'no-bs-validation', multiple: true}, include_hidden: false, as: :check_boxes %>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Diet
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <%= f.input :diet, collection: User::DIET, wrapper_html: { class: 'form-group', multiple: true }, as: :check_boxes, include_hidden: false, input_html: { multiple: true} %>
+                  </div>
+                </div>
+              </div>
+
                 <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
                   <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
                 <% end %>
