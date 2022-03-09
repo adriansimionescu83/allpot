@@ -8,7 +8,7 @@ export default class extends Controller {
     e.preventDefault()
     const heart = e.currentTarget
     console.log(heart)
-    const url = `recipes/${heart.dataset.uid}/favorites`
+    const url = `/recipes/${heart.dataset.uid}/favorites`
     // const url = `ingredients/${heart.dataset.uid}/favorite`
     console.log(url)
 
