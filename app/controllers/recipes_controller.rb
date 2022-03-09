@@ -75,8 +75,10 @@ class RecipesController < ApplicationController
   def call_api
     diet = current_user.diet.join(',').downcase
     intolerances = current_user.intolerances.join(',').downcase
+    sort_by = 'min-missing-ingredients' #More options on sorting here https://spoonacular.com/food-api/docs#Recipe-Sorting-Options
+    sort_direction = 'asc'
     api_key = ENV["SPOONTACULAR_API_KEY"]
-    @url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=10&includeIngredients=#{@ingredients}&addRecipeInformation=true&sort=max-used-ingredients&sortDirection=desc&fillIngredients=true&diet=#{diet}&intolerances=#{intolerances}"
+    @url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=100&includeIngredients=#{@ingredients}&addRecipeInformation=true&sort=#{sort_by}&sortDirection=#{sort_direction}&fillIngredients=true&diet=#{diet}&intolerances=#{intolerances}"
     recipes_serialized = URI.parse(@url).read
     recipes = JSON.parse(recipes_serialized)["results"]
 
@@ -195,7 +197,7 @@ class RecipesController < ApplicationController
   def create_recipe_ingredients(recipe)
     current_user.ingredients.each do |pantry_ingredient|
       recipe.used_ingredients.each do |used_ingredient|
-        if (used_ingredient.downcase.split(" ") & pantry_ingredient.name.downcase.split(" ")).length >= 1
+       if used_ingredient.downcase.split(" ").any? {|ingredient| pantry_ingredient.name.include? ingredient} || pantry_ingredient.name.downcase.split(" ").any? {|ingredient| used_ingredient.include? ingredient}
           RecipeIngredient.create(
             ingredient_id: pantry_ingredient.id,
             recipe_id: recipe.id,

@@ -47,7 +47,6 @@ class IngredientsController < ApplicationController
   end
 
   def build_shopping_list
-    checked_ingredients = params[:recipe][:ingredients]
     @ingredients = current_user.ingredients.where(id: params[:recipe][:ingredients])
     @ingredients.update_all(is_available: false) unless @ingredients.empty?
     authorize @ingredients

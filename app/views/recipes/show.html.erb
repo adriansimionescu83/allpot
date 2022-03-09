@@ -8,29 +8,33 @@
     <a href="<%=@recipe.id%>/cooked", class ="btn btn-yellow mt-2 mx-2 text-decoration-none text" data-bs-toggle="modal" data-bs-target="#shoppingListModal" >COOKED IT!</a>
   </div>
 
-  <! -------------- modal for shopping list -------------- >
-  <div class="modal fade" id="shoppingListModal" tabindex="-1" aria-labelledby="shoppingListModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-          <! --- modal header --- >
-        <div class="modal-header">
-          <h5 class="modal-title" id="shoppingListModalLabel">Do you want to add these items to your <span style="color:#ed254e">shopping list?</span></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <! --- modal form --- >
-        <%= simple_form_for @recipe , url: build_shopping_list_path do |f| %>
-          <div class="modal-body">
-            <% ingredients = @recipe.recipe_ingredients.map { |used_ingredient| [used_ingredient.ingredient.name, used_ingredient.ingredient_id]} %>
-              <%= f.collection_check_boxes :ingredients, ingredients, :last, :first,
-              {:item_wrapper_class => 'checkbox_container'} %>
+    <! -------------- modal for shopping list -------------- >
+    <div class="modal fade" id="shoppingListModal" tabindex="-1" aria-labelledby="shoppingListModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+           <! --- modal header --- >
+          <div class="modal-header">
+            <h5 class="modal-title" id="shoppingListModalLabel">Do you want to add these items to your <span style="color:#ed254e">shopping list?</span></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <! --- modal form --- >
+          <div data-controller = "check-all-checkboxes">
+            <%= simple_form_for @recipe , url: build_shopping_list_path, html: { class:'mb-4', data: { check_all_checkboxes_target: 'form' } } do |f| %>
+                <div class="modal-body">
+                  <div class="d-flex mb-2">
+                    <input id="check-all" type="checkbox" class="form-check-input mx-1" data-action="change->check-all-checkboxes#checkAll" data-check-all-checkboxes-target="checkboxall">
+                    <label for="check-all" class="mx-2 mt-1"><strong>Check all</strong></label>
+                  </div>
+                <% ingredients = @recipe.recipe_ingredients.map { |used_ingredient| [used_ingredient.ingredient.name, used_ingredient.ingredient_id]} %>
+                <%= f.collection_check_boxes :ingredients, ingredients, :last, :first,
+                {:item_wrapper_class => 'checkbox_container'},
+                data: { check_all_checkboxes_target: "checkbox"} %>
 
-              <%# :ingredients are sent to params
-                  ingredients is an array of arrays only the ones checked will be sent to the controller
-                  :first is the element of array that will be displayed in the list
-                  :last is the second element of the array that will be sent in params%>
+              </div>
+              <div class="modal-footer">
+                <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100" %>
+              </div>
 
-            <div class="modal-footer">
-              <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100" %>
             </div>
           </div>
         <% end %>
