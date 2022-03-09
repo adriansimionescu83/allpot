@@ -43,22 +43,6 @@
 
                   <h5 class="card-title"><%= recipe.title %></h5>
 
-                  <! -------------- ingredients used and missed -------------- >
-
-                  <div class="ingredients mb-3">
-                    <p><%= recipe.used_ingredients_count %> used ingredients:</p>
-                    <% recipe.used_ingredients.each do |used_ingredient| %>
-                      <span class="badge bg-red"><%= used_ingredient %></span>
-                    <% end %>
-
-                    <hr>
-
-                    <p><%= recipe.missed_ingredients_count %> missed ingredients:</p>
-                    <% recipe.missed_ingredients.each do |missed_ingredient| %>
-                      <span class="badge bg-grey"><%= missed_ingredient %></span>
-                    <% end %>
-
-                  </div>
 
                   <! -------------- show if cooked -------------- >
 
@@ -116,22 +100,6 @@
 
                   <h5 class="card-title"><%= recipe.title %></h5>
 
-                  <! -------------- ingredients used and missed -------------- >
-
-                  <div class="ingredients mb-3">
-                    <p><%= recipe.used_ingredients_count %> used ingredients:</p>
-                    <% recipe.used_ingredients.each do |used_ingredient| %>
-                      <span class="badge bg-red"><%= used_ingredient %></span>
-                    <% end %>
-
-                    <hr>
-
-                    <p><%= recipe.missed_ingredients_count %> missed ingredients:</p>
-                    <% recipe.missed_ingredients.each do |missed_ingredient| %>
-                      <span class="badge bg-grey"><%= missed_ingredient %></span>
-                    <% end %>
-
-                  </div>
 
                   <! -------------- show if cooked -------------- >
 

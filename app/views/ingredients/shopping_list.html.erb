@@ -1,26 +1,30 @@
 <div class="header">
-  <h1>Shopping List</h1>
+  <div class="container px-5">
+    <h1>Shopping List</h1>
+    <p>AllPot helps you automatically add items to your shopping list everytime you cook a recipe or delete an item from your pantry. Happy Shopping!</p>
+  </div>
 </div>
 
 <div class="container py-3">
 
-  <div class="ingredients-container row col-12 offset-md-2 col-md-8 mt-3" data-controller="check-all-checkboxes">
+  <div class="ingredients-container row col-12 offset-md-2 col-md-8 mt-3" data-controller="check">
+    <div class="check-list">
+      <%= simple_form_for current_user, url: move_to_pantry_path, html: { class:'mb-4', data: { check_all_checkboxes_target: 'form' } } do |f| %>
+        <div class="d-flex form-check">
+          <input id="check-all" type="checkbox" class="form-check-input is-valid check-boxes optional no-bs-validation" data-action="change->check#checkAll" data-check-target="checkboxall">
+          <label for="check-all" class="mx-2 mt-1"><strong>Check all</strong></label>
 
+        </div>
 
-    <%= simple_form_for current_user, url: move_to_pantry_path, html: { class:'mb-4', data: { check_all_checkboxes_target: 'form' } } do |f| %>
-      <div class="d-flex form-check">
-        <input id="check-all" type="checkbox" class="form-check-input is-valid check-boxes optional no-bs-validation" data-action="change->check-all-checkboxes#checkAll" data-check-all-checkboxes-target="checkboxall">
-        <label for="check-all" class="mx-2 mt-1"><strong>Check all</strong></label>
+        <%= f.input :ingredients, collection: @ingredients,
+                    wrapper_html: {class: 'form-group mt-3', multiple: true },
+                    input_html: { class: 'no-bs-validation', multiple: false, checked: false, data: { check_target: "checkbox"}},
+                    include_hidden: false, as: :check_boxes %>
 
-      </div>
+        <%= f.submit "ADD TO PANTRY", class: "btn btn-red w-100" %>
+      <% end %>
+    </div>
 
-      <%= f.input :ingredients, collection: @ingredients,
-                  wrapper_html: {class: 'form-group mt-3', multiple: true },
-                  input_html: { class: 'no-bs-validation', multiple: false, checked: false, data: { check_all_checkboxes_target: "checkbox"}},
-                  include_hidden: false, as: :check_boxes %>
-
-      <%= f.submit "ADD TO PANTRY", class: "btn btn-red w-100" %>
-    <% end %>
 
 
   </div>

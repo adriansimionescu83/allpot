@@ -29,7 +29,7 @@
 <div class="container recipe-index mt-3 mb-5">
   <div class="row row-cols-1 row-cols-md-3 g-4">
 
-  <! -------------- recipes cards -------------- >
+    <! -------------- recipes cards -------------- >
 
     <% @recipes.each do |recipe| %>
 
@@ -37,7 +37,7 @@
         <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
           <div class="card h-100 shadow-sm">
 
-  <! -------------- card image -------------- >
+            <! -------------- card image -------------- >
 
             <div class="card-div embed-responsive embed-responsive-16by9">
               <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
@@ -60,28 +60,37 @@
 
             <div class="card-body">
 
-  <! -------------- card title -------------- >
+              <! -------------- card title -------------- >
 
               <h5 class="card-title"><%= recipe.title %></h5>
 
 
 
-  <! -------------- ingredients used and missed -------------- >
+              <! -------------- ingredients used and missed -------------- >
 
               <div class="ingredients mb-3">
                 <p><%= recipe.used_ingredients_count %> available ingredients</p>
                 <% recipe.used_ingredients.each do |used_ingredient| %>
-                  <span class="badge rounded-pill bg-red"><%= used_ingredient %></span>
+                  <span class="badge rounded-pill bg-green"><%= used_ingredient %></span>
                 <% end %>
 
                 <hr>
 
                 <p><%= recipe.missed_ingredients_count %> missing ingredients:</p>
                 <% recipe.missed_ingredients.each do |missed_ingredient| %>
-                  <span class="badge rounded-pill bg-grey"><%= missed_ingredient %></span>
+                  <span class="badge rounded-pill bg-red"><%= missed_ingredient %></span>
                 <% end %>
 
-  <! -------------- show if cooked -------------- >
+                <hr>
+
+                 <! -------------- show diet badges -------------- >
+                <div class="mb-3">
+                  <% recipe.diets.each do |diet| %>
+                    <span class="badge rounded-pill bg-grey"><%= diet %></span>
+                  <% end %>
+                </div>
+
+                <! -------------- show if cooked -------------- >
 
                 <% if recipe.status == "cooked" %>
                   <hr>
@@ -97,9 +106,6 @@
               <%# Status <%= recipe.status%>
               <%# Latest result? <%= recipe.is_latest_result%>
 
-              <% recipe.diets.each do |diet| %>
-                <span class="badge rounded-pill bg-dark mb-3"><%= diet %></span>
-              <% end %>
 
             </div>
 

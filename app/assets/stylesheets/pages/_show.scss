@@ -44,14 +44,24 @@
 .badge {
   border-radius: 5px;
 }
-.bg-red {
+
+.bg-green {
   background-color: rgb(110, 190, 110);
   font-weight: 400;
 }
 
+.bg-red {
+  background-color: $red;
+  font-weight: 400;
+}
 .bg-grey {
   background-color: rgb(228, 228, 228);
   color: $dark-blue;
+  font-weight: 400;
+}
+
+.bg-light {
+  color: $mid-blue ;
   font-weight: 400;
 }
 

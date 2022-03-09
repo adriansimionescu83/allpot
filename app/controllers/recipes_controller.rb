@@ -7,7 +7,7 @@ class RecipesController < ApplicationController
   def index
     get_ingredients
     call_api if current_user.call_api_recipes
-    @recipes = policy_scope(Recipe).where(user_id: current_user.id).order(created_at: :desc)
+    @recipes = policy_scope(Recipe).where(user_id: current_user.id).order(missed_ingredients_count: :asc)
     @user = current_user
 
     if params[:query].present?
@@ -91,7 +91,7 @@ class RecipesController < ApplicationController
       if Recipe.exists?(api_record_id: recipe["id"])
         update_recipe_from_api(recipe)
       else
-       create_recipe_from_api(recipe)
+        create_recipe_from_api(recipe)
       end
     end
 
@@ -121,7 +121,7 @@ class RecipesController < ApplicationController
       user_id: current_user.id,
       title: recipe["title"],
       image_url: recipe["image"],
-      missed_ingredients_count: recipe["missedIngredientCount"],
+      missed_ingredients_count: missed_ingredients(recipe).count,
       used_ingredients_count: recipe["usedIngredientCount"],
       unused_ingredients_count: recipe["unusedIngredientCount"],
       ready_in_minutes: recipe["readyInMinutes"],
