@@ -39,19 +39,20 @@
 
   <! -------------- card image -------------- >
 
-            <div class="card-div embed-responsive embed-responsive-16by9">
+            <div class="card-div embed-responsive embed-responsive-16by9" data-controller="favorite">
               <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
 
-                <% if recipe.favorite == false %>
+                <% if !recipe.favorite %>
 
-                  <%= link_to favorites_path(recipe) do %>
-                  <i class="fas fa-heart shadow"></i>
+                  <%= link_to favorites_recipe_path(recipe) do %>
+                    <i class="fas fa-heart shadow" data-uid="<%= recipe.id%>" data-action="click->favorite#stopRefresh"></i>
                   <% end %>
 
-                <% elsif recipe.favorite == true %>
+                <% else %>
 
-                  <%= link_to favorites_path(recipe) do %>
-                  <i class="fas fa-heart shadow" style="color: #ed254e"></i>
+
+                  <%= link_to favorites_recipe_path(recipe) do %>
+                    <i class="fas fa-heart fa-red shadow" data-uid="<%= recipe.id%>"  data-action="click->favorite#stopRefresh"></i>
                   <% end %>
 
                 <% end %>

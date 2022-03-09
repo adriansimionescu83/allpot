@@ -15,18 +15,22 @@ class RecipesController < ApplicationController
     end
   end
 
-  def favorite
+  def favorites
     @recipe = Recipe.find(params[:id])
+
     if @recipe.favorite == false
      @recipe.favorite = true
     else @recipe.favorite == true
      @recipe.favorite = false
     end
 
-    @recipe.save
-    redirect_to recipes_path
-
     authorize @recipe
+    if @recipe.save
+      { errors: [] }.to_json
+    else
+      { errors: errors.messages }.to_json
+    end
+
   end
 
   def my_recipes
@@ -137,7 +141,7 @@ class RecipesController < ApplicationController
       aggregate_likes: recipe["aggregateLikes"],
       source_url: recipe["sourceUrl"],
       steps: description_steps,
-      diets: recipe["diets"]
+      diets: recipe["diets"],
       )
   end
 

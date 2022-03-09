@@ -44,18 +44,33 @@
     </div>
   </div>
 
+    <! -------------- title -------------- >
+    <h2 class="mb-2"><strong><%= @recipe.title %></strong></h2>
+    <div class="d-flex">
+    <p class="card-text mb-3"><span><i class="fas fa-hourglass-half"></i></span> <%= @recipe.ready_in_minutes %> mins</p>
+    <p class="card-text mb-3 mx-3"><span><i class="fas fa-heart"></i></span> <%= @recipe.aggregate_likes %> likes</p>
+    <p class="card-text mb-3 mx-3"><span><i class="fas fa-utensils"></i></span> <%= @recipe.servings %> servings</p>
+    </div>
 
+    <! -------------- image -------------- >
+    <div class="card-div embed-responsive embed-responsive-16by9" data-controller="favorite">
+              <img src="<%= @recipe.image_url %>" class="card-img-top" alt="...">
 
-  <! -------------- title -------------- >
-  <h2 class="mb-2"><strong><%= @recipe.title %></strong></h2>
-  <div class="d-flex">
-    <p class="card-text mb-3"><span><i class="fas fa-hourglass-half"></i></span> <%= pluralize(@recipe.ready_in_minutes, "min") %></p>
-    <p class="card-text mb-3 mx-3"><span><i class="fas fa-heart"></i></span> <%= pluralize(@recipe.aggregate_likes, "like") %></p>
-    <p class="card-text mb-3"><span><i class="fas fa-utensils"></i></span> <%= pluralize(@recipe.servings, "serving") %></p>
-  </div>
+                <% if !@recipe.favorite %>
 
-  <! -------------- image -------------- >
-  <img src="<%= @recipe.image_url %>" class="img-fluid mb-4 shadow-sm" alt="">
+                  <%= link_to favorites_recipe_path(@recipe) do %>
+                    <i class="fas fa-heart" data-uid="<%= @recipe.id%>" data-action="click->favorite#stopRefresh"></i>
+                  <% end %>
+
+                <% else %>
+
+                  <%= link_to favorites_recipe_path(@recipe) do %>
+                    <i class="fas fa-heart fa-red" data-uid="<%= @recipe.id%>"  data-action="click->favorite#stopRefresh"></i>
+                  <% end %>
+
+                <% end %>
+
+            </div>
 
   <! -------------- available and missed ingredients -------------- >
   <div class="mb-3">
