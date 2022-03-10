@@ -24,7 +24,7 @@
             </button>
           </h2>
           <div id="collapseOne" class="accordion-collapse collapse mt-2" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <%= f.input :intolerances, collection: User::INTOLERANCES, wrapper_html: {class: 'form-group', multiple: true, novalidate: true,}, input_html: { class: 'no-bs-validation', multiple: true}, include_hidden: false, as: :check_boxes %>
+            <%= f.input :intolerances, collection: User::INTOLERANCES, wrapper_html: {class: 'form-group', multiple: true, novalidate: true,}, input_html: { multiple: true}, include_hidden: false, as: :check_boxes %>
           </div>
         </div>
         <div class="accordion-item">
