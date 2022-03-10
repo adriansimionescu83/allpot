@@ -54,6 +54,14 @@
   background-color: $red;
   font-weight: 400;
 }
+
+.bg-blue {
+  background-color: $dark-blue;
+  font-weight: 400;
+  color: white;
+  margin-right: 10px;
+}
+
 .bg-grey {
   background-color: rgb(228, 228, 228);
   color: $dark-blue;

@@ -70,19 +70,26 @@
               <! -------------- ingredients used and missed -------------- >
 
               <div class="ingredients mb-3">
-                <p><%= recipe.used_ingredients_count %> available ingredients</p>
-                <% recipe.used_ingredients.each do |used_ingredient| %>
-                  <span class="badge rounded-pill bg-green"><%= used_ingredient %></span>
+                <% if recipe.missed_ingredients_count == 0 %>
+                  <p>You have all the ingredients!</p>
+                  <% recipe.used_ingredients.each do |used_ingredient| %>
+                    <span class="badge rounded-pill bg-green"><%= used_ingredient %></span>
+                  <% end %>
+                <% else %>
+                  <p><%= recipe.used_ingredients_count %> available ingredients</p>
+                  <% recipe.used_ingredients.each do |used_ingredient| %>
+                    <span class="badge rounded-pill bg-green"><%= used_ingredient %></span>
+                  <% end %>
+                  <p><%= recipe.missed_ingredients_count %> missing ingredients:</p>
+                  <% recipe.missed_ingredients.each do |missed_ingredient| %>
+                    <span class="badge rounded-pill bg-red"><%= missed_ingredient %></span>
+                  <% end %>
+                  <hr>
                 <% end %>
 
                 <hr>
 
-                <p><%= recipe.missed_ingredients_count %> missing ingredients:</p>
-                <% recipe.missed_ingredients.each do |missed_ingredient| %>
-                  <span class="badge rounded-pill bg-red"><%= missed_ingredient %></span>
-                <% end %>
 
-                <hr>
 
                  <! -------------- show diet badges -------------- >
                 <div class="mb-3">
@@ -116,7 +123,7 @@
 
             <div class="d-flex card-footer">
               <p class="card-text"><span><i class="fas fa-hourglass-half"></i></span> <%= pluralize(recipe.ready_in_minutes, "min") %> </p>
-              <p><strong><%= recipe.used_ingredients_count %> / <%= (recipe.used_ingredients_count + recipe.missed_ingredients_count) %></strong> in stock</p>
+              <p class="card-text mb-3"><span><i class="fas fa-utensils"></i></span> <%= pluralize(recipe.servings, "serving") %></p>
             </div>
 
           </div>

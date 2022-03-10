@@ -10,6 +10,18 @@
   color: white;
 }
 
+.btn-blue {
+  background-color: $dark-blue;
+  color: white;
+  border-radius: 6px;
+  padding: 8px 20px;
+}
+
+.btn-blue:hover {
+  background-color: #061322;
+  color: white;
+}
+
 .btn-yellow {
   background-color: $yellow;
   color: $dark-blue;
