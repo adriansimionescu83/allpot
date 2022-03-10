@@ -30,6 +30,10 @@ class IngredientPolicy < ApplicationPolicy
     true
   end
 
+  def create_shopping_list_item?
+    true
+  end
+
   def move_to_pantry?
     true
   end

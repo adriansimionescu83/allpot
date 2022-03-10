@@ -1,13 +1,72 @@
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item w-50" role="presentation">
-    <button class="nav-link active w-100" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">My Details</button>
+    <button class="nav-link active w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">My Preferences</button>
   </li>
   <li class="nav-item w-50" role="presentation">
-    <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">My Preferences</button>
+    <button class="nav-link w-100" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="false">My Details</button>
   </li>
 
 </ul>
 <div class="tab-content" id="myTabContent">
+
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="row col-10 col-md-7 my-5">
+
+          <div class="p-2">
+            <h2 class="mb-3"><strong>Edit Preferences</strong></h2>
+
+            <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+              <%= f.error_notification %>
+              <div class="form-inputs">
+                <!------------------Accordion for Preferences------------------>
+                <div class="accordion" id="accordionExample">
+                  <div class="accordion-item mb-3">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                          Intolerances
+                      </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                      <%= f.input :intolerances, collection: User::INTOLERANCES, wrapper_html: {class: 'form-group', multiple: true, novalidate: true,}, input_html: { class: 'no-bs-validation', multiple: true}, include_hidden: false, as: :check_boxes %>
+                    </div>
+                  </div>
+                  <div class="accordion-item mb-3">
+                    <h2 class="accordion-header" id="headingTwo">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Diet
+                      </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                      <%= f.input :diet, collection: User::DIET, wrapper_html: { class: 'form-group', multiple: true }, as: :check_boxes, include_hidden: false, input_html: { multiple: true} %>
+                    </div>
+                  </div>
+                </div>
+
+                <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                  <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+                <% end %>
+                <%= f.input :email, wrapper_html: {class: "d-none"} %>
+                <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                  <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+                <% end %>
+                <%= f.input :current_password,
+                            hint: "we need your current password to confirm your changes",
+                            required: true,
+                            input_html: { autocomplete: "current-password" } %>
+
+              </div>
+              <div class="form-actions">
+                <%= f.button :submit, "Update", class: "btn btn-red" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
     <div class="container">
       <div class="row justify-content-center">
@@ -61,61 +120,4 @@
     </div>
   </div>
 
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="row col-10 col-md-7 my-5">
-
-          <div class="form p-5">
-            <h2><strong>Edit Preferences</strong></h2>
-
-            <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-              <%= f.error_notification %>
-              <div class="form-inputs">
-                <!------------------Accordion for Preferences------------------>
-              <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        Intolerances
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <%= f.input :intolerances, collection: User::INTOLERANCES, wrapper_html: {class: 'form-group', multiple: true, novalidate: true,}, input_html: { class: 'no-bs-validation', multiple: true}, include_hidden: false, as: :check_boxes %>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Diet
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                    <%= f.input :diet, collection: User::DIET, wrapper_html: { class: 'form-group', multiple: true }, as: :check_boxes, include_hidden: false, input_html: { multiple: true} %>
-                  </div>
-                </div>
-              </div>
-
-                <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-                  <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-                <% end %>
-                <%= f.input :email, wrapper_html: {class: "d-none"} %>
-                <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-                  <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-                <% end %>
-                <%= f.input :current_password,
-                            hint: "we need your current password to confirm your changes",
-                            required: true,
-                            input_html: { autocomplete: "current-password" } %>
-
-              </div>
-              <div class="form-actions">
-                <%= f.button :submit, "Update", class: "btn btn-red" %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

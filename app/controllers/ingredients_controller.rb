@@ -64,9 +64,22 @@ class IngredientsController < ApplicationController
     redirect_to ingredients_path
   end
 
+  def create_shopping_list_item
+    @ingredient = Ingredient.new(ingredient_params)
+    @ingredient.user = current_user
+    @ingredient.is_available = false
+    @ingredient.save
+
+    authorize @ingredient
+    redirect_to shopping_list_path
+  end
+
   def shopping_list
+    @shopping_list_ingredient = Ingredient.new
+
     @ingredients = current_user.ingredients.where(is_available: false)
     authorize @ingredients
+
   end
 
   def move_to_pantry
@@ -88,6 +101,8 @@ class IngredientsController < ApplicationController
   end
 
   def ingredient_params
-    params.require(:ingredient).permit(:name, :measure, :category, :quantity)
+    params.require(:ingredient).permit(:name, :category)
   end
+
+
 end
