@@ -75,11 +75,13 @@
                   <% recipe.used_ingredients.each do |used_ingredient| %>
                     <span class="badge rounded-pill bg-green"><%= used_ingredient %></span>
                   <% end %>
+                  <hr>
                 <% else %>
                   <p><%= recipe.used_ingredients_count %> available ingredients</p>
                   <% recipe.used_ingredients.each do |used_ingredient| %>
                     <span class="badge rounded-pill bg-green"><%= used_ingredient %></span>
                   <% end %>
+                  <hr>
                   <p><%= recipe.missed_ingredients_count %> missing ingredients:</p>
                   <% recipe.missed_ingredients.each do |missed_ingredient| %>
                     <span class="badge rounded-pill bg-red"><%= missed_ingredient %></span>
@@ -87,7 +89,7 @@
                   <hr>
                 <% end %>
 
-                <hr>
+
 
 
 
