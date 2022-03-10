@@ -5,7 +5,6 @@
 
   <div class="my-3">
     <%= link_to "BACK", :back, class: "btn btn-red mt-2" %>
-    <a href="<%=@recipe.id%>/cooked", class ="btn btn-yellow mt-2 mx-2 text-decoration-none text" data-bs-toggle="modal" data-bs-target="#shoppingListModal" >COOKED IT!</a>
   </div>
 
     <! -------------- modal for shopping list -------------- >
@@ -32,7 +31,9 @@
 
                 </div>
               <div class="modal-footer">
-                <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100", data: { check_target: 'submit'}%>
+                <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100", data: { check_target: 'submit'} %>
+                <a href="<%=@recipe.id%>/cooked", class ="btn btn-red w-100" >NO THANKS!</a>
+
               </div>
 
           </div>
@@ -47,29 +48,29 @@
     <h2 class="mb-2"><strong><%= @recipe.title %></strong></h2>
     <div class="d-flex">
     <p class="card-text mb-3"><span><i class="fas fa-hourglass-half"></i></span> <%= @recipe.ready_in_minutes %> mins</p>
-    <p class="card-text mb-3 mx-3"><span><i class="fas fa-heart"></i></span> <%= @recipe.aggregate_likes %> likes</p>
-    <p class="card-text mb-3 mx-3"><span><i class="fas fa-utensils"></i></span> <%= @recipe.servings %> servings</p>
+    <p class="card-text mb-3 mx-3"><span><i class="fas fa-heart"></i></span><%= pluralize(@recipe.aggregate_likes, "like") %></p>
+    <p class="card-text mb-3"><span><i class="fas fa-utensils"></i></span> <%= pluralize(@recipe.servings, "serving") %></p>
     </div>
 
     <! -------------- image -------------- >
     <div class="card-div embed-responsive embed-responsive-16by9" data-controller="favorite">
-              <img src="<%= @recipe.image_url %>" class="card-img-top" alt="...">
+      <img src="<%= @recipe.image_url %>" class="card-img-top img-fluid mb-4 shadow-sm" alt="...">
 
-                <% if !@recipe.favorite %>
+        <% if !@recipe.favorite %>
 
-                  <%= link_to favorites_recipe_path(@recipe) do %>
-                    <i class="fas fa-heart" data-uid="<%= @recipe.id%>" data-action="click->favorite#stopRefresh"></i>
-                  <% end %>
+          <%= link_to favorites_recipe_path(@recipe) do %>
+            <i class="fas fa-heart" data-uid="<%= @recipe.id%>" data-action="click->favorite#stopRefresh"></i>
+          <% end %>
 
-                <% else %>
+        <% else %>
 
-                  <%= link_to favorites_recipe_path(@recipe) do %>
-                    <i class="fas fa-heart fa-red" data-uid="<%= @recipe.id%>"  data-action="click->favorite#stopRefresh"></i>
-                  <% end %>
+          <%= link_to favorites_recipe_path(@recipe) do %>
+            <i class="fas fa-heart fa-red" data-uid="<%= @recipe.id%>"  data-action="click->favorite#stopRefresh"></i>
+          <% end %>
 
-                <% end %>
+        <% end %>
 
-            </div>
+    </div>
 
   <! -------------- available and missed ingredients -------------- >
   <div class="mb-3">
@@ -134,7 +135,9 @@
   <! -------------- back to top button -------------- >
 
   <div class="d-flex justify-content-center my-5" data-controller="recipe-detail">
-    <button class="btn btn-red w-100" onclick='javascript:window.scrollTo(0, 0);'>BACK TO TOP <i class="fas fa-angle-up"></i></button>
+    <a href="<%=@recipe.id%>/cooked", class ="btn btn-yellow mt-2 mx-2 text-decoration-none text w-100" data-bs-toggle="modal" data-bs-target="#shoppingListModal" >COOKED IT!</a>
+
+    <%# <button class="btn btn-red w-100" onclick='javascript:window.scrollTo(0, 0);'>BACK TO TOP <i class="fas fa-angle-up"></i></button> %>
   </div>
 
 </div>

@@ -22,5 +22,6 @@ Rails.application.routes.draw do
 
   patch 'pantry', to: 'ingredients#move_to_pantry', as: :move_to_pantry
   get 'shopping_list', to: 'ingredients#shopping_list', as: :shopping_list
+  post 'shopping_list', to: 'ingredients#create_shopping_list_item', as: :create_shopping_list_item
 
 end
