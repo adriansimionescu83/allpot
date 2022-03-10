@@ -48,7 +48,12 @@ class IngredientsController < ApplicationController
 
   def build_shopping_list
     @ingredients = current_user.ingredients.where(id: params[:recipe][:ingredients])
-    @ingredients.update_all(is_available: false) unless @ingredients.empty?
+    unless @ingredients.empty?
+      @ingredients.update_all(is_available: false)
+      current_user.call_api_recipes = true
+      current_user.save
+    end
+
     authorize @ingredients
 
     redirect_to recipes_path
@@ -58,6 +63,8 @@ class IngredientsController < ApplicationController
     @ingredient = Ingredient.find(params[:id])
     @ingredient.update(is_available: false)
     @ingredient.save
+    current_user.call_api_recipes = true
+    current_user.save
 
     authorize @ingredient
 
@@ -83,13 +90,17 @@ class IngredientsController < ApplicationController
   end
 
   def move_to_pantry
-    checked_ingredients = params[:user][:ingredients]
-    checked_ingredients.each do |ingredient|
+    @ingredients = params[:user][:ingredients]
+    @ingredients.each do |ingredient|
       @ingredient = Ingredient.find(ingredient.to_i)
       @ingredient.is_available = true
       @ingredient.save
-      authorize @ingredient
     end
+
+    current_user.call_api_recipes = true
+    current_user.save
+
+    authorize @ingredient
 
     redirect_to ingredients_path
   end

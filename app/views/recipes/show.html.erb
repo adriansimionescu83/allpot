@@ -27,12 +27,13 @@
                   <% ingredients = @recipe.recipe_ingredients.map { |used_ingredient| [used_ingredient.ingredient.name, used_ingredient.ingredient_id]} %>
                   <%= f.collection_check_boxes :ingredients, ingredients, :last, :first,
                   {:item_wrapper_class => 'checkbox_container'},
-                  data: { check_target: "checkbox"} %>
+                  data: { check_target: "checkbox", action: "change->check#disableSubmit"} %>
 
                 </div>
               <div class="modal-footer">
-                <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100" %>
+                <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100", data: { check_target: 'submit'} %>
                 <a href="<%=@recipe.id%>/cooked", class ="btn btn-red w-100" >NO THANKS!</a>
+
               </div>
 
           </div>

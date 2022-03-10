@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'users/profile', to: 'profile#show', as: :user_profile
+  patch 'users/profile', to: 'profile#update', as: :update_user_profile
+
   resources :ingredients, only: %i[index create update destroy]
 
   get 'recipes/:id/cooked', to: 'recipes#cooked'
