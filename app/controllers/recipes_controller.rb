@@ -9,6 +9,7 @@ class RecipesController < ApplicationController
     call_api if current_user.call_api_recipes
     @recipes = policy_scope(Recipe).where(user_id: current_user.id).order(missed_ingredients_count: :asc)
     @user = current_user
+    # binding.pry
 
     if params[:query].present?
       @recipes = Recipe.global_search(params[:query])
@@ -87,7 +88,7 @@ class RecipesController < ApplicationController
     recipes = JSON.parse(recipes_serialized)["results"]
 
     if !recipes.empty?
-      Recipe.where(status: 'uncooked', favorite: false).destroy_all #removes all recipes that are not cooked so that these are replaced with the new matches found by API
+      Recipe.where(status: 'uncooked').destroy_all #removes all recipes that are not cooked so that these are replaced with the new matches found by API
       Recipe.where(status: 'cooked').update(is_latest_result: false) #marks all existing recipes that are cooked as old records
     end
 
@@ -125,7 +126,7 @@ class RecipesController < ApplicationController
       user_id: current_user.id,
       title: recipe["title"],
       image_url: recipe["image"],
-      missed_ingredients_count: missed_ingredients(recipe).count,
+      missed_ingredients_count: recipe["missedIngredientCount"],
       used_ingredients_count: recipe["usedIngredientCount"],
       unused_ingredients_count: recipe["unusedIngredientCount"],
       ready_in_minutes: recipe["readyInMinutes"],
@@ -170,11 +171,9 @@ class RecipesController < ApplicationController
   end
 
   def missed_ingredients(recipe)
-    missed_ingredients = []
-    recipe["missedIngredients"].each do |ingredient|
-      missed_ingredients << ingredient["name"]
-    end
-    return missed_ingredients
+    return recipe["missedIngredients"] if recipe["missedIngredients"].empty?
+
+    recipe["missedIngredients"].map { |ingredient| ingredient["name"] }
   end
 
   def update_recipe_from_api(recipe)
