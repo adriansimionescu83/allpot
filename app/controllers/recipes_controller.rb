@@ -9,7 +9,6 @@ class RecipesController < ApplicationController
     call_api if current_user.call_api_recipes
     @recipes = policy_scope(Recipe).where(user_id: current_user.id).order(missed_ingredients_count: :asc)
     @user = current_user
-    # binding.pry
 
     if params[:query].present?
       @recipes = Recipe.global_search(params[:query])
@@ -78,8 +77,16 @@ class RecipesController < ApplicationController
   end
 
   def call_api
-    diet = current_user.diet.join(',').downcase unless current_user.diet.nil?
-    intolerances = current_user.intolerances.join(',').downcase unless current_user.intolerances.nil?
+    if current_user.diet.nil?
+      diet = ''
+    else
+      diet = current_user.diet.join(',').downcase
+    end
+    if current_user.intolerances.nil?
+      intolerances = ''
+    else
+      intolerances = current_user.intolerances.join(',').downcase
+    end
     ignore_pantry = 'false' #Whether to ignore typical pantry items, such as water, salt, flour, etc.
     sort_by = 'min-missing-ingredients' #More options on sorting here https://spoonacular.com/food-api/docs#Recipe-Sorting-Options
     sort_direction = 'asc'
@@ -87,10 +94,9 @@ class RecipesController < ApplicationController
     @url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=100&includeIngredients=#{@ingredients}&addRecipeInformation=true&sort=#{sort_by}&sortDirection=#{sort_direction}&fillIngredients=true&diet=#{diet}&intolerances=#{intolerances}&ignorePantry=#{ignore_pantry}"
     recipes_serialized = URI.parse(@url).read
     recipes = JSON.parse(recipes_serialized)["results"]
-
     if !recipes.empty?
       Recipe.where(status: 'uncooked', favorite: false).destroy_all #removes all recipes that are not cooked so that these are replaced with the new matches found by API
-      # Recipe.where(status: 'cooked').update(is_latest_result: false) #marks all existing recipes that are cooked as old records
+      Recipe.where(status: 'cooked').update(is_latest_result: false) #marks all existing recipes that are cooked as old records
       # Recipe.where(favorite: true).update(is_latest_result: false) #marks all existing recipes that are favorites as old records
     end
 
