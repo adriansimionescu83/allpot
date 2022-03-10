@@ -80,16 +80,18 @@ class RecipesController < ApplicationController
   def call_api
     diet = current_user.diet.join(',').downcase
     intolerances = current_user.intolerances.join(',').downcase
+    ignore_pantry = 'false' #Whether to ignore typical pantry items, such as water, salt, flour, etc.
     sort_by = 'min-missing-ingredients' #More options on sorting here https://spoonacular.com/food-api/docs#Recipe-Sorting-Options
     sort_direction = 'asc'
     api_key = ENV["SPOONTACULAR_API_KEY"]
-    @url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=100&includeIngredients=#{@ingredients}&addRecipeInformation=true&sort=#{sort_by}&sortDirection=#{sort_direction}&fillIngredients=true&diet=#{diet}&intolerances=#{intolerances}"
+    @url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=100&includeIngredients=#{@ingredients}&addRecipeInformation=true&sort=#{sort_by}&sortDirection=#{sort_direction}&fillIngredients=true&diet=#{diet}&intolerances=#{intolerances}&ignorePantry=#{ignore_pantry}"
     recipes_serialized = URI.parse(@url).read
     recipes = JSON.parse(recipes_serialized)["results"]
 
     if !recipes.empty?
-      Recipe.where(status: 'uncooked').destroy_all #removes all recipes that are not cooked so that these are replaced with the new matches found by API
-      Recipe.where(status: 'cooked').update(is_latest_result: false) #marks all existing recipes that are cooked as old records
+      Recipe.where(status: 'uncooked', favorite: false).destroy_all #removes all recipes that are not cooked so that these are replaced with the new matches found by API
+      # Recipe.where(status: 'cooked').update(is_latest_result: false) #marks all existing recipes that are cooked as old records
+      # Recipe.where(favorite: true).update(is_latest_result: false) #marks all existing recipes that are favorites as old records
     end
 
     recipes.each do |recipe|
@@ -205,8 +207,8 @@ class RecipesController < ApplicationController
             ingredient_id: pantry_ingredient.id,
             recipe_id: recipe.id
           )
-        end
-     end
+       end
+      end
     end
   end
 end

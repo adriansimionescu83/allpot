@@ -70,16 +70,23 @@
               <! -------------- ingredients used and missed -------------- >
 
               <div class="ingredients mb-3">
-                <p><%= recipe.used_ingredients_count %> available ingredients</p>
+                <p><%= recipe.used_ingredients.count %> available ingredients</p>
                 <% recipe.used_ingredients.each do |used_ingredient| %>
                   <span class="badge rounded-pill bg-green"><%= used_ingredient %></span>
                 <% end %>
 
                 <hr>
 
-                <p><%= recipe.missed_ingredients_count %> missing ingredients:</p>
+                <p><%= recipe.missed_ingredients.count %> missing ingredients:</p>
                 <% recipe.missed_ingredients.each do |missed_ingredient| %>
                   <span class="badge rounded-pill bg-red"><%= missed_ingredient %></span>
+                <% end %>
+
+                <hr>
+
+                <p><%= recipe.total_ingredients.count %> total ingredients</p>
+                <% recipe.total_ingredients.each do |total_ingredient| %>
+                  <span class="badge rounded-pill bg-green"><%= total_ingredient %></span>
                 <% end %>
 
                 <hr>
