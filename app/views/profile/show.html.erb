@@ -1,10 +1,15 @@
 
-<div class="container py-3">
-  <div class="row justify-content-center">
-    <div class="row col-10 col-md-7 my-5">
 
-      <div class="form p-5">
-        <h2><strong>Edit Preferences</strong></h2>
+
+<div class="header">
+  <div class="container px-6">
+    <h1>My Preferences</h1>
+  </div>
+</div>
+<div class="container py-3">
+  <%# <div class="row justify-content-center"> %>
+  <div class="ingredients-container row col-12 offset-md-2 col-md-8 mt-3 justify-content-center">
+
 
 
         <%= simple_form_for current_user, url: update_user_profile_path, html: { method: :patch } do |f| %>
@@ -40,6 +45,5 @@
         <% end %>
       </div>
 
-    </div>
-  </div>
+  <%# </div> %>
 </div>
