@@ -65,6 +65,9 @@ ActiveRecord::Schema.define(version: 2022_03_08_101553) do
     t.string "steps", default: [], array: true
     t.string "diets", default: [], array: true
     t.boolean "favorite", default: false
+    t.string "fat"
+    t.string "protein"
+    t.string "carbs"
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 

@@ -18,10 +18,10 @@
 
         <%= f.input :ingredients, collection: @ingredients,
                     wrapper_html: {class: 'form-group mt-3', multiple: true },
-                    input_html: { class: 'no-bs-validation', multiple: false, checked: false, data: { check_target: "checkbox"}},
+                    input_html: { class: 'no-bs-validation', multiple: false, checked: false, data: { check_target: "checkbox", action: "change->check#disableSubmit"}},
                     include_hidden: false, as: :check_boxes %>
 
-        <%= f.submit "ADD TO PANTRY", class: "btn btn-red w-100" %>
+        <%= f.submit "ADD TO PANTRY", class: "btn btn-red w-100", data: { check_target: 'submit'} %>
       <% end %>
     </div>
 
