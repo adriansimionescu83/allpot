@@ -21,8 +21,24 @@ export default class extends Controller {
         console.log(data)
         // 1. get the heart state
         // 2. change the color
-        heart.classList.toggle("fa-red");
+        heart.classList.toggle("fa-red")
       })
   }
 
+  removeDiv(e) {
+    const token = document.querySelector( 'meta[name="csrf-token"]' ).attributes.content.value;
+    e.preventDefault()
+    const heart = e.currentTarget
+    this.element.classList.add("d-none");
+    const url = `/recipes/${heart.dataset.uid}/favorites`
+
+    fetch(url, {
+        method: "PATCH",
+        headers: { 'X-CSRF-Token': token }
+      })
+      .then(response => response.text())
+      .then((data) => {
+        console.log(data)
+      })
+  }
 }
