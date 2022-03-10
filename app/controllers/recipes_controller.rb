@@ -78,8 +78,8 @@ class RecipesController < ApplicationController
   end
 
   def call_api
-    diet = current_user.diet.join(',').downcase
-    intolerances = current_user.intolerances.join(',').downcase
+    diet = current_user.diet.join(',').downcase unless current_user.diet.nil?
+    intolerances = current_user.intolerances.join(',').downcase unless current_user.intolerances.nil?
     ignore_pantry = 'false' #Whether to ignore typical pantry items, such as water, salt, flour, etc.
     sort_by = 'min-missing-ingredients' #More options on sorting here https://spoonacular.com/food-api/docs#Recipe-Sorting-Options
     sort_direction = 'asc'

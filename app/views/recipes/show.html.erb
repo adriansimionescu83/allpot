@@ -3,7 +3,7 @@
 
   <! -------------- recipe details -------------- >
 
-  <div class="my-3">
+  <div class="my-4">
     <%= link_to "BACK", :back, class: "btn btn-red mt-2" %>
   </div>
 
@@ -31,7 +31,7 @@
 
                 </div>
               <div class="modal-footer">
-                <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-red w-100", data: { check_target: 'submit'} %>
+                <%= f.submit "ADD TO SHOPPING LIST", class: "btn btn-blue w-100", data: { check_target: 'submit'} %>
                 <a href="<%=@recipe.id%>/cooked", class ="btn btn-red w-100" >NO THANKS!</a>
 
               </div>
@@ -48,7 +48,7 @@
     <h2 class="mb-2"><strong><%= @recipe.title %></strong></h2>
     <div class="d-flex">
     <p class="card-text mb-3"><span><i class="fas fa-hourglass-half"></i></span> <%= @recipe.ready_in_minutes %> mins</p>
-    <p class="card-text mb-3 mx-3"><span><i class="fas fa-heart"></i></span><%= pluralize(@recipe.aggregate_likes, "like") %></p>
+    <p class="card-text mb-3 mx-4"><span><i class="fas fa-heart"></i></span> <%= pluralize(@recipe.aggregate_likes, "like") %></p>
     <p class="card-text mb-3"><span><i class="fas fa-utensils"></i></span> <%= pluralize(@recipe.servings, "serving") %></p>
     </div>
 
@@ -74,19 +74,28 @@
 
   <! -------------- available and missed ingredients -------------- >
   <div class="mb-3">
-    <div class="ingredients p-4 mb-3 shadow-sm">
-      <p><%= @recipe.used_ingredients_count %> available ingredients:</p>
-      <% @recipe.used_ingredients.each do |used_ingredient| %>
-        <span class="badge bg-green"><%= used_ingredient %></span>
-      <% end %>
-    </div>
+      <% if @recipe.missed_ingredients_count == 0 %>
+        <div class="ingredients p-4 mb-3 shadow-sm">
 
-    <div class="ingredients p-4 shadow-sm mb-4">
-      <p><%= @recipe.missed_ingredients_count %> missed ingredients:</p>
-      <% @recipe.missed_ingredients.each do |missed_ingredient| %>
-        <span class="badge bg-red"><%= missed_ingredient %></span>
+          <p>You have all the ingredients!</p>
+          <% @recipe.used_ingredients.each do |used_ingredient| %>
+            <span class="badge rounded-pill bg-green"><%= used_ingredient %></span>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="ingredients p-4 mb-3 shadow-sm">
+          <p><%= @recipe.used_ingredients_count %> available ingredients</p>
+          <% @recipe.used_ingredients.each do |used_ingredient| %>
+            <span class="badge rounded-pill bg-green"><%= used_ingredient %></span>
+          <% end %>
+        </div>
+        <div class="ingredients p-4 shadow-sm mb-4">
+          <p><%= @recipe.missed_ingredients_count %> missing ingredients:</p>
+          <% @recipe.missed_ingredients.each do |missed_ingredient| %>
+            <span class="badge rounded-pill bg-red"><%= missed_ingredient %></span>
+          <% end %>
+        </div>
       <% end %>
-    </div>
 
     <! -------------- about -------------- >
 
