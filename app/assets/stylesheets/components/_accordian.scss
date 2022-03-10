@@ -7,6 +7,8 @@
 .accordion-item:first-of-type {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  overflow: hidden;
+
 }
 
 .accordion-item:last-of-type .accordion-button.collapsed {
@@ -59,6 +61,7 @@
 }
 
 .accordian-item {
+  overflow: hidden;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
