@@ -54,7 +54,8 @@
 
     <! -------------- image -------------- >
     <div class="card-div embed-responsive embed-responsive-16by9" data-controller="favorite">
-      <img src="<%= @recipe.image_url %>" class="card-img-top img-fluid mb-4 shadow-sm" alt="...">
+      <div class="card-img-top img-fluid mb-4 shadow-sm vh-40"style="background-image: url(<%= @recipe.image_url %>);"></div>
+
 
         <% if !@recipe.favorite %>
 
