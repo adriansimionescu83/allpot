@@ -11,3 +11,5 @@ Find a recipe that looks delicious but have a few missing ingredients? Simply ad
 Friends asking you to cook that delicious Green Thai Curry that you made them last time? Don't worry about searching for it again. You can easily find it in your cooked list under My Recipes.
 
 So, simply choose a delicious recipe and let AllPot save the planet for you! What's for dinner tonight? Ask AllPot!
+
+The app is live and available at www.allpot.me
