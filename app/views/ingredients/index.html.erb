@@ -4,7 +4,8 @@
 <div class="header">
   <div class="container px-6">
     <h1>My Pantry</h1>
-    <h5 style="font-size: 16px;">You have <strong style="color: #ed254e;"><%= pluralize(current_user.ingredients.count, "ingredient") %></strong> in your pantry!</h5>
+    <h5 style="font-size: 16px;">You have <strong style="color: #ed254e;"><%= pluralize(current_user.ingredients.count, "ingredient") %></strong> in your pantry!<br></h5>
+    <h4>Once your pantry is updated with all your available ingredients, press 'Cook Something' to see available recipes.</h4>
   </div>
 </div>
 
