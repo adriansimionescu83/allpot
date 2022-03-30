@@ -113,7 +113,7 @@ class RecipesController < ApplicationController
         description_field += "<b>Step #{step['number']}:</b><br>#{step['step']}"
       end
     end
-    Recipe.create(
+    new_recipe = Recipe.create(
       api_recipe_reference: recipe["id"],
       status: 'uncooked',
       user_id: current_user.id,
@@ -136,7 +136,7 @@ class RecipesController < ApplicationController
       source_url: recipe["sourceUrl"],
       steps: description_steps,
       diets: recipe["diets"],
-      vegetarian: recipe["vegetarian"],
+      # vegetarian: recipe["vegetarian"],
       vegan: recipe["vegan"],
       gluten_free: recipe["glutenFree"],
       dairy_free: recipe["dairyFree"],
