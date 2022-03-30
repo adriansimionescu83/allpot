@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_08_101553) do
+ActiveRecord::Schema.define(version: 2022_03_30_095648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,20 @@ ActiveRecord::Schema.define(version: 2022_03_08_101553) do
     t.string "fat"
     t.string "protein"
     t.string "carbs"
+    t.boolean "vegetarian", default: false
+    t.boolean "vegan", default: false
+    t.boolean "gluten_free", default: false
+    t.boolean "dairy_free", default: false
+    t.boolean "ketogenic", default: false
+    t.integer "spoonacular_score", default: 0
+    t.string "credits_text"
+    t.string "source_name"
+    t.string "cuisines", default: [], array: true
+    t.string "dish_types", default: [], array: true
+    t.string "occasions", default: [], array: true
+    t.string "spoonacular_source_url"
+    t.integer "likes", default: 0
+    t.string "intolerances", default: [], array: true
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
