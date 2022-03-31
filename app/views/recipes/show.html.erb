@@ -102,7 +102,7 @@
 
     <div class="directions">
       <h3>About this recipe:</h3>
-      <p><%= simple_format(@recipe.summary) %></p>
+      <p><%= simple_format(@recipe.summary.split('minutes</b>.').first + "minutes</b>.") %></p>
     </div>
 
     <br>
@@ -114,7 +114,7 @@
     <div class="directions">
       <h3>Ingredients:</h3>
       <% @recipe.total_ingredients.each do |total_ingredient| %>
-        <li><%= raw total_ingredient %></li>
+        <li><%= raw "#{total_ingredient[1]} #{total_ingredient[2]} <b>#{total_ingredient[3]}</b>"%></li>
       <% end %>
     </div>
 
