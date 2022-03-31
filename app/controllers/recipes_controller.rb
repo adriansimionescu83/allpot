@@ -164,7 +164,12 @@ class RecipesController < ApplicationController
   def total_ingredients(recipe)
     total_ingredients = []
     recipe["extendedIngredients"].each do |ingredient|
-      total_ingredients <<  "#{ingredient['measures']['metric']['amount']} #{ingredient['measures']['metric']['unitShort']} <b>#{ingredient['name']}</b>"
+      total_ingredients << [
+        ingredient['measures']['metric']['amount'],
+        ingredient['measures']['metric']['amount'].round,
+        ingredient['measures']['metric']['unitShort'],
+        ingredient['name']
+      ]
     end
     return total_ingredients
   end
@@ -188,7 +193,9 @@ class RecipesController < ApplicationController
       is_latest_result: true,
       missed_ingredients: missed_ingredients(recipe),
       unused_ingredients: unused_ingredients(recipe),
-      used_ingredients: used_ingredients(recipe)
+      used_ingredients: used_ingredients(recipe),
+      missed_ingredients_count: recipe["missedIngredientCount"],
+      used_ingredients_count: recipe["usedIngredientCount"]
       )
   end
 
