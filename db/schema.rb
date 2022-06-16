@@ -65,9 +65,6 @@ ActiveRecord::Schema.define(version: 2022_03_30_095648) do
     t.string "steps", default: [], array: true
     t.string "diets", default: [], array: true
     t.boolean "favorite", default: false
-    t.string "fat"
-    t.string "protein"
-    t.string "carbs"
     t.boolean "vegetarian", default: false
     t.boolean "vegan", default: false
     t.boolean "gluten_free", default: false

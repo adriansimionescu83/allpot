@@ -1,4 +1,3 @@
-
 <! -------------- tabs -------------- >
 <div class="col-12">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -104,17 +103,13 @@
               <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
 
                 <% if !recipe.favorite %>
-
                   <%= link_to favorites_recipe_path(recipe) do %>
                     <i class="fas fa-heart" data-uid="<%= recipe.id%>" data-action="click->favorite#stopRefresh"></i>
                   <% end %>
-
                 <% else %>
-
                   <%= link_to favorites_recipe_path(recipe) do %>
                     <i class="fas fa-heart fa-red" data-uid="<%= recipe.id%>"  data-action="click->favorite#stopRefresh"></i>
                   <% end %>
-
                 <% end %>
 
             </div>
