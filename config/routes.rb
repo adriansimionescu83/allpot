@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   root to: 'pages#home'
   get '/user' => "recipes#index", :as => :user_root
@@ -24,4 +25,7 @@ Rails.application.routes.draw do
   get 'shopping_list', to: 'ingredients#shopping_list', as: :shopping_list
   post 'shopping_list', to: 'ingredients#create_shopping_list_item', as: :create_shopping_list_item
 
+  authenticate :user, ->(user) { user.admin? } do
+    mount Blazer::Engine, at: "blazer"
+  end
 end
