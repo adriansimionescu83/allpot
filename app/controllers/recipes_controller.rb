@@ -6,7 +6,7 @@ class RecipesController < ApplicationController
   def index
     link_ingredients
     call_api if current_user.call_api_recipes
-    @recipes = policy_scope(Recipe).where(user_id: current_user.id, is_latest_result: true).order(missed_ingredients_count: :asc)
+    @recipes = policy_scope(Recipe.includes(:user)).where(user_id: current_user.id, is_latest_result: true).order(missed_ingredients_count: :asc)
     @user = current_user
 
     if params[:query].present?
@@ -93,7 +93,7 @@ class RecipesController < ApplicationController
   end
 
   def update_or_create_recipes(recipes)
-    Recipe.where(is_latest_result: true).update(is_latest_result: false) # marks all existing recipes that as old records
+    Recipe.includes(:user).where(is_latest_result: true).update(is_latest_result: false) # marks all existing recipes that as old records
     recipes.each do |recipe|
       existing_recipe = Recipe.where(api_recipe_reference: recipe["id"]).first
       if existing_recipe

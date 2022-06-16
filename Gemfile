@@ -1,4 +1,3 @@
-require 'rack_mini_profiler'
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -70,3 +69,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'memory_profiler'
 gem 'stackprof'
+gem 'rails_admin', '~> 2.0'
+
+gem 'blazer'
