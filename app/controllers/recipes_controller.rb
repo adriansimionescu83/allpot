@@ -1,12 +1,14 @@
 require "json"
 require "open-uri"
 require 'date'
+require "pry-byebug"
+
 
 class RecipesController < ApplicationController
   def index
     link_ingredients
     call_api if current_user.call_api_recipes
-    @recipes = policy_scope(Recipe.includes(:user)).where(user_id: current_user.id, is_latest_result: true).order(missed_ingredients_count: :asc)
+    @recipes = policy_scope(Recipe).where(user_id: current_user.id, is_latest_result: true).order(missed_ingredients_count: :asc)
     @user = current_user
 
     if params[:query].present?
@@ -17,19 +19,27 @@ class RecipesController < ApplicationController
   def favorites
     @recipe = Recipe.find(params[:id])
 
-    @recipe.favorite = @recipe.favorite.false?
+    @recipe.favorite = !@recipe.favorite
     authorize @recipe
-    if @recipe.save
-      { errors: [] }.to_json
-    else
-      { errors: errors.messages }.to_json
+
+    respond_to do |format|
+      if @recipe.save
+        format.html {}
+        format.json {
+          render json: {
+            favorite: @recipe.favorite
+          }
+        }
+      end
     end
+
   end
 
   def my_recipes
     @recipes = policy_scope(Recipe).where(user_id: current_user.id, status: 'cooked')
     @favorite_recipes = policy_scope(Recipe).where(user_id: current_user.id, favorite: true)
     authorize @recipes
+    authorize @favorite_recipes
   end
 
   def cooked

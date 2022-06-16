@@ -56,19 +56,14 @@
     <div class="card-div embed-responsive embed-responsive-16by9" data-controller="favorite">
       <div class="card-img-top img-fluid mb-4 shadow-sm vh-40"style="background-image: url(<%= @recipe.image_url %>);"></div>
 
-
-        <% if !@recipe.favorite %>
-
+        <% if @recipe.favorite %>
           <%= link_to favorites_recipe_path(@recipe) do %>
-            <i class="fas fa-heart" data-uid="<%= @recipe.id%>" data-action="click->favorite#stopRefresh"></i>
+            <i class="fas fa-heart fa-red shadow" data-path="<%= favorites_recipe_path(@recipe)%>" data-uid="<%= @recipe.id%>"  data-action="click->favorite#send"></i>
           <% end %>
-
         <% else %>
-
           <%= link_to favorites_recipe_path(@recipe) do %>
-            <i class="fas fa-heart fa-red" data-uid="<%= @recipe.id%>"  data-action="click->favorite#stopRefresh"></i>
+            <i class="fas fa-heart shadow" data-path="<%= favorites_recipe_path(@recipe)%>" data-uid="<%= @recipe.id%>"  data-action="click->favorite#send"></i>
           <% end %>
-
         <% end %>
 
     </div>
