@@ -35,13 +35,15 @@
             <div class="card-div embed-responsive embed-responsive-16by9">
               <div class="card-img-top"style="background-image: url(<%= recipe.image_url %>);"></div>
 
-
-
+                <% if recipe.favorite %>
                   <%= link_to favorites_recipe_path(recipe) do %>
-                    <i class="fas fa-heart fa-red" data-uid="<%= recipe.id%>" data-action="click->favorite#removeDiv"></i>
+                    <i class="fas fa-heart fa-red shadow" data-path="<%= favorites_recipe_path(recipe)%>" data-uid="<%= recipe.id%>"  data-action="click->favorite#send"></i>
                   <% end %>
-
-
+                <% else %>
+                  <%= link_to favorites_recipe_path(recipe) do %>
+                    <i class="fas fa-heart shadow" data-path="<%= favorites_recipe_path(recipe)%>" data-uid="<%= recipe.id%>"  data-action="click->favorite#send"></i>
+                  <% end %>
+                <% end %>
 
             </div>
 

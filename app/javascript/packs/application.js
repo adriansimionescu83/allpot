@@ -12,7 +12,5 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-console.log("hello from js")
-
 import "controllers"
 import "bootstrap"

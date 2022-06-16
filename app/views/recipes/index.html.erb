@@ -35,6 +35,8 @@
 
       <div class="col">
         <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
+          <! -------------- Initial LInk to was above-------------- >
+
           <div class="card h-100 shadow-sm">
 
             <! -------------- card image -------------- >
@@ -42,19 +44,14 @@
             <div class="card-div embed-responsive embed-responsive-16by9" data-controller="favorite">
               <div class="card-img-top" style="background-image:url(<%= recipe.image_url %>);"></div>
 
-                <% if !recipe.favorite %>
-
+                <% if recipe.favorite %>
                   <%= link_to favorites_recipe_path(recipe) do %>
-                    <i class="fas fa-heart shadow" data-uid="<%= recipe.id%>" data-action="click->favorite#stopRefresh"></i>
+                    <i class="fas fa-heart fa-red shadow" data-path="<%= favorites_recipe_path(recipe)%>" data-uid="<%= recipe.id%>"  data-action="click->favorite#send"></i>
                   <% end %>
-
                 <% else %>
-
-
                   <%= link_to favorites_recipe_path(recipe) do %>
-                    <i class="fas fa-heart fa-red shadow" data-uid="<%= recipe.id%>"  data-action="click->favorite#stopRefresh"></i>
+                    <i class="fas fa-heart shadow" data-path="<%= favorites_recipe_path(recipe)%>" data-uid="<%= recipe.id%>"  data-action="click->favorite#send"></i>
                   <% end %>
-
                 <% end %>
 
             </div>
@@ -64,7 +61,6 @@
               <! -------------- card title -------------- >
 
               <h5 class="card-title"><%= recipe.title %></h5>
-
 
 
               <! -------------- ingredients used and missed -------------- >
@@ -117,6 +113,7 @@
               <%# Latest result? <%= recipe.is_latest_result %>
 
 
+
             </div>
 
 
@@ -128,13 +125,13 @@
               <p class="card-text mb-3"><span><i class="fas fa-utensils"></i></span> <%= pluralize(recipe.servings, "serving") %></p>
             </div>
 
-          </div>
         <% end %>
+       </div>
       </div>
-
     <% end %>
 
   </div>
+</div>
 
 
 
