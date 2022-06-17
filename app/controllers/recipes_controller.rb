@@ -1,7 +1,6 @@
 require "json"
 require "open-uri"
 require 'date'
-require "pry-byebug"
 
 
 class RecipesController < ApplicationController
@@ -26,9 +25,7 @@ class RecipesController < ApplicationController
       if @recipe.save
         format.html {}
         format.json {
-          render json: {
-            favorite: @recipe.favorite
-          }
+          render json: { favorite: @recipe.favorite }
         }
       end
     end
