@@ -1,3 +1,5 @@
+require 'pry-byebug'
+
 class IngredientsController < ApplicationController
   def index
     @ingredient = policy_scope(Ingredient).new
@@ -11,13 +13,14 @@ class IngredientsController < ApplicationController
 
     if @ingredient.save
       current_user.call_api_recipes = true # When new ingredients are updated this qualifies the user for a new API Call
-      current_user.save
+      current_user.save!
       redirect_to ingredients_path
     else
       render :index
     end
 
     authorize @ingredient
+
   end
 
   def update

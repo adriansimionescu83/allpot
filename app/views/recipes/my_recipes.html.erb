@@ -1,3 +1,10 @@
+<div class="bkg-mid-blue">
+  <div class="container main-title">
+    <h1 class="recipes-header">You have <strong><span class="recipe-count"><%= @favorite_recipes.count %> favorite recipes</span></strong> and <strong><span class="recipe-count"><%= @cooked_recipes.count %> cooked recipes </span></strong>so far. Awesome Job! </h1>
+  </div>
+</div>
+
+
 <! -------------- tabs -------------- >
 <div class="col-12">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -19,7 +26,7 @@
   <! -------------- favorites content -------------- >
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
-    <div class="container recipe-index my-5">
+    <div class="container recipe-index mt-3 my-5">
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
         <! -------------- recipes cards -------------- >
@@ -28,24 +35,24 @@
 
           <div class="col">
             <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
-              <div class="card h-100 shadow-sm" data-controller="favorite">
+              <div class="card h-100 shadow-sm">
 
-                <! -------------- card image -------------- >
+               <! -------------- card image -------------- >
 
-            <div class="card-div embed-responsive embed-responsive-16by9">
-              <div class="card-img-top"style="background-image: url(<%= recipe.image_url %>);"></div>
+                <div class="card-div embed-responsive embed-responsive-16by9" data-controller="favorite">
+                  <div class="card-img-top" style="background-image: url(<%= recipe.image_url %>);"></div>
 
-                <% if recipe.favorite %>
-                  <%= link_to favorites_recipe_path(recipe) do %>
-                    <i class="fas fa-heart fa-red shadow" data-path="<%= favorites_recipe_path(recipe)%>" data-uid="<%= recipe.id%>"  data-action="click->favorite#send"></i>
-                  <% end %>
-                <% else %>
-                  <%= link_to favorites_recipe_path(recipe) do %>
-                    <i class="fas fa-heart shadow" data-path="<%= favorites_recipe_path(recipe)%>" data-uid="<%= recipe.id%>"  data-action="click->favorite#send"></i>
-                  <% end %>
-                <% end %>
+                    <% if recipe.favorite %>
+                      <%= link_to favorites_recipe_path(recipe) do %>
+                        <i class="fas fa-heart fa-red shadow" data-path="<%= favorites_recipe_path(recipe)%>" data-uid="<%= recipe.id%>"  data-action="click->favorite#send"></i>
+                      <% end %>
+                    <% else %>
+                      <%= link_to favorites_recipe_path(recipe) do %>
+                        <i class="fas fa-heart shadow" data-path="<%= favorites_recipe_path(recipe)%>" data-uid="<%= recipe.id%>"  data-action="click->favorite#send"></i>
+                      <% end %>
+                    <% end %>
 
-            </div>
+                </div>
 
                 <div class="card-body">
 
@@ -56,7 +63,7 @@
 
                   <! -------------- show if cooked -------------- >
 
-                  <% if recipe.status == "cooked" %>
+                  <% if recipe.cooked %>
                     <hr>
                     <div class="cooked d-flex mt-3">
                       <i class="fas fa-check-square"></i>
@@ -87,12 +94,12 @@
   <! -------------- cooked content -------------- >
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
-    <div class="container recipe-index my-5">
+    <div class="container recipe-index mt-3 my-5">
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
         <! -------------- recipes cards -------------- >
 
-        <% @recipes.each do |recipe| %>
+        <% @cooked_recipes.each do |recipe| %>
 
           <div class="col">
             <%= link_to recipe_path(recipe), class: "text-decoration-none" do %>
@@ -102,15 +109,15 @@
 
 
             <div class="card-div embed-responsive embed-responsive-16by9" data-controller="favorite">
-              <img src="<%= recipe.image_url %>" class="card-img-top" alt="...">
+              <div class="card-img-top" style="background-image:url(<%= recipe.image_url %>);"></div>
 
                 <% if !recipe.favorite %>
                   <%= link_to favorites_recipe_path(recipe) do %>
-                    <i class="fas fa-heart" data-uid="<%= recipe.id%>" data-action="click->favorite#stopRefresh"></i>
+                    <i class="fas fa-heart" data-uid="<%= recipe.id%>" data-action="click->favorite#send"></i>
                   <% end %>
                 <% else %>
                   <%= link_to favorites_recipe_path(recipe) do %>
-                    <i class="fas fa-heart fa-red" data-uid="<%= recipe.id%>"  data-action="click->favorite#stopRefresh"></i>
+                    <i class="fas fa-heart fa-red" data-uid="<%= recipe.id%>"  data-action="click->favorite#send"></i>
                   <% end %>
                 <% end %>
 
@@ -122,21 +129,6 @@
 
                   <h5 class="card-title"><%= recipe.title %></h5>
 
-
-                  <! -------------- show if cooked -------------- >
-
-                  <% if recipe.status == "cooked" %>
-                    <hr>
-                    <div class="cooked d-flex mt-3">
-                      <i class="fas fa-check-square"></i>
-                      <p> You have cooked this before!</p>
-                    </div>
-                  <% end %>
-
-                  <! -------------- tests -------------- >
-                  <%# <p><%= recipe.updated_at</p> %>
-                  <%# <p>Status <strong><%= recipe.status</p></strong> %>
-                  <%# <p>Latest result? <strong><%= recipe.is_latest_result</p></strong>  %>
                 </div>
 
 

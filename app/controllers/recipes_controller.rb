@@ -1,9 +1,13 @@
 require "json"
 require "open-uri"
 require 'date'
-
+require 'faraday'
+require 'faraday/net_http'
+require 'pry-byebug'
+require_relative '../services/api_spoonacular'
 
 class RecipesController < ApplicationController
+  Faraday.default_adapter = :net_http
   def index
     link_ingredients
     call_api if current_user.call_api_recipes
@@ -29,19 +33,18 @@ class RecipesController < ApplicationController
         }
       end
     end
-
   end
 
   def my_recipes
-    @recipes = policy_scope(Recipe).where(user_id: current_user.id, status: 'cooked')
+    @cooked_recipes = policy_scope(Recipe).where(user_id: current_user.id, cooked: true)
     @favorite_recipes = policy_scope(Recipe).where(user_id: current_user.id, favorite: true)
-    authorize @recipes
+    authorize @cooked_recipes
     authorize @favorite_recipes
   end
 
   def cooked
     @recipe = Recipe.find(params[:id])
-    @recipe.update(status: 'cooked')
+    @recipe.update(cooked: true)
     redirect_to recipes_path
 
     authorize @recipe
@@ -76,42 +79,29 @@ class RecipesController < ApplicationController
   end
 
   def call_api
-    if current_user.diet.nil?
-      diet = ''
-    else
-      diet = current_user.diet.join(',').downcase
-    end
-    if current_user.intolerances.nil?
-      intolerances = ''
-    else
-      intolerances = current_user.intolerances.join(',').downcase
-    end
-    ignore_pantry = 'false' #Whether to ignore typical pantry items, such as water, salt, flour, etc.
-    sort_by = 'max-used-ingredients' #More options on sorting here https://spoonacular.com/food-api/docs#Recipe-Sorting-Options
-    sort_direction = 'desc'
-    api_key = ENV["SPOONTACULAR_API_KEY"]
-    @url = "https://api.spoonacular.com/recipes/complexSearch?apiKey=#{api_key}&number=100&includeIngredients=#{@ingredients}&addRecipeInformation=true&sort=#{sort_by}&sortDirection=#{sort_direction}&fillIngredients=true&diet=#{diet}&intolerances=#{intolerances}&ignorePantry=#{ignore_pantry}"
-    recipes_serialized = URI.parse(@url).read
-    recipes = JSON.parse(recipes_serialized)["results"]
+    recipes = CallSpoonacular.get_recipes( @ingredients, current_user)
+
     update_or_create_recipes(recipes) unless recipes.empty?
-    current_user.call_api_recipes = false
-    current_user.save
     @last_call_time = DateTime.now
   end
 
   def update_or_create_recipes(recipes)
-    Recipe.includes(:user).where(is_latest_result: true).update(is_latest_result: false) # marks all existing recipes that as old records
+    @recipes_array = []
+    current_user.update(call_api_recipes: false)
+    Recipe.where(user_id: current_user.id, cooked: false, favorite: false).destroy_all
+    Recipe.where(is_latest_result: true, user_id: current_user.id).update(is_latest_result: false) # marks all existing recipes that as old records
     recipes.each do |recipe|
       existing_recipe = Recipe.where(api_recipe_reference: recipe["id"]).first
       if existing_recipe
         update_recipe_from_api(recipe, existing_recipe)
       else
-        create_recipe_from_api(recipe)
+        create_recipes_from_api(recipe)
       end
     end
+    Recipe.insert_all(@recipes_array)
   end
 
-  def create_recipe_from_api(recipe)
+  def create_recipes_from_api(recipe)
     description_field = ""
     description_steps = []
     unless recipe["analyzedInstructions"][0].nil?
@@ -120,9 +110,8 @@ class RecipesController < ApplicationController
         description_field += "<b>Step #{step['number']}:</b><br>#{step['step']}"
       end
     end
-    Recipe.create(
+    @recipes_array << {
       api_recipe_reference: recipe["id"],
-      status: 'uncooked',
       user_id: current_user.id,
       title: recipe["title"],
       image_url: recipe["image"],
@@ -156,8 +145,10 @@ class RecipesController < ApplicationController
       occasions: recipe["occasions"],
       spoonacular_source_url: recipe["spoonacularSourceUrl"],
       likes: recipe["likes"],
-      intolerances: recipe["intolerances"]
-      )
+      intolerances: recipe["intolerances"],
+      created_at: Time.now,
+      updated_at: Time.now
+    }
   end
 
   def unused_ingredients(recipe)

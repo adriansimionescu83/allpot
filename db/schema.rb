@@ -93,7 +93,6 @@ ActiveRecord::Schema.define(version: 2022_06_16_073229) do
   end
 
   create_table "recipes", force: :cascade do |t|
-    t.string "status"
     t.string "comments"
     t.bigint "user_id", null: false
     t.string "api_recipe_reference"
@@ -121,6 +120,7 @@ ActiveRecord::Schema.define(version: 2022_06_16_073229) do
     t.string "steps", default: [], array: true
     t.string "diets", default: [], array: true
     t.boolean "favorite", default: false
+    t.boolean "cooked", default: false
     t.boolean "vegetarian", default: false
     t.boolean "vegan", default: false
     t.boolean "gluten_free", default: false
