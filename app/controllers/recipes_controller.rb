@@ -1,9 +1,4 @@
-require "json"
-require "open-uri"
 require 'date'
-require 'faraday'
-require 'faraday/net_http'
-require 'pry-byebug'
 require_relative '../services/api_spoonacular'
 
 class RecipesController < ApplicationController
