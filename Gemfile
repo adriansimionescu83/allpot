@@ -56,6 +56,8 @@ group :development do
   gem 'bullet'
 end
 
+gem 'faraday'
+
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'

@@ -109,6 +109,10 @@ GEM
     errbase (0.2.2)
     erubi (1.10.0)
     execjs (2.7.0)
+    faraday (2.3.0)
+      faraday-net_http (~> 2.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (2.0.3)
     ffi (1.15.5)
     font-awesome-sass (5.15.1)
       sassc (>= 1.11)
@@ -239,6 +243,7 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.5)
+    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
@@ -317,6 +322,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   devise
   dotenv-rails
+  faraday
   font-awesome-sass
   jbuilder (~> 2.7)
   listen (~> 3.3)
