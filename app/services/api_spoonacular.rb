@@ -3,7 +3,6 @@ require 'faraday/net_http'
 
 Faraday.default_adapter = :net_http
 
-
 class CallSpoonacular
 
   def self.get_recipes(ingredients, current_user)
