@@ -1,5 +1,3 @@
-require 'pry-byebug'
-
 class IngredientsController < ApplicationController
   def index
     @ingredient = policy_scope(Ingredient).new
