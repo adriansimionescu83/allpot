@@ -13,3 +13,11 @@ Friends asking you to cook that delicious Green Thai Curry that you made them la
 So, simply choose a delicious recipe and let AllPot save the planet for you! What's for dinner tonight? Ask AllPot!
 
 The app is live and available at www.allpot.me
+
+
+If you want to run the app in your local repository, after cloning it make sure to run in your terminal the following commands:
+     bundle install
+     yarn install
+     rails db:create
+     rails db:migrate
+   
