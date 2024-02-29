@@ -1,5 +1,5 @@
 require 'date'
-require_relative '../services/api_spoonacular'
+require_relative '../services/call_spoonacular'
 
 class RecipesController < ApplicationController
   Faraday.default_adapter = :net_http
@@ -76,7 +76,7 @@ class RecipesController < ApplicationController
   def call_api
     recipes = CallSpoonacular.get_recipes( @ingredients, current_user)
 
-    update_or_create_recipes(recipes) unless recipes.empty?
+    update_or_create_recipes(recipes) unless recipes.blank?
     @last_call_time = DateTime.now
   end
 

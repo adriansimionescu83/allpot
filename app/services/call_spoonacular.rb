@@ -6,6 +6,7 @@ Faraday.default_adapter = :net_http
 class CallSpoonacular
 
   def self.get_recipes(ingredients, current_user)
+    byebug
     api_key = ENV["SPOONTACULAR_API_KEY"]
     conn = Faraday.new(
       url: 'https://api.spoonacular.com/recipes',
